@@ -1,5 +1,6 @@
 package project.graphics.demo;
 
+import project.framework.CriteriaListFactory;
 import project.framework.HttpRequest;
 import project.framework.Provider;
 import project.framework.Service;
@@ -37,7 +38,10 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
 
-        HttpRequest fetchContriesList = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/countries_list");
+        CriteriaListFactory criteriaLists = new CriteriaListFactory();
+        criteriaLists.initialize();
+
+        /*HttpRequest fetchContriesList = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/countries_list");
         JSONArray jsonCountriesList = new JSONArray(fetchContriesList.getResponse());
 
         Vector<String> countries = new Vector<>();
@@ -88,7 +92,9 @@ public class HelloApplication extends Application {
         }
 
         FilterController filter = new FilterController(countryNameToCode, typesOfService, statuses, providers);
+        */
 
+        FilterController filter = criteriaLists.getFilterController();
         // Countries
         AnchorPane countriesPane = (AnchorPane) fxmlLoader.getNamespace().get("countriesAnchorPane");
 
