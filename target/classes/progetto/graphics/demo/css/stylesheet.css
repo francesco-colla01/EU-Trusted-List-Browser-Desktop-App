@@ -1,0 +1,10 @@
+.countries-check-box > .box {
+    -fx-padding: 5px 5px 5px 5px;
+}
+.countries-check-box > .box > .mark {
+    -fx-padding: 5px 5px 5px 5px;
+}
+
+.countries-check-box {
+    -fx-font-size: 18px;
+}
