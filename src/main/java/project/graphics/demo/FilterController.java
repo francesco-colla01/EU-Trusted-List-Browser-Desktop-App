@@ -1,5 +1,6 @@
 package project.graphics.demo;
 
+import javafx.scene.control.Cell;
 import project.framework.Provider;
 import project.framework.Service;
 import javafx.scene.control.CheckBox;
@@ -20,17 +21,18 @@ public class FilterController {
     // Types
     private Vector<String> selectedTypes = new Vector<>();
     private Vector<String> allTypes;
+    private Vector<String> filteredTypes = new Vector<>();
     private List<CheckBox> typesCheckBox = new Vector<>();
     private List<CheckBox> filteredTypesCheckBox = new Vector<>();
 
     // Status
     private Vector<String> selectedStatuses = new Vector<>();
+    private Vector<String> filteredStatuses = new Vector<>();
     private Vector<String> allStatuses;
     private List<CheckBox> statusesCheckBox = new Vector<>();
     private List<CheckBox> filteredStatusCheckBox = new Vector<>();
 
     // Provider
-    private Vector<Provider> filtered_providers = new Vector<>();
     private Vector<Provider> allProviders;
     private Vector<Provider> selectedProviders = new Vector<>();
     private List<CheckBox> providersCheckBox = new Vector<>();
@@ -164,7 +166,6 @@ public class FilterController {
 
     public List<CheckBox> filterProviders() {
         filteredProviderCheckBox.clear();
-        System.out.println(selectedCountries);
         for (CheckBox providerCBox : providersCheckBox) {
             Provider provider = nameToProvider.get(providerCBox.getText());
 
@@ -231,6 +232,69 @@ public class FilterController {
         return filteredCountriesCheckBox;
     }
 
+    public List<CheckBox> filterTypes() {
+        filteredTypesCheckBox.clear();
+        filteredTypes.clear();
 
+        for (Provider p : getFilterProviders()) {
+            if (getFilterCountries().contains(p.getCountryCode())) {
+                Service[] services = p.getServices();
+
+                outerloop:
+                for (Service s : services) {
+
+                    if (getFilterStatuses().contains(s.getCurrentStatus())) {
+
+                        Vector<String> types = new Vector<>(Arrays.asList(p.getServiceTypes()));
+
+                        for (CheckBox CBox : typesCheckBox) {
+                            if (types.contains(CBox.getText()) && !filteredTypes.contains(CBox.getText())) {
+                                filteredTypesCheckBox.add(CBox);
+                                filteredTypes.add(CBox.getText());
+                                break outerloop;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return filteredTypesCheckBox;
+    }
+
+    public List<CheckBox> filterStatuses() {
+        filteredStatuses.clear();
+        filteredStatusCheckBox.clear();
+
+        for (Provider p : getFilterProviders()) {
+
+            if (getFilterCountries().contains(p.getCountryCode())) {
+                Vector<String> types = new Vector<>(Arrays.asList(p.getServiceTypes()));
+
+                outerloop:
+                for (String type : types) {
+                    if (getFilterTypes().contains(type)) {
+                        Service[] services = p.getServices();
+                        Vector<String> ss = new Vector<>();
+
+                        for (Service service : services) {
+                            if (!ss.contains(service.getCurrentStatus()))
+                                ss.add(service.getCurrentStatus());
+                        }
+
+                        for (CheckBox CBox : statusesCheckBox) {
+                            if (ss.contains(CBox.getText()) && !filteredStatuses.contains(CBox.getText())) {
+                                filteredStatusCheckBox.add(CBox);
+                                filteredStatuses.add(CBox.getText());
+                                break outerloop;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return filteredStatusCheckBox;
+    }
 
 }
