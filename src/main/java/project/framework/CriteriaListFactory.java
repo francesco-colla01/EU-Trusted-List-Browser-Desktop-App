@@ -3,7 +3,7 @@ package project.framework;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import org.json.JSONArray;
-import project.graphics.demo.FilterController;
+import project.graphics.demo.FilterControllerInterface;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,16 +11,16 @@ import java.util.Map;
 import java.util.Vector;
 
 public class CriteriaListFactory {
-    Vector<String> countryList, typeList, statusList;
-    Vector<Provider> providerList;
-    Map<String, String> countryNameToCode;
+    private static Vector<String> countryList, typeList, statusList;
+    private static Vector<Provider> providerList;
+    private static Map<String, String> countryNameToCode;
 
     public void initialize() throws IOException {
         HttpRequest fetchCountriesList = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/countries_list");
         JSONArray jsonCountriesList = new JSONArray(fetchCountriesList.getResponse());
 
         countryList = new Vector<>();
-        Map<String, String> countryNameToCode = new HashMap<>();
+        countryNameToCode = new HashMap<>();
 
         for (int i = 0; i<jsonCountriesList.length(); i++) {
             countryList.add(jsonCountriesList.getJSONObject(i).getString("countryName"));
@@ -52,9 +52,9 @@ public class CriteriaListFactory {
             //inserimento vector statuses
             for (int j = 0; j<all_tsp[i].getServices().length; j++) {
                 Service[] s = all_tsp[i].getServices();
-                typeMap.put(s[j].getCurrentStatus(), all_tsp[i]);
-                if (!statusList.contains(s[j].getCurrentStatus()))
-                    statusList.add(s[j].getCurrentStatus());
+                typeMap.put(s[j].getServiceInfo().getCurrentStatus(), all_tsp[i]);
+                if (!statusList.contains(s[j].getServiceInfo().getCurrentStatus()))
+                    statusList.add(s[j].getServiceInfo().getCurrentStatus());
             }
 
             //Inserimento mappa Service Types
@@ -68,24 +68,28 @@ public class CriteriaListFactory {
         }
     }
 
-    public FilterController getFilterController() {
-        FilterController tmp = new FilterController(countryNameToCode, typeList, statusList, providerList);
+    public FilterControllerInterface getFilterController() {
+        FilterControllerInterface tmp = new FilterControllerInterface();
         return tmp;
     }
 
-    public Vector<Provider> getProviderList() {
+    public static Vector<Provider> getProviderList() {
         return providerList;
     }
 
-    public Vector<String> getCountryList() {
+    public static Vector<String> getCountryList() {
         return countryList;
     }
 
-    public Vector<String> getStatusList() {
+    public static Vector<String> getStatusList() {
         return statusList;
     }
 
-    public Vector<String> getTypeList() {
+    public static Vector<String> getTypeList() {
         return typeList;
+    }
+
+    public static Map<String, String> getCountryNameToCode() {
+        return countryNameToCode;
     }
 }

@@ -29,7 +29,7 @@ public class SearchEngine {
         return searchResults;
     }
 
-    public Service.ServiceInfo getServiceInfo(int serviceIndex) {
+    public ServiceInfo getServiceInfo(int serviceIndex) {
         return searchResults.get(serviceIndex).getServiceInfo();
     }
 }

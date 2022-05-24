@@ -1,5 +1,6 @@
 package project.graphics.demo;
 
+import project.framework.CriteriaListFactory;
 import project.framework.Provider;
 import project.framework.Service;
 import javafx.scene.control.CheckBox;
@@ -10,32 +11,22 @@ import java.util.Map;
 import java.util.Vector;
 
 public class ProviderFilterController {
-
-    private Vector<Provider> filtered_providers = new Vector<>();
-    private Vector<Provider> providers;
+    //private Vector<Provider> allProviders; da CLF
+    private Vector<Provider> selectedProviders = new Vector<>();
     private List<CheckBox> providersCheckBox = new Vector<>();
-    private List<CheckBox> filteredCheckBox = new Vector<>();
+    private List<CheckBox> filteredProviderCheckBox = new Vector<>();
     private Map<String, Provider> nameToProvider = new HashMap<>();
-    //private Vector<CheckBox> selectedCheckBox = new Vector<>();
 
-    public ProviderFilterController(Vector<Provider> providers) {
-        this.providers = providers;
-
-        for (Provider p : providers) {
-            CheckBox providerCheckBox = new CheckBox(p.getName());
-            providerCheckBox.getStyleClass().add("provider-check-box");
-            providersCheckBox.add(providerCheckBox);
-
-            nameToProvider.put(p.getName(), p);
-        }
+    public ProviderFilterController() {
+        generateProviderCheckboxes();
     }
 
-    List<CheckBox> filterProviders(Vector<String> countries, Vector<String> types, Vector<String> statuses) {
-        filteredCheckBox.clear();
+    public List<CheckBox> getCheckBoxes(Vector<String> c, Vector<String> t, Vector<String> s) {
+        filteredProviderCheckBox.clear();
         for (CheckBox providerCBox : providersCheckBox) {
             Provider provider = nameToProvider.get(providerCBox.getText());
 
-            if (countries.contains(provider.getCountryCode())) {
+            if (c.contains(provider.getCountryCode())) {
 
                 String[] providerTypes = provider.getServiceTypes();
 
@@ -43,25 +34,48 @@ public class ProviderFilterController {
                 for (int i = 0; i < providerTypes.length; i++) {
                     String providerType = providerTypes[i];
 
-                    if (types.contains(providerType)) {
+                    if (t.contains(providerType)) {
 
-                        Service[] s = provider.getServices();
-                        for (int j = 0; j< s.length; j++) {
-                            Service service = s[j];
+                        Service[] ser = provider.getServices();
+                        for (int j = 0; j< ser.length; j++) {
+                            Service service = ser[j];
 
-                            if (statuses.contains(service.getCurrentStatus())) {
-                                filteredCheckBox.add(providerCBox);
+                            if (s.contains(service.getServiceInfo().getCurrentStatus())) {
+                                filteredProviderCheckBox.add(providerCBox);
                                 break outerloop;
 
-                            } else if (j == (s.length-1))
-                                providerCBox.setSelected(false);
+                            }
                         }
-                    } else if(i == (providerTypes.length -1))
-                        providerCBox.setSelected(false);
+                    }
                 }
-            } else
-                providerCBox.setSelected(false);
+            }
         }
-        return filteredCheckBox;
+        return filteredProviderCheckBox;
+    }
+
+    public Vector<Provider> getSelectedCriteria() {
+        return selectedProviders;
+    }
+
+    public Vector<Provider> getFilterCriteria() {
+        if (selectedProviders.isEmpty())
+            return CriteriaListFactory.getProviderList();
+        return selectedProviders;
+    }
+
+    private void generateProviderCheckboxes() {
+        Vector<Provider> p = CriteriaListFactory.getProviderList();
+        for (Provider provider : p) {
+            nameToProvider.put(provider.getName(), provider);
+            CheckBox providerCheckBox = new CheckBox(provider.getName());
+            providerCheckBox.getStyleClass().add("provider-check-box");
+            providerCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
+                if (providerCheckBox.isSelected())
+                    selectedProviders.add(nameToProvider.get(providerCheckBox.getText()));
+                else
+                    selectedProviders.remove(nameToProvider.get(providerCheckBox.getText()));
+            });
+            providersCheckBox.add(providerCheckBox);
+        }
     }
 }
