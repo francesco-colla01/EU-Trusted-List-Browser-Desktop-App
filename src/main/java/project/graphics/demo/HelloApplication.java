@@ -1,6 +1,5 @@
 package project.graphics.demo;
 
-import project.framework.CriteriaListFactory;
 import project.framework.HttpRequest;
 import project.framework.Provider;
 import project.framework.Service;
@@ -38,10 +37,7 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
 
-        CriteriaListFactory criteriaLists = new CriteriaListFactory();
-        criteriaLists.initialize();
-
-        /*HttpRequest fetchContriesList = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/countries_list");
+        HttpRequest fetchContriesList = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/countries_list");
         JSONArray jsonCountriesList = new JSONArray(fetchContriesList.getResponse());
 
         Vector<String> countries = new Vector<>();
@@ -92,9 +88,7 @@ public class HelloApplication extends Application {
         }
 
         FilterController filter = new FilterController(countryNameToCode, typesOfService, statuses, providers);
-        */
 
-        FilterController filter = criteriaLists.getFilterController();
         // Countries
         AnchorPane countriesPane = (AnchorPane) fxmlLoader.getNamespace().get("countriesAnchorPane");
 
@@ -104,7 +98,6 @@ public class HelloApplication extends Application {
         Timeline countriesTPane = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
 
             List<CheckBox> filteredCountries = filter.filterCountries();
-            System.out.println(filteredCountries);
             countriesCheckBoxesLeft.getChildren().clear();
             countriesCheckBoxesRight.getChildren().clear();
             int separator = 0;
@@ -129,6 +122,83 @@ public class HelloApplication extends Application {
         countriesCheckBoxes.setSpacing(55);
         countriesCheckBoxes.setAlignment(Pos.CENTER_LEFT);
 
+        // Types
+        TypeCheckBoxController typeCheckBoxController = new TypeCheckBoxController(typesOfService);
+
+        AnchorPane tosAnchorPane = (AnchorPane) fxmlLoader.getNamespace().get("tosAnchorPane");
+
+        VBox tosCheckBoxesLeft = new VBox();
+        VBox tosCheckBoxesRight = new VBox();
+
+        Timeline tosPane = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+            List<CheckBox> tosCBoxes = filter.filterTypes();
+
+            tosCheckBoxesLeft.getChildren().clear();
+            tosCheckBoxesRight.getChildren().clear();
+
+            int separator = 0;
+            for (CheckBox CBox : tosCBoxes) {
+                if (separator < tosCBoxes.size()/2)
+                    tosCheckBoxesLeft.getChildren().add(CBox);
+                else
+                    tosCheckBoxesRight.getChildren().add(CBox);
+                separator++;
+            }
+
+        }));
+        tosPane.setCycleCount(Animation.INDEFINITE);
+        tosPane.play();
+
+
+        HBox tosCheckBoxes = new HBox(tosCheckBoxesLeft, tosCheckBoxesRight);
+        tosCheckBoxes.setSpacing(15);
+
+        AnchorPane.setTopAnchor(tosCheckBoxes, 75.0);
+        AnchorPane.setLeftAnchor(tosCheckBoxes, 22.0);
+
+
+        tosCheckBoxes.setSpacing(55);
+        tosCheckBoxes.setAlignment(Pos.CENTER_LEFT);
+
+        // Statuses
+        AnchorPane ssAnchorPane = (AnchorPane) fxmlLoader.getNamespace().get("ssAnchorPane");
+        StatusCheckBoxController statusCheckBoxController = new StatusCheckBoxController(statuses);
+
+        VBox ssCheckBoxesLeft = new VBox();
+        VBox ssCheckBoxesRight = new VBox();
+
+        Timeline ssPane = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+            List<CheckBox> ssCBoxes = filter.filterStatuses();
+
+            ssCheckBoxesLeft.getChildren().clear();
+            ssCheckBoxesRight.getChildren().clear();
+
+            System.out.println(ssCBoxes);
+
+            int separator = 0;
+            for (CheckBox CBox : ssCBoxes) {
+                if (separator < ssCBoxes.size()/2)
+                    ssCheckBoxesLeft.getChildren().add(CBox);
+                else
+                    ssCheckBoxesRight.getChildren().add(CBox);
+                separator++;
+            }
+
+        }));
+        ssPane.setCycleCount(Animation.INDEFINITE);
+        ssPane.play();
+
+        HBox ssCheckBoxes = new HBox(ssCheckBoxesLeft, ssCheckBoxesRight);
+        ssCheckBoxes.setSpacing(15);
+
+        AnchorPane.setTopAnchor(ssCheckBoxes, 75.0);
+        AnchorPane.setLeftAnchor(ssCheckBoxes, 22.0);
+
+
+        ssCheckBoxes.setSpacing(55);
+        ssCheckBoxes.setAlignment(Pos.CENTER_LEFT);
+
+
 
         // Provider
         AnchorPane scrollPane = (AnchorPane) fxmlLoader.getNamespace().get("providersScrollPAne");
@@ -152,6 +222,8 @@ public class HelloApplication extends Application {
         providersCheckBoxes.setAlignment(Pos.CENTER_LEFT);
 
         countriesPane.getChildren().add(countriesCheckBoxes);
+        tosAnchorPane.getChildren().add(tosCheckBoxes);
+        ssAnchorPane.getChildren().add(ssCheckBoxes);
         scrollPane.getChildren().add(providersCheckBoxes);
 
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("css/stylesheet.css")).toExternalForm());
