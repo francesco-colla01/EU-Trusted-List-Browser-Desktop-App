@@ -14,7 +14,6 @@ public class CriteriaListFactory {
     private static Vector<String> countryList, typeList, statusList;
     private static Vector<Provider> providerList;
     private static Map<String, String> countryNameToCode;
-    //TODO FORSE VANNO INSERITE LE 2 STRUTTURE DATI DI SOTTO
 
     /**
      *  Is responsible for creating all the data structure needed to run the program.
@@ -43,8 +42,6 @@ public class CriteriaListFactory {
         JSONArray jsonProvidersList = new JSONArray(fetchAllProviders.getResponse()); //the API organise all services based on their provider
         Provider[] all_tsp = new Provider[jsonProvidersList.length()];  //list of all providers
 
-        Multimap<String, Provider> countryMap = ArrayListMultimap.create(); //used for see all providers given a specific country code  //TODO CHIEDERE A MARKOVII A COSA GLI SERVONO PERCHè QUA VENGONO DISTRUTTI ALLA FINE DEL METODO INITIALIZE
-        Multimap<String, Provider> typeMap = ArrayListMultimap.create();    //used for see all providers given a specific type of service
         typeList = new Vector<>();
         providerList = new Vector<>();
         statusList = new Vector<>();
@@ -52,20 +49,16 @@ public class CriteriaListFactory {
         //fill all maps and vectors
         for (int i = 0; i<jsonProvidersList.length(); i++) {
             all_tsp[i] = new Provider(jsonProvidersList.getJSONObject(i).toString());
-
-            countryMap.put(all_tsp[i].getCountryCode(), all_tsp[i]);
             providerList.add(all_tsp[i]);
 
             for (int j = 0; j<all_tsp[i].getServices().length; j++) {
                 Service[] s = all_tsp[i].getServices();
-                typeMap.put(s[j].getServiceInfo().getCurrentStatus(), all_tsp[i]);  //TODO VEDERE SE QUESTO HA SENSO stato ---> servizio ????????????
                 if (!statusList.contains(s[j].getServiceInfo().getCurrentStatus()))
                     statusList.add(s[j].getServiceInfo().getCurrentStatus());
             }
 
-            for (int j = 0; j<all_tsp[i].getServiceTypes().length; j++) {
+            for (int j = 0; j < all_tsp[i].getServiceTypes().length; j++) {
                 String[] s = all_tsp[i].getServiceTypes();
-                typeMap.put(s[j], all_tsp[i]);
                 if (!typeList.contains(s[j]))
                     typeList.add(s[j]);
             }

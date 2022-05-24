@@ -7,7 +7,7 @@ import project.framework.Provider;
 import java.util.*;
 
 public class FilterControllerInterface {
-
+    //TODO CAMBIARE NOME PK INTERFACE è AMBIGUO IN JAVA
     private CountryFilterController countries;
     private ProviderFilterController providers;
     private TypeFilterController types;
