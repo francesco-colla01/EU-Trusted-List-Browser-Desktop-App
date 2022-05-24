@@ -14,7 +14,7 @@ public class SearchEngine {
 
     public static SearchEngine getInstance() {
         if (instance == null) instance = new SearchEngine();
-        else return instance;
+        return instance;
     }
 
     public Vector<Service> performSearch(Vector<String> countries, Vector<Provider> providers, Vector<String> types, Vector<String> statuses) {
