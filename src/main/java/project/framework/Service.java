@@ -83,28 +83,4 @@ public class Service {
     public Service.ServiceInfo getServiceInfo() {
         return info;
     }
-    public int getServiceId() {
-        return info.serviceId;
-    }
-    public int getTspId() {
-        return info.tspId;
-    }
-    public String getCountryCode() {
-        return info.countryCode;
-    }
-    public String getCurrentStatus() {
-        return info.currentStatus;
-    }
-    public String getServiceName() {
-        return info.serviceName;
-    }
-    public String getTob() {
-        return info.tob;
-    }
-    public String getType() {
-        return info.type;
-    }
-    public String[] getServiceTypes() {
-        return info.serviceTypes;
-    }
 }

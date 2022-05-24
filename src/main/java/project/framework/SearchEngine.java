@@ -21,7 +21,7 @@ public class SearchEngine {
         clearSearchResults();
         for (Provider p : providers) {
             for (Service s : p.getServices()) {
-                if (countries.contains(s.getCountryCode()) && types.contains(s.getType()) && statuses.contains(s.getCurrentStatus())) {
+                if (countries.contains(s.getServiceInfo().getCountryCode()) && types.contains(s.getServiceInfo().getType()) && statuses.contains(s.getServiceInfo().getCurrentStatus())) {
                     searchResults.add(s);
                 }
             }
