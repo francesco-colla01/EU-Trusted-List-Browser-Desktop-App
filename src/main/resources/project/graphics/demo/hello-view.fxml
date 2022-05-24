@@ -24,7 +24,7 @@
       </MenuBar>
       <FlowPane prefHeight="720.0" prefWidth="1250.0">
          <children>
-            <AnchorPane fx:id="countriesAnchorPane" prefHeight="700.0" prefWidth="415.0" style="-fx-border-color: black;">
+            <AnchorPane fx:id="countriesAnchorPane" maxHeight="700.0" maxWidth="415.0" prefHeight="700.0" prefWidth="415.0" style="-fx-border-color: black;">
                <children>
                   <Label alignment="TOP_CENTER" layoutX="12.0" layoutY="7.0" prefHeight="50.0" prefWidth="393.0" text="Countries" textAlignment="CENTER" AnchorPane.bottomAnchor="664.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="15.0">
                      <font>
@@ -33,7 +33,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="providersAnchorPane" prefHeight="700.0" prefWidth="415.0" style="-fx-border-color: black;">
+            <AnchorPane fx:id="providersAnchorPane" maxHeight="700.0" maxWidth="415.0" prefHeight="700.0" prefWidth="415.0" style="-fx-border-color: black;">
                <children>
                   <Label alignment="TOP_CENTER" layoutX="11.0" layoutY="14.0" prefHeight="50.0" prefWidth="393.0" text="Providers" textAlignment="CENTER" AnchorPane.bottomAnchor="664.0" AnchorPane.topAnchor="15.0">
                      <font>
@@ -47,7 +47,7 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <FlowPane prefHeight="720.0" prefWidth="420.0">
+            <FlowPane maxHeight="720.0" maxWidth="420.0" prefHeight="720.0" prefWidth="420.0">
                <children>
                   <AnchorPane fx:id="tosAnchorPane" prefHeight="335.0" prefWidth="420.0" style="-fx-border-color: black;">
                      <children>
