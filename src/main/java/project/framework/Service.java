@@ -6,27 +6,28 @@ import org.json.JSONObject;
 import java.util.Scanner;
 
 public class Service {
-    private String countryCode, currentStatus, serviceName, type, tob;
-    private int tspId, serviceId;
-
-    private String[] serviceTypes;
-
     private ServiceInfo info;
 
+    /**
+     *  Service constructor; creates a Service object.
+     *
+     * @param  jsonSource is a string get from the Json file in which are
+     *                    all the service information needed
+     *
+     *
+     * @see     ServiceInfo class
+     * @see     JSONObject
+     */
     public Service(String jsonSource) {
         JSONObject data = new JSONObject(jsonSource);
 
         String cc = data.getString("countryCode");
         String sn = data.getString("serviceName");
-        String to = (data.isNull("tob") ? null : data.getString("tob"));
         String t = data.getString("type");
-
-        int tsp = data.getInt("tspId");
-        int sId = data.getInt("serviceId");
 
         JSONArray jsonServiceTypes = data.getJSONArray("qServiceTypes");
         String[] st = new String[jsonServiceTypes.length()];
-        for (int i=0; i<jsonServiceTypes.length(); i++) {
+        for (int i = 0; i < jsonServiceTypes.length(); i++) {
             st[i] = jsonServiceTypes.getString(i);
         }
 
@@ -37,10 +38,9 @@ public class Service {
             cs = status_reader.next();
         }
 
-        info = new ServiceInfo(cc, cs, sn, t, to, tsp, sId, st);
+        info = new ServiceInfo(cc, cs, sn, t, st);
     }
 
-    public ServiceInfo getServiceInfo() {
-        return info;
-    }
+    //Get method
+    public ServiceInfo getServiceInfo() { return info; }
 }

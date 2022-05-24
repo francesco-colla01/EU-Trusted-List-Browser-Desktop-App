@@ -1,41 +1,32 @@
 package project.framework;
 
 public class ServiceInfo {
-    private String countryCode, currentStatus, serviceName, type, tob;
-    private int tspId, serviceId;
+    private String countryCode, currentStatus, serviceName, typeIdentifier;
     private String[] serviceTypes;
-    ServiceInfo(String cc, String cs, String sn, String t, String to, int tsp, int sId, String[] st) {
+
+    /**
+     *  ServiceInfo constructor; creates a ServiceInfo object responsible for
+     *  keeping in one place all service information.
+     *
+     * @param  cc country code of the service created (e.g IT)
+     * @param  cs country full name of the service created (e.g italy)
+     * @param  sn name of the service created
+     * @param  t  typeIdentifier
+     * @param  st service types related to the service created
+     *
+     */
+    ServiceInfo(String cc, String cs, String sn, String t, String[] st) {
         countryCode = cc;
         currentStatus = cs;
         serviceName = sn;
-        type = t;
-        tob = to;
-        tspId = tsp;
-        serviceId = sId;
+        typeIdentifier = t;
         serviceTypes = st;
     }
-    public int getServiceId() {
-        return serviceId;
-    }
-    public int getTspId() {
-        return tspId;
-    }
-    public String getCountryCode() {
-        return countryCode;
-    }
-    public String getCurrentStatus() {
-        return currentStatus;
-    }
-    public String getServiceName() {
-        return serviceName;
-    }
-    public String getTob() {
-        return tob;
-    }
-    public String getType() {
-        return type;
-    }
-    public String[] getServiceTypes() {
-        return serviceTypes;
-    }
+
+    //Get methods for all the private attributes
+    public String getCountryCode() { return countryCode; }
+    public String getCurrentStatus() { return currentStatus; }
+    public String getServiceName() { return serviceName; }
+    public String getTypeIdentifier() { return typeIdentifier; }
+    public String[] getServiceTypes() { return serviceTypes; }
 }

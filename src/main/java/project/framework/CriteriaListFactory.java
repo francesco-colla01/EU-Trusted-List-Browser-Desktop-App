@@ -14,82 +14,81 @@ public class CriteriaListFactory {
     private static Vector<String> countryList, typeList, statusList;
     private static Vector<Provider> providerList;
     private static Map<String, String> countryNameToCode;
+    //TODO FORSE VANNO INSERITE LE 2 STRUTTURE DATI DI SOTTO
 
+    /**
+     *  Is responsible for creating all the data structure needed to run the program.
+     *
+     * @see     HttpRequest
+     * @see     JSONArray
+     * @see     Provider
+     * @see     ServiceInfo
+     *
+     */
     public void initialize() throws IOException {
+        //first API request to get the list of all countries
         HttpRequest fetchCountriesList = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/countries_list");
         JSONArray jsonCountriesList = new JSONArray(fetchCountriesList.getResponse());
 
         countryList = new Vector<>();
-        countryNameToCode = new HashMap<>();
+        countryNameToCode = new HashMap<>(); //this map associate the country name to his code (e.g Italy ----> IT)
 
         for (int i = 0; i<jsonCountriesList.length(); i++) {
             countryList.add(jsonCountriesList.getJSONObject(i).getString("countryName"));
             countryNameToCode.put(jsonCountriesList.getJSONObject(i).getString("countryName"), jsonCountriesList.getJSONObject(i).getString("countryCode"));
         }
 
+        //Second API request to get all the info needed
         HttpRequest fetchAllProviders = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/tsp_list");
-        JSONArray jsonProvidersList = new JSONArray(fetchAllProviders.getResponse());
-        Provider[] all_tsp = new Provider[jsonProvidersList.length()];
+        JSONArray jsonProvidersList = new JSONArray(fetchAllProviders.getResponse()); //the API organise all services based on their provider
+        Provider[] all_tsp = new Provider[jsonProvidersList.length()];  //list of all providers
 
-        Multimap<String, Provider> countryMap = ArrayListMultimap.create();
-        Multimap<String, Provider> typeMap = ArrayListMultimap.create();
+        Multimap<String, Provider> countryMap = ArrayListMultimap.create(); //used for see all providers given a specific country code  //TODO CHIEDERE A MARKOVII A COSA GLI SERVONO PERCHè QUA VENGONO DISTRUTTI ALLA FINE DEL METODO INITIALIZE
+        Multimap<String, Provider> typeMap = ArrayListMultimap.create();    //used for see all providers given a specific type of service
         typeList = new Vector<>();
         providerList = new Vector<>();
         statusList = new Vector<>();
 
-        // Riempimento mappe e vettori iniziali
+        //fill all maps and vectors
         for (int i = 0; i<jsonProvidersList.length(); i++) {
-
-            //Decodifica json
             all_tsp[i] = new Provider(jsonProvidersList.getJSONObject(i).toString());
 
-            //inserimento mappa key Country value provider
             countryMap.put(all_tsp[i].getCountryCode(), all_tsp[i]);
-
-            //inserimento vector provider e vettore copia
             providerList.add(all_tsp[i]);
 
-            //inserimento vector statuses
             for (int j = 0; j<all_tsp[i].getServices().length; j++) {
                 Service[] s = all_tsp[i].getServices();
-                typeMap.put(s[j].getServiceInfo().getCurrentStatus(), all_tsp[i]);
+                typeMap.put(s[j].getServiceInfo().getCurrentStatus(), all_tsp[i]);  //TODO VEDERE SE QUESTO HA SENSO stato ---> servizio ????????????
                 if (!statusList.contains(s[j].getServiceInfo().getCurrentStatus()))
                     statusList.add(s[j].getServiceInfo().getCurrentStatus());
             }
 
-            //Inserimento mappa Service Types
             for (int j = 0; j<all_tsp[i].getServiceTypes().length; j++) {
                 String[] s = all_tsp[i].getServiceTypes();
                 typeMap.put(s[j], all_tsp[i]);
                 if (!typeList.contains(s[j]))
                     typeList.add(s[j]);
             }
-
         }
     }
 
+    /**
+     *  Is responsible for creating a FilterControllerInterface
+     *
+     * @return a FilterControllerInterface object
+     *
+     * @see     FilterControllerInterface
+     *
+     */
     public FilterControllerInterface getFilterController() {
         FilterControllerInterface tmp = new FilterControllerInterface();
         return tmp;
     }
 
-    public static Vector<Provider> getProviderList() {
-        return providerList;
-    }
-
-    public static Vector<String> getCountryList() {
-        return countryList;
-    }
-
-    public static Vector<String> getStatusList() {
-        return statusList;
-    }
-
-    public static Vector<String> getTypeList() {
-        return typeList;
-    }
-
-    public static Map<String, String> getCountryNameToCode() {
-        return countryNameToCode;
-    }
+    //Get methods
+    public static Vector<Provider> getProviderList() { return providerList; }
+    public static Vector<String> getCountryList() { return countryList; }
+    public static Vector<String> getStatusList() { return statusList; }
+    public static Vector<String> getTypeList() {return typeList; }
+    public static Map<String, String> getCountryNameToCode() { return countryNameToCode; }
 }
