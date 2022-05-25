@@ -24,7 +24,7 @@ public class ProviderFilterController {
     public List<CheckBox> getCheckBoxes(Vector<String> c, Vector<String> t, Vector<String> s) {
         filteredProviderCheckBox.clear();
         for (CheckBox providerCBox : providersCheckBox) {
-            Provider provider = nameToProvider.get(providerCBox.getText());
+            Provider provider = nameToProvider.get(providerCBox.getId());
 
             if (c.contains(provider.getCountryCode())) {
 
@@ -66,9 +66,10 @@ public class ProviderFilterController {
     private void generateProviderCheckboxes() {
         Vector<Provider> p = CriteriaListFactory.getProviderList();
         for (Provider provider : p) {
-            nameToProvider.put(provider.getName(), provider);
+            nameToProvider.put(provider.getName() + provider.getCountryCode(), provider);
             CheckBox providerCheckBox = new CheckBox(provider.getName());
             providerCheckBox.getStyleClass().add("provider-check-box");
+            providerCheckBox.setId(provider.getName() + provider.getCountryCode());
             providerCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
                 if (providerCheckBox.isSelected())
                     selectedProviders.add(nameToProvider.get(providerCheckBox.getText()));
