@@ -70,7 +70,7 @@ public class CriteriaListFactory {
      *
      * @return a FilterControllerInterface object
      *
-     * @see     FilterControllerInterface
+     * @see     FilterController
      *
      */
     public FilterControllerInterface getFilterController() {
