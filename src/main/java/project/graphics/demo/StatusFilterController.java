@@ -56,12 +56,22 @@ public class StatusFilterController {
                             if (ss.contains(CBox.getText()) && !filteredStatuses.contains(CBox.getText())) {
                                 filteredStatusCheckBox.add(CBox);
                                 filteredStatuses.add(CBox.getText());
+                                CBox.setStyle("-fx-font-weight: normal;");
                             }
                         }
                     }
                 }
             }
         }
+
+        statusesCheckBox.forEach(CBox -> {
+            if (CBox.isSelected() && !filteredStatusCheckBox.contains(CBox)) {
+                filteredStatusCheckBox.add(CBox);
+                CBox.setStyle("-fx-font-weight: bolder;");
+            }});
+
+        if (filteredStatusCheckBox.isEmpty() && filteredStatuses.isEmpty())
+                return statusesCheckBox;
 
         return filteredStatusCheckBox;
     }
@@ -84,8 +94,10 @@ public class StatusFilterController {
             statusCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
                 if (statusCheckBox.isSelected())
                     selectedStatuses.add(statusCheckBox.getText());
-                else
+                else {
                     selectedStatuses.remove(statusCheckBox.getText());
+                    statusCheckBox.setStyle("-fx-font-weight: normal;");
+                }
             });
             statusesCheckBox.add(statusCheckBox);
         }

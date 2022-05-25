@@ -1,25 +1,43 @@
 package project.graphics.demo;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import com.google.common.base.Supplier;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 
-import java.io.IOException;
+import java.util.Optional;
+import java.util.concurrent.Callable;
+
+interface ErrorButtonAction {
+    void action();
+}
 
 public class ErrorScene {
+    public static void showError(String headerText, String contentText, ErrorButtonAction action) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
 
-    public void showError(String message) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(EuTrustServicesDashboard.class.getResource("error-view.fxml"));
-        Stage errorStage = new Stage(fxmlLoader.load());
-        errorStage.setResizable(false);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
 
-        Label errorText = new Label(message);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            action.action();
+        }
+    }
 
-        AnchorPane labelPane = (AnchorPane) fxmlLoader.getNamespace().get("labelAnchorPane");
+    public static void showError(String headerText, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
 
-        labelPane.getChildren().add(errorText);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+
+        alert.showAndWait();
+    }
+
+    public static void showError(String headerText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        alert.setHeaderText(headerText);
+        alert.showAndWait();
     }
 }

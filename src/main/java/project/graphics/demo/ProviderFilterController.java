@@ -43,13 +43,21 @@ public class ProviderFilterController {
                             if (s.contains(service.getServiceInfo().getCurrentStatus())) {
                                 filteredProviderCheckBox.add(providerCBox);
                                 break outerloop;
-
                             }
                         }
                     }
                 }
             }
         }
+
+        providersCheckBox.forEach(CBox -> {
+            if (CBox.isSelected() && !filteredProviderCheckBox.contains(CBox)) {
+                filteredProviderCheckBox.add(CBox);
+            }});
+
+        if (filteredProviderCheckBox.isEmpty() && selectedProviders.isEmpty())
+                return null;
+
         return filteredProviderCheckBox;
     }
 
@@ -73,7 +81,9 @@ public class ProviderFilterController {
             providerCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
                 if (providerCheckBox.isSelected())
                     selectedProviders.add(nameToProvider.get(providerCheckBox.getId()));
-                else
+                else {
+                    selectedProviders.remove(nameToProvider.get(providerCheckBox.getId()));
+                }
                     selectedProviders.remove(nameToProvider.get(providerCheckBox.getId()));
             });
             providersCheckBox.add(providerCheckBox);

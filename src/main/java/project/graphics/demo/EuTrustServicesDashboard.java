@@ -1,5 +1,7 @@
 package project.graphics.demo;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import project.framework.CriteriaListFactory;
 import project.framework.HttpRequest;
 import project.framework.Provider;
@@ -167,7 +169,11 @@ public class EuTrustServicesDashboard extends Application {
             List<CheckBox> filtered_providers = filter.getCheckBoxes("p");
 
             providersCheckBoxes.getChildren().clear();
-            providersCheckBoxes.getChildren().addAll(filtered_providers);
+
+            if (filtered_providers == null)
+                providersCheckBoxes.getChildren().add(new Label("No providers found with matching criteria"));
+            else
+                providersCheckBoxes.getChildren().addAll(filtered_providers);
         }));
 
         pane.setCycleCount(Animation.INDEFINITE);
@@ -185,7 +191,10 @@ public class EuTrustServicesDashboard extends Application {
         scrollPane.getChildren().add(providersCheckBoxes);
 
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("css/stylesheet.css")).toExternalForm());
+
         stage.show();
+
+        AlertScene.alertScene(stage);
     }
 
     public static void main(String[] args) {

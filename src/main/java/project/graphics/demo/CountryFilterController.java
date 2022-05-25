@@ -58,6 +58,17 @@ public class CountryFilterController {
                 }
             }
         }
+
+        countriesCheckBox.forEach(CBox -> {
+            if (CBox.isSelected() && !filteredCountriesCheckBox.contains(CBox)) {
+                CBox.setStyle("-fx-font-weight: bolder;");
+                filteredCountriesCheckBox.add(CBox);
+            }
+        });
+
+        if (filteredCountriesCheckBox.isEmpty() && selectedCountries.isEmpty())
+                return countriesCheckBox;
+
         return filteredCountriesCheckBox;
     }
 
@@ -86,8 +97,10 @@ public class CountryFilterController {
             countryCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
                 if (countryCheckBox.isSelected())
                     selectedCountries.add(countryNameToCode.get(countryCheckBox.getText()));
-                else
+                else {
+                    countryCheckBox.setStyle("-fx-font-weight: normal;");
                     selectedCountries.remove(countryNameToCode.get(countryCheckBox.getText()));
+                }
             });
             countriesCheckBox.add(countryCheckBox);
         }

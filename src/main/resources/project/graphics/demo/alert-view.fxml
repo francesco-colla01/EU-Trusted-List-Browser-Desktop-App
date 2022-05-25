@@ -11,7 +11,7 @@
     <children>
         <FlowPane prefHeight="350.0" prefWidth="550.0">
             <children>
-                <AnchorPane prefHeight="75.0" prefWidth="550.0" />
+                <AnchorPane fx:id="messageAnchorPane" prefHeight="75.0" prefWidth="550.0" />
                 <ScrollPane prefHeight="220.0" prefWidth="550.0">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" />
