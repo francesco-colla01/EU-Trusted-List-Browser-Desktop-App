@@ -17,7 +17,7 @@ public class SearchEngine {
         return instance;
     }
 
-    public Vector<Service> performSearch(Vector<String> countries, Vector<Provider> providers, Vector<String> types, Vector<String> statuses) {
+    /*public Vector<Service> performSearch(Vector<String> countries, Vector<Provider> providers, Vector<String> types, Vector<String> statuses) {
         clearSearchResults();
         for (Provider p : providers) {
             for (Service s : p.getServices()) {
@@ -27,7 +27,7 @@ public class SearchEngine {
             }
         }
         return searchResults;
-    }
+    }*/
 
     public ServiceInfo getServiceInfo(int serviceIndex) {
         return searchResults.get(serviceIndex).getServiceInfo();

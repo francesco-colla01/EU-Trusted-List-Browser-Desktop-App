@@ -42,7 +42,6 @@ public class StatusFilterController {
             if (c.contains(prov.getCountryCode())) {
                 Vector<String> types = new Vector<>(Arrays.asList(prov.getServiceTypes()));
 
-                outerloop:
                 for (String type : types) {
                     if (t.contains(type)) {
                         Service[] services = prov.getServices();
@@ -57,7 +56,6 @@ public class StatusFilterController {
                             if (ss.contains(CBox.getText()) && !filteredStatuses.contains(CBox.getText())) {
                                 filteredStatusCheckBox.add(CBox);
                                 filteredStatuses.add(CBox.getText());
-                                break outerloop;
                             }
                         }
                     }

@@ -27,7 +27,6 @@ public class TypeFilterController {
             if (c.contains(prov.getCountryCode())) {
                 Service[] services = prov.getServices();
 
-                outerloop:
                 for (Service ser : services) {
 
                     if (s.contains(ser.getServiceInfo().getCurrentStatus())) {
@@ -38,7 +37,6 @@ public class TypeFilterController {
                             if (types.contains(CBox.getText()) && !filteredTypes.contains(CBox.getText())) {
                                 filteredTypesCheckBox.add(CBox);
                                 filteredTypes.add(CBox.getText());
-                                break outerloop;
                             }
                         }
                     }

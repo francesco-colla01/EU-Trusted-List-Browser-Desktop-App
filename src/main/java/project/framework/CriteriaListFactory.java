@@ -1,9 +1,7 @@
 package project.framework;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import org.json.JSONArray;
-import project.graphics.demo.FilterControllerInterface;
+import project.graphics.demo.FilterController;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -73,8 +71,8 @@ public class CriteriaListFactory {
      * @see     FilterController
      *
      */
-    public FilterControllerInterface getFilterController() {
-        FilterControllerInterface tmp = new FilterControllerInterface();
+    public FilterController getFilterController() {
+        FilterController tmp = new FilterController();
         return tmp;
     }
 
