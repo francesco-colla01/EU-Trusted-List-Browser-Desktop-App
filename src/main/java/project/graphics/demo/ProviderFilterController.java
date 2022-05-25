@@ -72,9 +72,9 @@ public class ProviderFilterController {
             providerCheckBox.setId(provider.getName() + provider.getCountryCode());
             providerCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
                 if (providerCheckBox.isSelected())
-                    selectedProviders.add(nameToProvider.get(providerCheckBox.getText()));
+                    selectedProviders.add(nameToProvider.get(providerCheckBox.getId()));
                 else
-                    selectedProviders.remove(nameToProvider.get(providerCheckBox.getText()));
+                    selectedProviders.remove(nameToProvider.get(providerCheckBox.getId()));
             });
             providersCheckBox.add(providerCheckBox);
         }
