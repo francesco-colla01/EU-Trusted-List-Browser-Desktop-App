@@ -4,7 +4,7 @@ import java.util.Vector;
 
 public class SearchEngine {
     Vector<Service> searchResults;
-    static SearchEngine instance;
+    private static SearchEngine instance;
 
     SearchEngine() {
         clearSearchResults();
