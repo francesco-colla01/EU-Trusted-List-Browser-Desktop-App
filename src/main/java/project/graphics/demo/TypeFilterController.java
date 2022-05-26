@@ -37,7 +37,7 @@ public class TypeFilterController {
                             if (types.contains(CBox.getText()) && !filteredTypes.contains(CBox.getText())) {
                                 filteredTypesCheckBox.add(CBox);
                                 filteredTypes.add(CBox.getText());
-                                CBox.setStyle("-fx-font-weight: normal;");
+                                CBox.setStyle("-fx-text-fill:  black;");
                             }
                         }
                     }
@@ -48,11 +48,8 @@ public class TypeFilterController {
         typesCheckBox.forEach(CBox -> {
             if (CBox.isSelected() && !filteredTypesCheckBox.contains(CBox)) {
                 filteredTypesCheckBox.add(CBox);
-                CBox.setStyle("-fx-font-weight: bolder;");
+                CBox.setStyle("-fx-text-fill: #b50202;");
             }});
-
-        if (filteredTypesCheckBox.isEmpty() && selectedTypes.isEmpty())
-                return typesCheckBox;
 
         return filteredTypesCheckBox;
     }
@@ -77,7 +74,7 @@ public class TypeFilterController {
                     selectedTypes.add(typeCheckBox.getText());
                 else {
                     selectedTypes.remove(typeCheckBox.getText());
-                    typeCheckBox.setStyle("-fx-font-weight: normal;");
+                    typeCheckBox.setStyle("-fx-text-fill:  black;");
                 }
             });
             typesCheckBox.add(typeCheckBox);

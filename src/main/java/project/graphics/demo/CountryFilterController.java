@@ -50,6 +50,7 @@ public class CountryFilterController {
                                 if (CCBox.getText().equals(codeToCountryName.get(provider.getCountryCode()))) {
                                     filteredCountriesCheckBox.add(CCBox);
                                     filteredCountryCode.add(provider.getCountryCode());
+                                    CCBox.setStyle("-fx-text-fill:  black;");
                                     break outerloop;
                                 }
                             }
@@ -61,13 +62,10 @@ public class CountryFilterController {
 
         countriesCheckBox.forEach(CBox -> {
             if (CBox.isSelected() && !filteredCountriesCheckBox.contains(CBox)) {
-                CBox.setStyle("-fx-font-weight: bolder;");
+                CBox.setStyle("-fx-text-fill: #b50202;");
                 filteredCountriesCheckBox.add(CBox);
             }
         });
-
-        if (filteredCountriesCheckBox.isEmpty() && selectedCountries.isEmpty())
-                return countriesCheckBox;
 
         return filteredCountriesCheckBox;
     }
@@ -98,7 +96,7 @@ public class CountryFilterController {
                 if (countryCheckBox.isSelected())
                     selectedCountries.add(countryNameToCode.get(countryCheckBox.getText()));
                 else {
-                    countryCheckBox.setStyle("-fx-font-weight: normal;");
+                    countryCheckBox.setStyle("-fx-text-fill:  black;");
                     selectedCountries.remove(countryNameToCode.get(countryCheckBox.getText()));
                 }
             });

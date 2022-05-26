@@ -84,7 +84,6 @@ public class ProviderFilterController {
                 else {
                     selectedProviders.remove(nameToProvider.get(providerCheckBox.getId()));
                 }
-                    selectedProviders.remove(nameToProvider.get(providerCheckBox.getId()));
             });
             providersCheckBox.add(providerCheckBox);
         }

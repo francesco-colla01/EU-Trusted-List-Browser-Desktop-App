@@ -56,7 +56,7 @@ public class StatusFilterController {
                             if (ss.contains(CBox.getText()) && !filteredStatuses.contains(CBox.getText())) {
                                 filteredStatusCheckBox.add(CBox);
                                 filteredStatuses.add(CBox.getText());
-                                CBox.setStyle("-fx-font-weight: normal;");
+                                CBox.setStyle("-fx-text-fill:  black;");
                             }
                         }
                     }
@@ -67,11 +67,8 @@ public class StatusFilterController {
         statusesCheckBox.forEach(CBox -> {
             if (CBox.isSelected() && !filteredStatusCheckBox.contains(CBox)) {
                 filteredStatusCheckBox.add(CBox);
-                CBox.setStyle("-fx-font-weight: bolder;");
+                CBox.setStyle("-fx-text-fill: #b50202;");
             }});
-
-        if (filteredStatusCheckBox.isEmpty() && filteredStatuses.isEmpty())
-                return statusesCheckBox;
 
         return filteredStatusCheckBox;
     }
@@ -96,7 +93,7 @@ public class StatusFilterController {
                     selectedStatuses.add(statusCheckBox.getText());
                 else {
                     selectedStatuses.remove(statusCheckBox.getText());
-                    statusCheckBox.setStyle("-fx-font-weight: normal;");
+                    statusCheckBox.setStyle("-fx-text-fill:  black;");
                 }
             });
             statusesCheckBox.add(statusCheckBox);
