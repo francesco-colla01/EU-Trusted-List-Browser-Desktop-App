@@ -8,7 +8,7 @@ import java.net.URL;
 
 
 public class HttpRequest {
-    private String parameters, resultBody;
+    private String resultBody;
     private HttpURLConnection con;
     private int requestStatus;
     private boolean errorStatus;
