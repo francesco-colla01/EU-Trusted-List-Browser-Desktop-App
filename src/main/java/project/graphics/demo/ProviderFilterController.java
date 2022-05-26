@@ -40,7 +40,7 @@ public class ProviderFilterController {
                         for (int j = 0; j< ser.length; j++) {
                             Service service = ser[j];
 
-                            if (s.contains(service.getServiceInfo().getCurrentStatus())) {
+                            if (s.contains(service.getCurrentStatus())) {
                                 filteredProviderCheckBox.add(providerCBox);
                                 break outerloop;
                             }

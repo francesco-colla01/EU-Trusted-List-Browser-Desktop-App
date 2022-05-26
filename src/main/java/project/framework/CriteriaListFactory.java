@@ -19,7 +19,6 @@ public class CriteriaListFactory {
      * @see     HttpRequest
      * @see     JSONArray
      * @see     Provider
-     * @see     ServiceInfo
      *
      */
     public void initialize() throws IOException {
@@ -51,8 +50,8 @@ public class CriteriaListFactory {
 
             for (int j = 0; j<all_tsp[i].getServices().length; j++) {
                 Service[] s = all_tsp[i].getServices();
-                if (!statusList.contains(s[j].getServiceInfo().getCurrentStatus()))
-                    statusList.add(s[j].getServiceInfo().getCurrentStatus());
+                if (!statusList.contains(s[j].getCurrentStatus()))
+                    statusList.add(s[j].getCurrentStatus());
             }
 
             for (int j = 0; j < all_tsp[i].getServiceTypes().length; j++) {

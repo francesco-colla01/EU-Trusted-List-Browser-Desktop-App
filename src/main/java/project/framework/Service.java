@@ -3,10 +3,13 @@ package project.framework;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Collections;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class Service {
-    private ServiceInfo info;
+    private String countryCode, currentStatus, serviceName, typeIdentifier;
+    private String[] serviceTypes;
 
     /**
      *  Service constructor; creates a Service object.
@@ -14,33 +17,46 @@ public class Service {
      * @param  jsonSource is a string get from the Json file in which are
      *                    all the service information needed
      *
-     *
-     * @see     ServiceInfo class
      * @see     JSONObject
      */
     public Service(String jsonSource) {
         JSONObject data = new JSONObject(jsonSource);
 
-        String cc = data.getString("countryCode");
-        String sn = data.getString("serviceName");
-        String t = data.getString("type");
+        countryCode = data.getString("countryCode");
+        serviceName = data.getString("serviceName");
+        typeIdentifier = data.getString("type");
 
         JSONArray jsonServiceTypes = data.getJSONArray("qServiceTypes");
-        String[] st = new String[jsonServiceTypes.length()];
+        serviceTypes = new String[jsonServiceTypes.length()];
         for (int i = 0; i < jsonServiceTypes.length(); i++) {
-            st[i] = jsonServiceTypes.getString(i);
+            serviceTypes[i] = jsonServiceTypes.getString(i);
         }
 
         Scanner status_reader = new Scanner(data.getString("currentStatus"));
         status_reader.useDelimiter("/");
-        String cs = "";
+        currentStatus = "";
         while (status_reader.hasNext()) {
-            cs = status_reader.next();
+            currentStatus = status_reader.next();
         }
-
-        info = new ServiceInfo(cc, cs, sn, t, st);
     }
 
-    //Get method
-    public ServiceInfo getServiceInfo() { return info; }
+    //Get method: one vector including every private attribute
+    //first four elements: countryCode, currentStatus, serviceName, typeIdentifier
+    //other elements: serviceTypes
+    public Vector<String> getServiceInfo() {
+        Vector<String> info = new Vector<>();
+        info.add(countryCode);
+        info.add(currentStatus);
+        info.add(serviceName);
+        info.add(typeIdentifier);
+        Collections.addAll(info, serviceTypes);
+        return info;
+    }
+
+    //Individual get methods for all the private attributes
+    public String getCountryCode() { return countryCode; }
+    public String getCurrentStatus() { return currentStatus; }
+    public String getServiceName() { return serviceName; }
+    public String getTypeIdentifier() { return typeIdentifier; }
+    public String[] getServiceTypes() { return serviceTypes; }
 }

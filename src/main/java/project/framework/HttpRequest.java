@@ -8,10 +8,10 @@ import java.net.URL;
 
 
 public class HttpRequest {
-    String parameters, resultBody;
-    HttpURLConnection con;
-    int requestStatus;
-    boolean errorStatus;
+    private String resultBody;
+    private HttpURLConnection con;
+    private int requestStatus;
+    private boolean errorStatus;
 
     /**
      * HttpRequest constructor; this class is used to establish a connection

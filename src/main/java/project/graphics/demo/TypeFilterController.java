@@ -29,7 +29,7 @@ public class TypeFilterController {
 
                 for (Service ser : services) {
 
-                    if (s.contains(ser.getServiceInfo().getCurrentStatus())) {
+                    if (s.contains(ser.getCurrentStatus())) {
 
                         Vector<String> types = new Vector<>(Arrays.asList(prov.getServiceTypes()));
 

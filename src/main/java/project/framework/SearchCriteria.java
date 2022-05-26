@@ -2,13 +2,13 @@ package project.framework;
 
 import java.util.Vector;
 
-public class FilterCriteria {
+public class SearchCriteria {
     private Vector<String> countries;
     private Vector<Provider> providers;
     private Vector<String> types;
     private Vector<String> statuses;
 
-    public FilterCriteria(Vector<String> c, Vector<Provider> p, Vector<String> t, Vector<String> s) {
+    public SearchCriteria(Vector<String> c, Vector<Provider> p, Vector<String> t, Vector<String> s) {
         countries = c;
         providers = p;
         types = t;
