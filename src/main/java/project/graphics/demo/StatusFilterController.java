@@ -48,8 +48,8 @@ public class StatusFilterController {
                         Vector<String> ss = new Vector<>();
 
                         for (Service service : services) {
-                            if (!ss.contains(service.getServiceInfo().getCurrentStatus()))
-                                ss.add(service.getServiceInfo().getCurrentStatus());
+                            if (!ss.contains(service.getCurrentStatus()))
+                                ss.add(service.getCurrentStatus());
                         }
 
                         for (CheckBox CBox : statusesCheckBox) {

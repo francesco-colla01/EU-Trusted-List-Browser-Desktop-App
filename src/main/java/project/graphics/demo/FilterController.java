@@ -1,7 +1,7 @@
 package project.graphics.demo;
 
 import javafx.scene.control.CheckBox;
-import project.framework.FilterCriteria;
+import project.framework.SearchCriteria;
 import project.framework.Provider;
 
 import java.util.*;
@@ -43,21 +43,21 @@ public class FilterController {
         return tmp;
     }
 
-    public FilterCriteria getSelectedCriteria() {
+    public SearchCriteria getSelectedCriteria() {
         Vector<String> c = countries.getSelectedCriteria();
         Vector<Provider> p = providers.getSelectedCriteria();
         Vector<String> t = types.getSelectedCriteria();
         Vector<String> s = statuses.getSelectedCriteria();
-        FilterCriteria criteria = new FilterCriteria(c, p, t, s);
+        SearchCriteria criteria = new SearchCriteria(c, p, t, s);
         return criteria;
     }
 
-    public FilterCriteria getFilterCriteria() {
+    /*public SearchCriteria getFilterCriteria() {
         Vector<String> c = countries.getFilterCriteria();
         Vector<Provider> p = providers.getFilterCriteria();
         Vector<String> t = types.getFilterCriteria();
         Vector<String> s = statuses.getFilterCriteria();
-        FilterCriteria criteria = new FilterCriteria(c, p, t, s);
+        SearchCriteria criteria = new SearchCriteria(c, p, t, s);
         return criteria;
-    }
+    }*/
 }

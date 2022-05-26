@@ -44,7 +44,7 @@ public class CountryFilterController {
                     for (int j = 0; j < ser.length; j++) {
                         Service service = ser[j];
 
-                        if (s.contains(service.getServiceInfo().getCurrentStatus())) {
+                        if (s.contains(service.getCurrentStatus())) {
 
                             for (CheckBox CCBox : countriesCheckBox) {
                                 if (CCBox.getText().equals(codeToCountryName.get(provider.getCountryCode()))) {

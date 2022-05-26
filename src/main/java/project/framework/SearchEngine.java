@@ -21,9 +21,9 @@ public class SearchEngine {
         clearSearchResults();
         for (Provider p : providers) {
             for (Service s : p.getServices()) {
-                if (countries.contains(s.getServiceInfo().getCountryCode())
-                        && statuses.contains(s.getServiceInfo().getCurrentStatus())) {
-                    String[] t = s.getServiceInfo().getServiceTypes();
+                if (countries.contains(s.getCountryCode())
+                        && statuses.contains(s.getCurrentStatus())) {
+                    String[] t = s.getServiceTypes();
                     for (String type : t) {
                         if (types.contains(type)) {
                             searchResults.add(s);
@@ -37,9 +37,5 @@ public class SearchEngine {
 
     public Vector<Service> getSearchResults() {
         return searchResults;
-    }
-
-    public ServiceInfo getServiceInfo(int serviceIndex) {
-        return searchResults.get(serviceIndex).getServiceInfo();
     }
 }
