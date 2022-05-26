@@ -21,13 +21,15 @@ public class SearchEngine {
         clearSearchResults();
         for (Provider p : providers) {
             for (Service s : p.getServices()) {
-                String[] t = s.getServiceInfo().getServiceTypes();
-                for (String type : t) {
-                        if (countries.contains(s.getServiceInfo().getCountryCode()) && types.contains(type)
-                                && statuses.contains(s.getServiceInfo().getCurrentStatus())) {
+                if (countries.contains(s.getServiceInfo().getCountryCode())
+                        && statuses.contains(s.getServiceInfo().getCurrentStatus())) {
+                    String[] t = s.getServiceInfo().getServiceTypes();
+                    for (String type : t) {
+                        if (types.contains(type)) {
                             searchResults.add(s);
                             break;
                         }
+                    }
                 }
             }
         }
