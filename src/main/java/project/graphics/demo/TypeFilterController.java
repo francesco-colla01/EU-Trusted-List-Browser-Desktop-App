@@ -20,8 +20,11 @@ public class TypeFilterController {
     }
 
     public List<CheckBox> getCheckBoxes(Vector<String> c, Vector<Provider> p, Vector<String> s) {
-        filteredTypesCheckBox.clear();
         filteredTypes.clear();
+
+        typesCheckBox.forEach(CBox -> {
+            CBox.setDisable(true);
+        });
 
         for (Provider prov : p) {
             if (c.contains(prov.getCountryCode())) {
@@ -35,7 +38,7 @@ public class TypeFilterController {
 
                         for (CheckBox CBox : typesCheckBox) {
                             if (types.contains(CBox.getText()) && !filteredTypes.contains(CBox.getText())) {
-                                filteredTypesCheckBox.add(CBox);
+                                CBox.setDisable(false);
                                 filteredTypes.add(CBox.getText());
                                 CBox.setStyle("-fx-text-fill:  black;");
                             }
@@ -46,12 +49,12 @@ public class TypeFilterController {
         }
 
         typesCheckBox.forEach(CBox -> {
-            if (CBox.isSelected() && !filteredTypesCheckBox.contains(CBox)) {
-                filteredTypesCheckBox.add(CBox);
+            if (CBox.isSelected() && !filteredTypes.contains(CBox.getText())) {
+                CBox.setDisable(false);
                 CBox.setStyle("-fx-text-fill: #b50202;");
             }});
 
-        return filteredTypesCheckBox;
+        return typesCheckBox;
     }
 
     public Vector<String> getSelectedCriteria() {
@@ -69,6 +72,7 @@ public class TypeFilterController {
         for (String type : allTypes) {
             CheckBox typeCheckBox = new CheckBox(type);
             typeCheckBox.getStyleClass().add("countries-check-box");
+            typeCheckBox.setDisable(true);
             typeCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
                 if (typeCheckBox.isSelected())
                     selectedTypes.add(typeCheckBox.getText());

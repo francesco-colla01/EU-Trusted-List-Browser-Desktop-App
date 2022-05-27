@@ -23,9 +23,9 @@ public class FilterController {
     public List<CheckBox> getCheckBoxes(String criterion) {
         List<CheckBox> tmp = new ArrayList<>();
         Vector<String> c = countries.getFilterCriteria();
-        Vector<Provider> p = providers.getFilterCriteria();
         Vector<String> t = types.getFilterCriteria();
         Vector<String> s = statuses.getFilterCriteria();
+        Vector<Provider> p = providers.getFilterCriteria(c,t,s);
         switch (criterion) {
             case "c":
                 tmp = countries.getCheckBoxes(p, t, s);
@@ -45,11 +45,10 @@ public class FilterController {
 
     public SearchCriteria getSelectedCriteria() {
         Vector<String> c = countries.getSelectedCriteria();
-        Vector<Provider> p = providers.getSelectedCriteria();
         Vector<String> t = types.getSelectedCriteria();
         Vector<String> s = statuses.getSelectedCriteria();
-        SearchCriteria criteria = new SearchCriteria(c, p, t, s);
-        return criteria;
+        Vector<Provider> p = providers.getSelectedCriteria();
+        return new SearchCriteria(c, p, t, s);
     }
 
     /*public SearchCriteria getFilterCriteria() {

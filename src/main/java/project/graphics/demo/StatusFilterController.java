@@ -35,7 +35,10 @@ public class StatusFilterController {
      */
     public List<CheckBox> getCheckBoxes(Vector<String> c, Vector<Provider> p, Vector<String> t) {
         filteredStatuses.clear();
-        filteredStatusCheckBox.clear();
+
+        statusesCheckBox.forEach(CBox -> {
+            CBox.setDisable(true);
+        });
 
         for (Provider prov : p) {
 
@@ -54,9 +57,9 @@ public class StatusFilterController {
 
                         for (CheckBox CBox : statusesCheckBox) {
                             if (ss.contains(CBox.getText()) && !filteredStatuses.contains(CBox.getText())) {
-                                filteredStatusCheckBox.add(CBox);
                                 filteredStatuses.add(CBox.getText());
                                 CBox.setStyle("-fx-text-fill:  black;");
+                                CBox.setDisable(false);
                             }
                         }
                     }
@@ -65,12 +68,13 @@ public class StatusFilterController {
         }
 
         statusesCheckBox.forEach(CBox -> {
-            if (CBox.isSelected() && !filteredStatusCheckBox.contains(CBox)) {
+            if (CBox.isSelected() && !filteredStatuses.contains(CBox.getText())) {
                 filteredStatusCheckBox.add(CBox);
                 CBox.setStyle("-fx-text-fill: #b50202;");
+                CBox.setDisable(false);
             }});
 
-        return filteredStatusCheckBox;
+        return statusesCheckBox;
     }
 
     public Vector<String> getSelectedCriteria() {
@@ -88,6 +92,7 @@ public class StatusFilterController {
         for(String status : allStatuses) {
             CheckBox statusCheckBox = new CheckBox(status);
             statusCheckBox.getStyleClass().add("countries-check-box");
+            statusCheckBox.setDisable(true);
             statusCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
                 if (statusCheckBox.isSelected())
                     selectedStatuses.add(statusCheckBox.getText());

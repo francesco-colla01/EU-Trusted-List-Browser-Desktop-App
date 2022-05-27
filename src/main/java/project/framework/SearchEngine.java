@@ -18,21 +18,8 @@ public class SearchEngine {
     }
 
     public void performSearch(Vector<String> countries, Vector<Provider> providers, Vector<String> types, Vector<String> statuses) {
-        clearSearchResults();
-        for (Provider p : providers) {
-            for (Service s : p.getServices()) {
-                if (countries.contains(s.getCountryCode())
-                        && statuses.contains(s.getCurrentStatus())) {
-                    String[] t = s.getServiceTypes();
-                    for (String type : t) {
-                        if (types.contains(type)) {
-                            searchResults.add(s);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+
+        
     }
 
     public Vector<Service> getSearchResults() {

@@ -14,7 +14,6 @@ public class CountryFilterController {
     private Vector<String> selectedCountries = new Vector<>();
     private Map<String, String> codeToCountryName = new HashMap<>();
     private List<CheckBox> countriesCheckBox = new Vector<>();
-    private List<CheckBox> filteredCountriesCheckBox = new Vector<>();
     private Vector<String> filteredCountryCode = new Vector<>();
 
     CountryFilterController() {
@@ -26,8 +25,10 @@ public class CountryFilterController {
     }
 
     public List<CheckBox> getCheckBoxes(Vector<Provider> p, Vector<String> t, Vector<String> s) {
-        filteredCountriesCheckBox.clear();
         filteredCountryCode.clear();
+        countriesCheckBox.forEach(CBox -> {
+            CBox.setDisable(true);
+        });
 
         for (Provider provider : p) {
             if (filteredCountryCode.contains(provider.getCountryCode()))
@@ -48,7 +49,7 @@ public class CountryFilterController {
 
                             for (CheckBox CCBox : countriesCheckBox) {
                                 if (CCBox.getText().equals(codeToCountryName.get(provider.getCountryCode()))) {
-                                    filteredCountriesCheckBox.add(CCBox);
+                                    CCBox.setDisable(false);
                                     filteredCountryCode.add(provider.getCountryCode());
                                     CCBox.setStyle("-fx-text-fill:  black;");
                                     break outerloop;
@@ -61,13 +62,13 @@ public class CountryFilterController {
         }
 
         countriesCheckBox.forEach(CBox -> {
-            if (CBox.isSelected() && !filteredCountriesCheckBox.contains(CBox)) {
+            if (CBox.isSelected() && !filteredCountryCode.contains(CriteriaListFactory.getCountryNameToCode().get(CBox.getText()))) {
                 CBox.setStyle("-fx-text-fill: #b50202;");
-                filteredCountriesCheckBox.add(CBox);
+                CBox.setDisable(false);
             }
         });
 
-        return filteredCountriesCheckBox;
+        return countriesCheckBox;
     }
 
     public Vector<String> getSelectedCriteria() {
@@ -92,6 +93,7 @@ public class CountryFilterController {
         for (String country : allCountries) {
             CheckBox countryCheckBox = new CheckBox(country);
             countryCheckBox.getStyleClass().add("countries-check-box");
+            countryCheckBox.setDisable(true);
             countryCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
                 if (countryCheckBox.isSelected())
                     selectedCountries.add(countryNameToCode.get(countryCheckBox.getText()));

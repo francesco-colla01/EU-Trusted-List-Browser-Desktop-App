@@ -5,10 +5,7 @@ import project.framework.Provider;
 import project.framework.Service;
 import javafx.scene.control.CheckBox;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 public class ProviderFilterController {
     //private Vector<Provider> allProviders; da CLF
@@ -17,13 +14,12 @@ public class ProviderFilterController {
     private List<CheckBox> filteredProviderCheckBox = new Vector<>();
     private Map<String, Provider> nameToProvider = new HashMap<>();
 
-    public ProviderFilterController() {
-        generateProviderCheckboxes();
-    }
+    public ProviderFilterController() { generateProviderCheckboxes(); }
 
     public List<CheckBox> getCheckBoxes(Vector<String> c, Vector<String> t, Vector<String> s) {
         filteredProviderCheckBox.clear();
         for (CheckBox providerCBox : providersCheckBox) {
+
             Provider provider = nameToProvider.get(providerCBox.getId());
 
             if (c.contains(provider.getCountryCode())) {
@@ -40,7 +36,14 @@ public class ProviderFilterController {
                         for (int j = 0; j< ser.length; j++) {
                             Service service = ser[j];
 
-                            if (s.contains(service.getCurrentStatus())) {
+                            boolean contains = false;
+                            for (String typo : service.getServiceTypes()) {
+                                if (t.contains(typo))
+                                    contains = true;
+                                break;
+                            }
+
+                            if (s.contains(service.getCurrentStatus()) && contains) {
                                 filteredProviderCheckBox.add(providerCBox);
                                 break outerloop;
                             }
@@ -65,7 +68,7 @@ public class ProviderFilterController {
         return selectedProviders;
     }
 
-    public Vector<Provider> getFilterCriteria() {
+    public Vector<Provider> getFilterCriteria(Vector<String> c, Vector<String> t, Vector<String> s) {
         if (selectedProviders.isEmpty())
             return CriteriaListFactory.getProviderList();
         return selectedProviders;

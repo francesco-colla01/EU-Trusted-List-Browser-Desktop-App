@@ -1,11 +1,7 @@
 package project.graphics.demo;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import project.framework.CriteriaListFactory;
-import project.framework.HttpRequest;
-import project.framework.Provider;
-import project.framework.Service;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -19,12 +15,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.json.JSONArray;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 //TODO METTERE A POSTO LE CLASSI CHE GESTISCONO L'UPDATE DELLE TABELLE
 //TODO CAMBIARE BOTTONE PER LA RICERCA
@@ -49,24 +43,43 @@ public class EuTrustServicesDashboard extends Application {
 
         FilterController filter = criteriaListFactory.getFilterController();
 
+        // Enable All Countries
+        CheckBox enableAllCountries = (CheckBox) fxmlLoader.getNamespace().get("enableAllCountries");
+
+        //Use elastic providers filter?
+        boolean useElastic = (enableAllCountries.isSelected());
+
+
         // Countries
         AnchorPane countriesPane = (AnchorPane) fxmlLoader.getNamespace().get("countriesAnchorPane");
 
         VBox countriesCheckBoxesLeft = new VBox();
         VBox countriesCheckBoxesRight = new VBox();
 
-        Timeline countriesTPane = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-
+        Timeline countriesTPane = new Timeline(new KeyFrame(Duration.seconds(0.25), ev -> {
             List<CheckBox> filteredCountries = filter.getCheckBoxes("c");
-            countriesCheckBoxesLeft.getChildren().clear();
-            countriesCheckBoxesRight.getChildren().clear();
-            int separator = 0;
-            for (CheckBox CBox : filteredCountries) {
-                if (separator < (filteredCountries.size()/2))
-                    countriesCheckBoxesLeft.getChildren().add(CBox);
-                else
-                    countriesCheckBoxesRight.getChildren().add(CBox);
-                separator++;
+
+            if (enableAllCountries.isSelected())
+                filteredCountries.forEach(CBox -> {
+                    CBox.setDisable(false);
+                });
+            else {
+                int separator = 0;
+
+                for (CheckBox CBox : filteredCountries) {
+                    if (separator < (filteredCountries.size()/2)) {
+                        if (!countriesCheckBoxesLeft.getChildren().contains(CBox)) {
+                            countriesCheckBoxesLeft.getChildren().add(CBox);
+                        }
+                    }
+                    else {
+                        if (!countriesCheckBoxesRight.getChildren().contains(CBox)) {
+                            countriesCheckBoxesRight.getChildren().add(CBox);
+                        }
+                    }
+
+                    separator++;
+                }
             }
         }));
 
@@ -76,7 +89,7 @@ public class EuTrustServicesDashboard extends Application {
         HBox countriesCheckBoxes = new HBox(countriesCheckBoxesLeft, countriesCheckBoxesRight);
         countriesCheckBoxes.setSpacing(15);
 
-        AnchorPane.setTopAnchor(countriesCheckBoxes, 75.0);
+        AnchorPane.setTopAnchor(countriesCheckBoxes, 10.0);
         AnchorPane.setLeftAnchor(countriesCheckBoxes, 22.0);
 
         countriesCheckBoxes.setSpacing(55);
@@ -90,18 +103,20 @@ public class EuTrustServicesDashboard extends Application {
         VBox tosCheckBoxesLeft = new VBox();
         VBox tosCheckBoxesRight = new VBox();
 
-        Timeline tosPane = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+        Timeline tosPane = new Timeline(new KeyFrame(Duration.seconds(0.25), ev -> {
             List<CheckBox> tosCBoxes = filter.getCheckBoxes("t");
-
-            tosCheckBoxesLeft.getChildren().clear();
-            tosCheckBoxesRight.getChildren().clear();
 
             int separator = 0;
             for (CheckBox CBox : tosCBoxes) {
-                if (separator < tosCBoxes.size()/2)
-                    tosCheckBoxesLeft.getChildren().add(CBox);
-                else
-                    tosCheckBoxesRight.getChildren().add(CBox);
+                if (separator < tosCBoxes.size()/2) {
+                    if (!tosCheckBoxesLeft.getChildren().contains(CBox)) {
+                        tosCheckBoxesLeft.getChildren().add(CBox);
+                    }
+                } else {
+                    if (!tosCheckBoxesRight.getChildren().contains(CBox)) {
+                        tosCheckBoxesRight.getChildren().add(CBox);
+                    }
+                }
                 separator++;
             }
 
@@ -127,20 +142,20 @@ public class EuTrustServicesDashboard extends Application {
         VBox ssCheckBoxesLeft = new VBox();
         VBox ssCheckBoxesRight = new VBox();
 
-        Timeline ssPane = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+        Timeline ssPane = new Timeline(new KeyFrame(Duration.seconds(0.25), ev -> {
             List<CheckBox> ssCBoxes = filter.getCheckBoxes("s");
-
-            ssCheckBoxesLeft.getChildren().clear();
-            ssCheckBoxesRight.getChildren().clear();
-
-            System.out.println(ssCBoxes);
 
             int separator = 0;
             for (CheckBox CBox : ssCBoxes) {
-                if (separator < ssCBoxes.size()/2)
-                    ssCheckBoxesLeft.getChildren().add(CBox);
-                else
-                    ssCheckBoxesRight.getChildren().add(CBox);
+                if (separator < ssCBoxes.size()/2) {
+                    if (!ssCheckBoxesLeft.getChildren().contains(CBox)) {
+                        ssCheckBoxesLeft.getChildren().add(CBox);
+                    }
+                } else {
+                    if (!ssCheckBoxesRight.getChildren().contains(CBox)) {
+                        ssCheckBoxesRight.getChildren().add(CBox);
+                    }
+                }
                 separator++;
             }
 
@@ -158,6 +173,14 @@ public class EuTrustServicesDashboard extends Application {
         ssCheckBoxes.setSpacing(55);
         ssCheckBoxes.setAlignment(Pos.CENTER_LEFT);
 
+        // Load Select All CBox
+        CheckBox selectAllCBox = (CheckBox) fxmlLoader.getNamespace().get("selectAllProviders");
+        AtomicBoolean edit = new AtomicBoolean(true);
+        selectAllCBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
+            List<CheckBox> filtered_providers = filter.getCheckBoxes("p");
+            if (edit.get())
+                filtered_providers.forEach(CBox ->CBox.setSelected(selectAllCBox.isSelected()));
+        });
 
 
         // Provider
@@ -165,15 +188,52 @@ public class EuTrustServicesDashboard extends Application {
 
         VBox providersCheckBoxes = new VBox();
 
-        Timeline pane = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+        List<CheckBox> old_filteredCountriesCheckBox = new LinkedList<>();
+
+        Timeline pane = new Timeline(new KeyFrame(Duration.seconds(0.25), ev -> {
             List<CheckBox> filtered_providers = filter.getCheckBoxes("p");
 
-            providersCheckBoxes.getChildren().clear();
 
-            if (filtered_providers == null)
+            if (filtered_providers == null) {
+                providersCheckBoxes.getChildren().clear();
                 providersCheckBoxes.getChildren().add(new Label("No providers found with matching criteria"));
-            else
-                providersCheckBoxes.getChildren().addAll(filtered_providers);
+            } else {
+                if (old_filteredCountriesCheckBox.size() != filtered_providers.size()) {
+                    providersCheckBoxes.getChildren().clear();
+                    providersCheckBoxes.getChildren().addAll(filtered_providers);
+                }
+            }
+
+            if (filtered_providers != null) {
+                if (old_filteredCountriesCheckBox.size() < filtered_providers.size()) {
+                    edit.set(false);
+                    selectAllCBox.setSelected(false);
+                    edit.set(true);
+                }
+
+                if (filtered_providers.size() != filter.getSelectedCriteria().getProviders().size() && selectAllCBox.isSelected()) {
+                    edit.set(false);
+                    selectAllCBox.setSelected(false);
+                    edit.set(true);
+                }
+
+                if (!selectAllCBox.isSelected() && filtered_providers.size() == filter.getSelectedCriteria().getProviders().size()) {
+                    edit.set(false);
+                    selectAllCBox.setSelected(true);
+                    edit.set(true);
+                }
+                selectAllCBox.setDisable(false);
+            } else {
+                selectAllCBox.setDisable(true);
+            }
+            /*else if (!selectAllCBox.isSelected() && filtered_providers.size() != filter.getSelectedCriteria().getProviders().size()) {
+                edit.set(false);
+                selectAllCBox.setSelected(true);
+                edit.set(true);
+            } */
+
+            old_filteredCountriesCheckBox.clear();
+            old_filteredCountriesCheckBox.addAll((filtered_providers == null ? new LinkedList<>() : filtered_providers));
         }));
 
         pane.setCycleCount(Animation.INDEFINITE);
@@ -189,6 +249,7 @@ public class EuTrustServicesDashboard extends Application {
         tosAnchorPane.getChildren().add(tosCheckBoxes);
         ssAnchorPane.getChildren().add(ssCheckBoxes);
         scrollPane.getChildren().add(providersCheckBoxes);
+
 
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("css/stylesheet.css")).toExternalForm());
 
