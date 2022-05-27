@@ -1,6 +1,7 @@
 package project.graphics.demo;
 
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import project.framework.CriteriaListFactory;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -15,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 
 import java.io.IOException;
 import java.util.*;
@@ -37,6 +39,8 @@ public class EuTrustServicesDashboard extends Application {
         stage.setTitle("EU Trust Service Dashboard");
         stage.setScene(scene);
         stage.setResizable(false);
+        Image image = new Image("file:icon.png");
+        stage.getIcons().add(image);
 
         CriteriaListFactory criteriaListFactory = new CriteriaListFactory();
         criteriaListFactory.initialize(); //fill all the data structure in CriteriaListFactory
