@@ -43,13 +43,6 @@ public class EuTrustServicesDashboard extends Application {
 
         FilterController filter = criteriaListFactory.getFilterController();
 
-        // Enable All Countries
-        CheckBox enableAllCountries = (CheckBox) fxmlLoader.getNamespace().get("enableAllCountries");
-
-        //Use elastic providers filter?
-        boolean useElastic = (enableAllCountries.isSelected());
-
-
         // Countries
         AnchorPane countriesPane = (AnchorPane) fxmlLoader.getNamespace().get("countriesAnchorPane");
 
@@ -58,18 +51,12 @@ public class EuTrustServicesDashboard extends Application {
 
         Timeline countriesTPane = new Timeline(new KeyFrame(Duration.seconds(0.25), ev -> {
             List<CheckBox> filteredCountries = filter.getCheckBoxes("c");
+            int separator = 0;
 
-            if (enableAllCountries.isSelected())
-                filteredCountries.forEach(CBox -> {
-                    CBox.setDisable(false);
-                });
-            else {
-                int separator = 0;
-
-                for (CheckBox CBox : filteredCountries) {
-                    if (separator < (filteredCountries.size()/2)) {
-                        if (!countriesCheckBoxesLeft.getChildren().contains(CBox)) {
-                            countriesCheckBoxesLeft.getChildren().add(CBox);
+            for (CheckBox CBox : filteredCountries) {
+                if (separator < (filteredCountries.size()/2)) {
+                    if (!countriesCheckBoxesLeft.getChildren().contains(CBox)) {
+                        countriesCheckBoxesLeft.getChildren().add(CBox);
                         }
                     }
                     else {
@@ -81,7 +68,7 @@ public class EuTrustServicesDashboard extends Application {
                     separator++;
                 }
             }
-        }));
+        ));
 
         countriesTPane.setCycleCount(Animation.INDEFINITE);
         countriesTPane.play();

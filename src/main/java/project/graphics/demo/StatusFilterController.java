@@ -43,25 +43,21 @@ public class StatusFilterController {
         for (Provider prov : p) {
 
             if (c.contains(prov.getCountryCode())) {
-                Vector<String> types = new Vector<>(Arrays.asList(prov.getServiceTypes()));
 
-                for (String type : types) {
-                    if (t.contains(type)) {
-                        Service[] services = prov.getServices();
-                        Vector<String> ss = new Vector<>();
+                Service[] services = prov.getServices();
+                for (Service s : services) {
+                    String[] types = s.getServiceTypes();
 
-                        for (Service service : services) {
-                            if (!ss.contains(service.getCurrentStatus()))
-                                ss.add(service.getCurrentStatus());
-                        }
+                    for (String type : types) {
+                        if (t.contains(type) && !filteredStatuses.contains(s.getCurrentStatus()))
+                            filteredStatuses.add(s.getCurrentStatus());
+                    }
+                }
 
-                        for (CheckBox CBox : statusesCheckBox) {
-                            if (ss.contains(CBox.getText()) && !filteredStatuses.contains(CBox.getText())) {
-                                filteredStatuses.add(CBox.getText());
-                                CBox.setStyle("-fx-text-fill:  black;");
-                                CBox.setDisable(false);
-                            }
-                        }
+                for (CheckBox CBox : statusesCheckBox) {
+                    if (filteredStatuses.contains(CBox.getText())) {
+                        CBox.setStyle("-fx-text-fill:  black;");
+                        CBox.setDisable(false);
                     }
                 }
             }
