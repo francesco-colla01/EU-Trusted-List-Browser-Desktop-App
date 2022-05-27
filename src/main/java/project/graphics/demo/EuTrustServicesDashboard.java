@@ -247,6 +247,9 @@ public class EuTrustServicesDashboard extends Application {
         stage.show();
 
         AlertScene.alertScene(stage);
+
+        // TODO CHIAMATA PER RICERCA: CREARE OGGETTO SEARCH CRITERIA CON CRITERI
+        // TODO E USARE PERFORMSEARCH(OGGETTO SEARCHCRITERIA)
     }
 
     public static void main(String[] args) {

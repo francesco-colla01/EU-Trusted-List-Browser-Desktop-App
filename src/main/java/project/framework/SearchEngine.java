@@ -18,17 +18,17 @@ public class SearchEngine {
         return instance;
     }
 
-    public void performSearch(Vector<String> countries, Vector<Provider> providers, Vector<String> types, Vector<String> statuses) {
+    public void performSearch(SearchCriteria criteria) {
         Map<String, String> nameToCode = CriteriaListFactory.getCountryNameToCode();
         Vector<String> codeToName = new Vector<>(); //vector with country codes instead of country names
-        for (String c : countries) codeToName.add(nameToCode.get(c));
-        for (Provider p : providers) {
+        for (String c : criteria.getCountries()) codeToName.add(nameToCode.get(c));
+        for (Provider p : criteria.getProviders()) {
             Service[] ser = p.getServices();
             for (Service s : ser) {
                 if (codeToName.contains(s.getCountryCode()) &&
-                        statuses.contains(s.getCurrentStatus())) {
+                        criteria.getStatuses().contains(s.getCurrentStatus())) {
                     for (String type : s.getServiceTypes()) {
-                        if (types.contains(type)) {
+                        if (criteria.getTypes().contains(type)) {
                             searchResults.add(s);
                             break;
                         }
