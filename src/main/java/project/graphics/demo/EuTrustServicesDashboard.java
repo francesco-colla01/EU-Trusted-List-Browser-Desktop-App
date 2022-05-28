@@ -261,7 +261,9 @@ public class EuTrustServicesDashboard extends Application {
             }
             try {
                 SearchEngine.getInstance().performSearch(criteria);
-                stage.setScene(Result.result(stage, scene));
+                Scene resultScene = Result.result(stage, scene, SearchEngine.getInstance().getSearchResults());
+                resultScene.getStylesheets().add(Objects.requireNonNull(Result.class.getResource("css/stylesheet.css")).toExternalForm());
+                stage.setScene(resultScene);
             } catch (IOException e) {
                 e.printStackTrace();
             }

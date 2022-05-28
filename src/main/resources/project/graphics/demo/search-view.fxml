@@ -22,9 +22,9 @@
       </MenuBar>
       <FlowPane prefHeight="799.0" prefWidth="1250.0">
          <children>
-            <ScrollPane prefHeight="675.0" prefWidth="1250.0">
+            <ScrollPane fx:id="resultScrollPane" prefHeight="675.0" prefWidth="1250.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" />
+                <AnchorPane fx:id="resultAnchorPAne" minHeight="0.0" minWidth="0.0" />
               </content>
             </ScrollPane>
             <AnchorPane prefHeight="50.0" prefWidth="1250.0">

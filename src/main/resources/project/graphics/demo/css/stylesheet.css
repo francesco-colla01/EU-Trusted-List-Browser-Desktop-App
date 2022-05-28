@@ -12,3 +12,7 @@
 .countries-check-box {
     -fx-font-size: 18px;
 }
+
+.country-titled-pane {
+    -fx-background-color: #E2E2E2;
+}
