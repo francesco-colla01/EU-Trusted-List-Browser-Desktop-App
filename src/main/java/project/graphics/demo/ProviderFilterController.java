@@ -64,7 +64,12 @@ public class ProviderFilterController {
         return filteredProviderCheckBox;
     }
 
-    public Vector<Provider> getSelectedCriteria() {
+    public Vector<Provider> getCriteria() {
+        if (selectedProviders.isEmpty()) {
+            Vector<Provider> tmp = new Vector<>();
+            for (CheckBox cb : filteredProviderCheckBox) tmp.add(nameToProvider.get(cb.getText()));
+            return tmp;
+        }
         return selectedProviders;
     }
 

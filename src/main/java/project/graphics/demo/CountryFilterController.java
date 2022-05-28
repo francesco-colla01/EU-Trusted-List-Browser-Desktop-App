@@ -31,7 +31,8 @@ public class CountryFilterController {
         });
 
         for (Provider provider : p) {
-            if (filteredCountryCode.contains(provider.getCountryCode()))
+            String cc = provider.getCountryCode();
+            if (filteredCountryCode.contains(cc))
                 continue;
 
             String[] providerTypes = provider.getServiceTypes();
@@ -48,9 +49,9 @@ public class CountryFilterController {
                         if (s.contains(service.getCurrentStatus())) {
 
                             for (CheckBox CCBox : countriesCheckBox) {
-                                if (CCBox.getText().equals(codeToCountryName.get(provider.getCountryCode()))) {
+                                if (CCBox.getText().equals(codeToCountryName.get(cc))) {
                                     CCBox.setDisable(false);
-                                    filteredCountryCode.add(provider.getCountryCode());
+                                    filteredCountryCode.add(cc);
                                     CCBox.setStyle("-fx-text-fill:  black;");
                                     break outerloop;
                                 }
@@ -71,7 +72,8 @@ public class CountryFilterController {
         return countriesCheckBox;
     }
 
-    public Vector<String> getSelectedCriteria() {
+    public Vector<String> getCriteria() {
+        if (selectedCountries.isEmpty()) return filteredCountryCode;
         return selectedCountries;
     }
 

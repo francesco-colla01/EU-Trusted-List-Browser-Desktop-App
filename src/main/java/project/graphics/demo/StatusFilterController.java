@@ -6,7 +6,6 @@ import project.framework.Provider;
 import project.framework.Service;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -49,8 +48,9 @@ public class StatusFilterController {
                     String[] types = s.getServiceTypes();
 
                     for (String type : types) {
-                        if (t.contains(type) && !filteredStatuses.contains(s.getCurrentStatus()))
-                            filteredStatuses.add(s.getCurrentStatus());
+                        String cs = s.getCurrentStatus();
+                        if (t.contains(type) && !filteredStatuses.contains(cs))
+                            filteredStatuses.add(cs);
                     }
                 }
 
@@ -73,7 +73,8 @@ public class StatusFilterController {
         return statusesCheckBox;
     }
 
-    public Vector<String> getSelectedCriteria() {
+    public Vector<String> getCriteria() {
+        if (selectedStatuses.isEmpty()) return filteredStatuses;
         return selectedStatuses;
     }
 

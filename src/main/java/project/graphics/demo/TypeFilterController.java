@@ -57,7 +57,8 @@ public class TypeFilterController {
         return typesCheckBox;
     }
 
-    public Vector<String> getSelectedCriteria() {
+    public Vector<String> getCriteria() {
+        if (selectedTypes.isEmpty()) return filteredTypes;
         return selectedTypes;
     }
 
