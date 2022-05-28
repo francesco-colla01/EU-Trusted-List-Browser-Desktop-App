@@ -1,5 +1,5 @@
-.search-button{
-    background-color: #004494;
+.searchButton{
+    -fx-background-color: #004494;
 }
 
 .countries-check-box > .box {

@@ -248,6 +248,7 @@ public class EuTrustServicesDashboard extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("css/stylesheet.css")).toExternalForm());
 
         Button searchButton = (Button) fxmlLoader.getNamespace().get("searchButton");
+        searchButton.getStyleClass().add("searchButton");
         searchButton.setOnAction(actionEvent -> {
             SearchCriteria criteria = filter.getCriteria();
             System.out.println(criteria.getCountries());

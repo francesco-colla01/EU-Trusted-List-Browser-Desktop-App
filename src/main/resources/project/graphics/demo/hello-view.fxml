@@ -68,7 +68,7 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="50.0" prefWidth="420.0" style="-fx-border-color: gold;">
                      <children>
-                        <Button fx:id="searchButton" layoutX="98.0" layoutY="12.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" styleClass="search-button" stylesheets="@css/stylesheet.css" text="Search" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="5.0" />
+                        <Button fx:id="searchButton" layoutX="98.0" layoutY="12.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="225.0" styleClass="searchButton" stylesheets="@css/stylesheet.css" text="Search" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="5.0" />
                      </children>
                   </AnchorPane>
                </children>
