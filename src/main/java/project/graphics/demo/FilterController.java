@@ -44,10 +44,10 @@ public class FilterController {
     }
 
     public SearchCriteria getSelectedCriteria() {
-        Vector<String> c = countries.getFilterCriteria();
-        Vector<String> t = types.getFilterCriteria();
-        Vector<String> s = statuses.getFilterCriteria();
-        Vector<Provider> p = providers.getFilterCriteria(c, t, s);
+        Vector<String> c = countries.getSelectedCriteria();
+        Vector<String> t = types.getSelectedCriteria();
+        Vector<String> s = statuses.getSelectedCriteria();
+        Vector<Provider> p = providers.getSelectedCriteria();
         return new SearchCriteria(c, p, t, s);
     }
 
