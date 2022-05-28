@@ -264,7 +264,7 @@ public class EuTrustServicesDashboard extends Application {
 
 
 
-        stage.getIcons().add(new Image("https://cdn-icons-png.flaticon.com/512/330/330426.png"));
+        stage.getIcons().add(new Image("https://i.imgur.com/xm62NkC.png"));
 
 
         stage.show();
