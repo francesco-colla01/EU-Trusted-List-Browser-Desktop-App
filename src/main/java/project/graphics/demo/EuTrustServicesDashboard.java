@@ -1,6 +1,10 @@
 package project.graphics.demo;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import project.framework.CriteriaListFactory;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -15,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import project.framework.SearchEngine;
 
 import java.io.IOException;
 import java.util.*;
@@ -31,6 +36,7 @@ public class EuTrustServicesDashboard extends Application {
     public void start(Stage stage) throws IOException {
         //Loading file xml
         FXMLLoader fxmlLoader = new FXMLLoader(EuTrustServicesDashboard.class.getResource("hello-view.fxml"));
+
 
         //Scene creation
         Scene scene = new Scene(fxmlLoader.load(), 1250, 750);
@@ -240,9 +246,25 @@ public class EuTrustServicesDashboard extends Application {
 
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("css/stylesheet.css")).toExternalForm());
 
-        stage.show();
+        Button searchButton = (Button) fxmlLoader.getNamespace().get("searchButton");
+        searchButton.setOnAction(actionEvent -> {
+            if (filter.getSelectedCriteria().getProviders().isEmpty() && filter.getSelectedCriteria().getCountries().isEmpty() && filter.getSelectedCriteria().getStatuses().isEmpty() && filter.getSelectedCriteria().getTypes().isEmpty()) {
+                ErrorScene.showError("You must select at least one parameter!");
+                return;
+            }
+            try {
+                stage.setScene(Result.result(stage, scene, SearchEngine.getInstance().performSearch(filter.getSelectedCriteria().getCountries(), filter.getSelectedCriteria().getProviders(), filter.getSelectedCriteria().getTypes(), filter.getSelectedCriteria().getStatuses())));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-        AlertScene.alertScene(stage);
+
+
+        stage.getIcons().add(new Image("https://cdn-icons-png.flaticon.com/512/330/330426.png"));
+
+
+        stage.show();
     }
 
     public static void main(String[] args) {

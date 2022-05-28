@@ -45,6 +45,7 @@ public class ProviderFilterController {
 
                             if (s.contains(service.getCurrentStatus()) && contains) {
                                 filteredProviderCheckBox.add(providerCBox);
+                                providerCBox.setStyle("-fx-text-fill:  black;");
                                 break outerloop;
                             }
                         }
@@ -56,6 +57,7 @@ public class ProviderFilterController {
         providersCheckBox.forEach(CBox -> {
             if (CBox.isSelected() && !filteredProviderCheckBox.contains(CBox)) {
                 filteredProviderCheckBox.add(CBox);
+                CBox.setStyle("-fx-text-fill: #b50202;");
             }});
 
         if (filteredProviderCheckBox.isEmpty() && selectedProviders.isEmpty())
@@ -86,6 +88,7 @@ public class ProviderFilterController {
                     selectedProviders.add(nameToProvider.get(providerCheckBox.getId()));
                 else {
                     selectedProviders.remove(nameToProvider.get(providerCheckBox.getId()));
+                    providerCheckBox.setStyle("-fx-text-fill:  black;");
                 }
             });
             providersCheckBox.add(providerCheckBox);
