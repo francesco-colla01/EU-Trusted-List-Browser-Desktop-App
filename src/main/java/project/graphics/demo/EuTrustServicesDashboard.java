@@ -205,13 +205,13 @@ public class EuTrustServicesDashboard extends Application {
                     edit.set(true);
                 }
 
-                if (filtered_providers.size() != filter.getCriteria().getProviders().size() && selectAllCBox.isSelected()) {
+                if (filtered_providers.size() != filter.getSelectedProvidersSize() && selectAllCBox.isSelected()) {
                     edit.set(false);
                     selectAllCBox.setSelected(false);
                     edit.set(true);
                 }
 
-                if (!selectAllCBox.isSelected() && filtered_providers.size() == filter.getCriteria().getProviders().size()) {
+                if (!selectAllCBox.isSelected() && filtered_providers.size() == filter.getSelectedProvidersSize()) {
                     edit.set(false);
                     selectAllCBox.setSelected(true);
                     edit.set(true);
