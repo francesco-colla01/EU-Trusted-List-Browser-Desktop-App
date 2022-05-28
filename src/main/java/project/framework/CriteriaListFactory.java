@@ -78,6 +78,11 @@ public class CriteriaListFactory {
     //Get methods
     public static Vector<Provider> getProviderList() { return providerList; }
     public static Vector<String> getCountryList() { return countryList; }
+    public static Vector<String> getCountryCodeList() {
+        Vector<String> tmp = new Vector<>();
+        for (String c : countryList) tmp.add(countryNameToCode.get(c));
+        return tmp;
+    }
     public static Vector<String> getStatusList() { return statusList; }
     public static Vector<String> getTypeList() {return typeList; }
     public static Map<String, String> getCountryNameToCode() { return countryNameToCode; }

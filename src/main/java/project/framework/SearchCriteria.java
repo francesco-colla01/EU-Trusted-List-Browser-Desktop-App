@@ -15,8 +15,11 @@ public class SearchCriteria {
         statuses = s;
     }
 
-    public boolean isEmpty() {
-        return countries.isEmpty() && providers.isEmpty() && types.isEmpty() && statuses.isEmpty();
+    public boolean isInvalid() {
+        return countries.size() == CriteriaListFactory.getCountryCodeList().size() - 1 &&
+                providers.size() == CriteriaListFactory.getProviderList().size() &&
+                types.size() == CriteriaListFactory.getTypeList().size() &&
+                statuses.size() == CriteriaListFactory.getStatusList().size();
     }
 
     public Vector<String> getCountries() {

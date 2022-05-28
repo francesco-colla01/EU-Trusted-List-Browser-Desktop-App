@@ -250,7 +250,7 @@ public class EuTrustServicesDashboard extends Application {
         Button searchButton = (Button) fxmlLoader.getNamespace().get("searchButton");
         searchButton.setOnAction(actionEvent -> {
             SearchCriteria criteria = filter.getCriteria();
-            if (criteria.isEmpty()) {
+            if (criteria.isInvalid()) {
                 ErrorScene.showError("You must select at least one parameter!");
                 return;
             }
