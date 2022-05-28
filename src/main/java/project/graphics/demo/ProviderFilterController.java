@@ -75,7 +75,7 @@ public class ProviderFilterController {
         return selectedProviders;
     }
 
-    public Vector<Provider> getFilterCriteria(Vector<String> c, Vector<String> t, Vector<String> s) {
+    public Vector<Provider> getFilterCriteria() {
         if (selectedProviders.isEmpty())
             return CriteriaListFactory.getProviderList();
         return selectedProviders;

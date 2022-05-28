@@ -15,6 +15,10 @@ public class SearchCriteria {
         statuses = s;
     }
 
+    public boolean isEmpty() {
+        return countries.isEmpty() && providers.isEmpty() && types.isEmpty() && statuses.isEmpty();
+    }
+
     public Vector<String> getCountries() {
         return countries;
     }

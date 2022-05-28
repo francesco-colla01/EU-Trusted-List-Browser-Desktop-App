@@ -13,7 +13,7 @@ interface ErrorButtonAction {
 }
 
 public class ErrorScene {
-    public static void showError(String headerText, String contentText, ErrorButtonAction action) {
+        public static void showError(String headerText, String contentText, ErrorButtonAction action) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
 
         alert.setHeaderText(headerText);

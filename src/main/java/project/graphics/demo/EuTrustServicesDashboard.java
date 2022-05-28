@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import project.framework.SearchCriteria;
 import project.framework.SearchEngine;
 
 import java.io.IOException;
@@ -204,13 +205,13 @@ public class EuTrustServicesDashboard extends Application {
                     edit.set(true);
                 }
 
-                if (filtered_providers.size() != filter.getSelectedCriteria().getProviders().size() && selectAllCBox.isSelected()) {
+                if (filtered_providers.size() != filter.getCriteria().getProviders().size() && selectAllCBox.isSelected()) {
                     edit.set(false);
                     selectAllCBox.setSelected(false);
                     edit.set(true);
                 }
 
-                if (!selectAllCBox.isSelected() && filtered_providers.size() == filter.getSelectedCriteria().getProviders().size()) {
+                if (!selectAllCBox.isSelected() && filtered_providers.size() == filter.getCriteria().getProviders().size()) {
                     edit.set(false);
                     selectAllCBox.setSelected(true);
                     edit.set(true);
@@ -248,12 +249,14 @@ public class EuTrustServicesDashboard extends Application {
 
         Button searchButton = (Button) fxmlLoader.getNamespace().get("searchButton");
         searchButton.setOnAction(actionEvent -> {
-            if (filter.getSelectedCriteria().getProviders().isEmpty() && filter.getSelectedCriteria().getCountries().isEmpty() && filter.getSelectedCriteria().getStatuses().isEmpty() && filter.getSelectedCriteria().getTypes().isEmpty()) {
+            SearchCriteria criteria = filter.getCriteria();
+            if (criteria.isEmpty()) {
                 ErrorScene.showError("You must select at least one parameter!");
                 return;
             }
             try {
-                stage.setScene(Result.result(stage, scene, SearchEngine.getInstance().performSearch(filter.getSelectedCriteria().getCountries(), filter.getSelectedCriteria().getProviders(), filter.getSelectedCriteria().getTypes(), filter.getSelectedCriteria().getStatuses())));
+                SearchEngine.getInstance().performSearch(criteria);
+                stage.setScene(Result.result(stage, scene));
             } catch (IOException e) {
                 e.printStackTrace();
             }

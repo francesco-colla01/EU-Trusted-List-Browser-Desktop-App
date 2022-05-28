@@ -7,13 +7,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import project.framework.Provider;
+import project.framework.SearchEngine;
+import project.framework.Service;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Vector;
 
 public class Result {
 
-    public static Scene result(Stage stage, Scene backScene, Vector<Provider> result) throws IOException {
+    public static Scene result(Stage stage, Scene backScene) throws IOException {
 
         //Loading file xml
         FXMLLoader fxmlLoader = new FXMLLoader(EuTrustServicesDashboard.class.getResource("search-view.fxml"));
@@ -28,7 +31,8 @@ public class Result {
         });
 
         //Executing search
-        System.out.println(result);
+        Map<Provider, Vector<Service>> results = SearchEngine.getInstance().getSearchResults();
+        System.out.println(results);
 
 
         return scene;
