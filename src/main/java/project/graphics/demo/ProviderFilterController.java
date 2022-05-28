@@ -76,6 +76,10 @@ public class ProviderFilterController {
         return selectedProviders;
     }
 
+    public int getSelectedProviderSize() {
+        return selectedProviders.size();
+    }
+
     public Vector<Provider> getFilterCriteria() {
         if (selectedProviders.isEmpty())
             return CriteriaListFactory.getProviderList();

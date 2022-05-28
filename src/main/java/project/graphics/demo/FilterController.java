@@ -51,6 +51,10 @@ public class FilterController {
         return new SearchCriteria(c, p, t, s);
     }
 
+    public int getSelectedProvidersSize() {
+        return providers.getSelectedProviderSize();
+    }
+
     /*public SearchCriteria getFilterCriteria() {
         Vector<String> c = countries.getFilterCriteria();
         Vector<Provider> p = providers.getFilterCriteria();
