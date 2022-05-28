@@ -14,6 +14,7 @@ public class TypeFilterController {
     private Vector<String> filteredTypes = new Vector<>();
     private List<CheckBox> typesCheckBox = new Vector<>();
     private List<CheckBox> filteredTypesCheckBox = new Vector<>();
+    private Vector<String> invalidSelectedTypes = new Vector<>();
 
     public TypeFilterController() {
         generateTypesCheckBoxes();
@@ -21,6 +22,7 @@ public class TypeFilterController {
 
     public List<CheckBox> getCheckBoxes(Vector<String> c, Vector<Provider> p, Vector<String> s) {
         filteredTypes.clear();
+        invalidSelectedTypes.clear();
 
         typesCheckBox.forEach(CBox -> {
             CBox.setDisable(true);
@@ -50,6 +52,7 @@ public class TypeFilterController {
 
         typesCheckBox.forEach(CBox -> {
             if (CBox.isSelected() && !filteredTypes.contains(CBox.getText())) {
+                invalidSelectedTypes.add(CBox.getText());
                 CBox.setDisable(false);
                 CBox.setStyle("-fx-text-fill: #b50202;");
             }});
@@ -59,6 +62,9 @@ public class TypeFilterController {
 
     public Vector<String> getCriteria() {
         if (selectedTypes.isEmpty()) return filteredTypes;
+        for (String t : invalidSelectedTypes) {
+            if (selectedTypes.contains(t)) selectedTypes.remove(t);
+        }
         return selectedTypes;
     }
 

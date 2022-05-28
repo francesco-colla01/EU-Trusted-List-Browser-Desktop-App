@@ -14,11 +14,13 @@ public class ProviderFilterController {
     private List<CheckBox> filteredProviderCheckBox = new Vector<>();
     private Map<String, Provider> nameToProvider = new HashMap<>();
     private Map<String, Provider> nameToProvider2 = new HashMap<>();
+    private List<CheckBox> invalidSelectedCheckBoxes = new Vector<>();
 
     public ProviderFilterController() { generateProviderCheckboxes(); }
 
     public List<CheckBox> getCheckBoxes(Vector<String> c, Vector<String> t, Vector<String> s) {
         filteredProviderCheckBox.clear();
+        invalidSelectedCheckBoxes.clear();
         for (CheckBox providerCBox : providersCheckBox) {
 
             Provider provider = nameToProvider.get(providerCBox.getId());
@@ -58,6 +60,7 @@ public class ProviderFilterController {
         providersCheckBox.forEach(CBox -> {
             if (CBox.isSelected() && !filteredProviderCheckBox.contains(CBox)) {
                 filteredProviderCheckBox.add(CBox);
+                invalidSelectedCheckBoxes.add(CBox);
                 CBox.setStyle("-fx-text-fill: #b50202;");
             }});
 
@@ -70,8 +73,12 @@ public class ProviderFilterController {
     public Vector<Provider> getCriteria() {
         if (selectedProviders.isEmpty()) {
             Vector<Provider> tmp = new Vector<>();
-            for (CheckBox cb : filteredProviderCheckBox) {tmp.add(nameToProvider2.get(cb.getText()));}
+            for (CheckBox cb : filteredProviderCheckBox) tmp.add(nameToProvider2.get(cb.getText()));
             return tmp;
+        }
+        for (CheckBox cb : invalidSelectedCheckBoxes) {
+            Provider p = nameToProvider2.get(cb.getText());
+            if (selectedProviders.contains(p)) selectedProviders.remove(p);
         }
         return selectedProviders;
     }

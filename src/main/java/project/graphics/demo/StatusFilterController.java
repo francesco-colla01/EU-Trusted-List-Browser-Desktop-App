@@ -14,6 +14,7 @@ public class StatusFilterController {
     private Vector<String> filteredStatuses = new Vector<>();
     private List<CheckBox> statusesCheckBox = new Vector<>();
     private List<CheckBox> filteredStatusCheckBox = new Vector<>();
+    private Vector<String> invalidSelectedStatuses = new Vector<>();
 
     public StatusFilterController() {
         generateStatusCheckboxes();
@@ -34,6 +35,7 @@ public class StatusFilterController {
      */
     public List<CheckBox> getCheckBoxes(Vector<String> c, Vector<Provider> p, Vector<String> t) {
         filteredStatuses.clear();
+        invalidSelectedStatuses.clear();
 
         statusesCheckBox.forEach(CBox -> {
             CBox.setDisable(true);
@@ -66,6 +68,7 @@ public class StatusFilterController {
         statusesCheckBox.forEach(CBox -> {
             if (CBox.isSelected() && !filteredStatuses.contains(CBox.getText())) {
                 filteredStatusCheckBox.add(CBox);
+                invalidSelectedStatuses.add(CBox.getText());
                 CBox.setStyle("-fx-text-fill: #b50202;");
                 CBox.setDisable(false);
             }});
@@ -75,6 +78,9 @@ public class StatusFilterController {
 
     public Vector<String> getCriteria() {
         if (selectedStatuses.isEmpty()) return filteredStatuses;
+        for (String s : invalidSelectedStatuses) {
+            if (selectedStatuses.contains(s)) selectedStatuses.remove(s);
+        }
         return selectedStatuses;
     }
 

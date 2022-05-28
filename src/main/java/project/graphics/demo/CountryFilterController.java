@@ -15,6 +15,7 @@ public class CountryFilterController {
     private Map<String, String> codeToCountryName = new HashMap<>();
     private List<CheckBox> countriesCheckBox = new Vector<>();
     private Vector<String> filteredCountryCode = new Vector<>();
+    private Vector<String> invalidSelectedCountryCodes = new Vector<>();
 
     CountryFilterController() {
         Map<String, String> countryNameToCode = CriteriaListFactory.getCountryNameToCode();
@@ -26,6 +27,7 @@ public class CountryFilterController {
 
     public List<CheckBox> getCheckBoxes(Vector<Provider> p, Vector<String> t, Vector<String> s) {
         filteredCountryCode.clear();
+        invalidSelectedCountryCodes.clear();
         countriesCheckBox.forEach(CBox -> {
             CBox.setDisable(true);
         });
@@ -62,8 +64,11 @@ public class CountryFilterController {
             }
         }
 
+        Map<String, String> nameToCode = CriteriaListFactory.getCountryNameToCode();
         countriesCheckBox.forEach(CBox -> {
-            if (CBox.isSelected() && !filteredCountryCode.contains(CriteriaListFactory.getCountryNameToCode().get(CBox.getText()))) {
+            String code = nameToCode.get(CBox.getText());
+            if (CBox.isSelected() && !filteredCountryCode.contains(code)) {
+                invalidSelectedCountryCodes.add(code);
                 CBox.setStyle("-fx-text-fill: #b50202;");
                 CBox.setDisable(false);
             }
@@ -74,6 +79,10 @@ public class CountryFilterController {
 
     public Vector<String> getCriteria() {
         if (selectedCountries.isEmpty()) return filteredCountryCode;
+        for (String code : selectedCountries) {
+            if (invalidSelectedCountryCodes.contains(code))
+                selectedCountries.remove(code);
+        }
         return selectedCountries;
     }
 
