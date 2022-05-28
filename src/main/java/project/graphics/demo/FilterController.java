@@ -12,12 +12,14 @@ public class FilterController {
     private ProviderFilterController providers;
     private TypeFilterController types;
     private StatusFilterController statuses;
+    private static int selectedProviderSize;
 
     public FilterController() {
         countries = new CountryFilterController();
         providers = new ProviderFilterController();
         types = new TypeFilterController();
         statuses = new StatusFilterController();
+        selectedProviderSize = 0;
     }
 
     public List<CheckBox> getCheckBoxes(String criterion) {
@@ -37,13 +39,14 @@ public class FilterController {
                 tmp = types.getCheckBoxes(c, p, s);
                 break;
             case "s":
-                tmp =statuses.getCheckBoxes(c, p, t);
+                tmp = statuses.getCheckBoxes(c, p, t);
                 break;
         }
         return tmp;
     }
 
     public SearchCriteria getCriteria() {
+        selectedProviderSize = providers.getSelectedProviderSize();
         Vector<String> c = countries.getCriteria();
         Vector<String> t = types.getCriteria();
         Vector<String> s = statuses.getCriteria();
@@ -51,8 +54,8 @@ public class FilterController {
         return new SearchCriteria(c, p, t, s);
     }
 
-    public int getSelectedProvidersSize() {
-        return providers.getSelectedProviderSize();
+    public static int getSelectedProvidersSize() {
+        return selectedProviderSize;
     }
 
     /*public SearchCriteria getFilterCriteria() {

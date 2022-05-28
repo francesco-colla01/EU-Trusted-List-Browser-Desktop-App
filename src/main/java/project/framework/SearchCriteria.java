@@ -1,5 +1,7 @@
 package project.framework;
 
+import project.graphics.demo.FilterController;
+
 import java.util.Vector;
 
 public class SearchCriteria {
@@ -17,7 +19,7 @@ public class SearchCriteria {
 
     public boolean isInvalid() {
         return countries.size() == CriteriaListFactory.getCountryCodeList().size() - 1 &&
-                providers.size() == CriteriaListFactory.getProviderList().size() &&
+                FilterController.getSelectedProvidersSize() == 0 &&
                 types.size() == CriteriaListFactory.getTypeList().size() &&
                 statuses.size() == CriteriaListFactory.getStatusList().size();
     }
