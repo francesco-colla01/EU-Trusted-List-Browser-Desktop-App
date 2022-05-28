@@ -1,5 +1,8 @@
 package project.graphics.demo;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import project.framework.CriteriaListFactory;
@@ -16,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+import project.framework.SearchEngine;
 
 import java.io.IOException;
 import java.util.*;
@@ -34,13 +37,12 @@ public class EuTrustServicesDashboard extends Application {
         //Loading file xml
         FXMLLoader fxmlLoader = new FXMLLoader(EuTrustServicesDashboard.class.getResource("hello-view.fxml"));
 
+
         //Scene creation
         Scene scene = new Scene(fxmlLoader.load(), 1250, 750);
         stage.setTitle("EU Trust Service Dashboard");
         stage.setScene(scene);
         stage.setResizable(false);
-        Image image = new Image("file:icon.png");
-        stage.getIcons().add(image);
 
         CriteriaListFactory criteriaListFactory = new CriteriaListFactory();
         criteriaListFactory.initialize(); //fill all the data structure in CriteriaListFactory
@@ -244,12 +246,25 @@ public class EuTrustServicesDashboard extends Application {
 
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("css/stylesheet.css")).toExternalForm());
 
+        Button searchButton = (Button) fxmlLoader.getNamespace().get("searchButton");
+        searchButton.setOnAction(actionEvent -> {
+            if (filter.getSelectedCriteria().getProviders().isEmpty() && filter.getSelectedCriteria().getCountries().isEmpty() && filter.getSelectedCriteria().getStatuses().isEmpty() && filter.getSelectedCriteria().getTypes().isEmpty()) {
+                ErrorScene.showError("You must select at least one parameter!");
+                return;
+            }
+            try {
+                stage.setScene(Result.result(stage, scene, SearchEngine.getInstance().performSearch(filter.getSelectedCriteria().getCountries(), filter.getSelectedCriteria().getProviders(), filter.getSelectedCriteria().getTypes(), filter.getSelectedCriteria().getStatuses())));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+
+
+        stage.getIcons().add(new Image("https://cdn-icons-png.flaticon.com/512/330/330426.png"));
+
+
         stage.show();
-
-        AlertScene.alertScene(stage);
-
-        // TODO CHIAMATA PER RICERCA: CREARE OGGETTO SEARCH CRITERIA CON CRITERI
-        // TODO E USARE PERFORMSEARCH(OGGETTO SEARCHCRITERIA)
     }
 
     public static void main(String[] args) {
