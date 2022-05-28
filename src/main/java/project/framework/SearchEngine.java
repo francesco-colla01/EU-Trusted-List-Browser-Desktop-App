@@ -33,7 +33,7 @@ public class SearchEngine {
     public void performSearch(SearchCriteria criteria) {
         clearSearchResults();
         /*Map<String, String> nameToCode = CriteriaListFactory.getCountryNameToCode();
-        Vector<String> codeToName = new Vector<>(); //vector with country codes instead of country names
+        Vector<String> codeToName = new Vector<>();
         for (String c : criteria.getCountries()) codeToName.add(nameToCode.get(c));*/
         for (Provider p : criteria.getProviders()) {
             Service[] ser = p.getServices();
