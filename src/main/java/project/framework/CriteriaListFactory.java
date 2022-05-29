@@ -62,19 +62,6 @@ public class CriteriaListFactory {
         }
     }
 
-    /**
-     *  Is responsible for creating a FilterControllerInterface
-     *
-     * @return a FilterControllerInterface object
-     *
-     * @see     FilterController
-     *
-     */
-    public FilterController getFilterController() {
-        FilterController tmp = new FilterController();
-        return tmp;
-    }
-
     //Get methods
     public static Vector<Provider> getProviderList() { return providerList; }
     public static Vector<String> getCountryList() { return countryList; }

@@ -1,7 +1,6 @@
 package project.graphics.demo;
 
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -14,15 +13,14 @@ import project.framework.Service;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Vector;
 
-public class Result {
+public class ResultUI {
 
     public static Scene result(Stage stage, Scene backScene, Map<Provider, Vector<Service>> searchResults) throws IOException {
 
         //Loading file xml
-        FXMLLoader fxmlLoader = new FXMLLoader(EuTrustServicesDashboard.class.getResource("search-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("search-view.fxml"));
 
 
         //Scene creation
@@ -33,7 +31,7 @@ public class Result {
             stage.setScene(backScene);
         });
 
-        //Result display
+        //ResultUI display
         AnchorPane pane = (AnchorPane) fxmlLoader.getNamespace().get("resultAnchorPAne");
 
         VBox resultBox = new VBox();
@@ -69,7 +67,12 @@ public class Result {
 
         //Executing search
         Map<Provider, Vector<Service>> results = SearchEngine.getInstance().getSearchResults();
-        System.out.println(results);
+        for (Provider p : results.keySet()) {
+            String tmp = p.getName() + ": ";
+            Vector<Service> ser = results.get(p);
+            for (Service s : ser) tmp += s.getServiceName() + ", ";
+            System.out.println(tmp.substring(0, tmp.length()-2));
+        }
 
 
         return scene;

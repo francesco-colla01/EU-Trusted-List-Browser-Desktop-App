@@ -11,7 +11,7 @@ import java.io.IOException;
 public class AlertScene {
 
     public static boolean alertScene(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(EuTrustServicesDashboard.class.getResource("alert-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("alert-view.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load());
 

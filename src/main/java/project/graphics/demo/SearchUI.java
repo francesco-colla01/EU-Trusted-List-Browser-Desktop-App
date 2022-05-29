@@ -1,7 +1,5 @@
 package project.graphics.demo;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -31,12 +29,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 //TODO FARE LA RICERCA NELLA CLASSE SPECIFICA
 //TODO FARE LA GUI PER I SERVIZI CHE ESCONO DOPO AVER FATTO LA RICERCA
 
-public class EuTrustServicesDashboard extends Application {
+public class SearchUI extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
         //Loading file xml
-        FXMLLoader fxmlLoader = new FXMLLoader(EuTrustServicesDashboard.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("hello-view.fxml"));
 
 
         //Scene creation
@@ -48,7 +46,7 @@ public class EuTrustServicesDashboard extends Application {
         CriteriaListFactory criteriaListFactory = new CriteriaListFactory();
         criteriaListFactory.initialize(); //fill all the data structure in CriteriaListFactory
 
-        FilterController filter = criteriaListFactory.getFilterController();
+        FilterController filter = new FilterController();
 
         // Countries
         AnchorPane countriesPane = (AnchorPane) fxmlLoader.getNamespace().get("countriesAnchorPane");
@@ -251,18 +249,14 @@ public class EuTrustServicesDashboard extends Application {
         searchButton.getStyleClass().add("searchButton");
         searchButton.setOnAction(actionEvent -> {
             SearchCriteria criteria = filter.getCriteria();
-            System.out.println(criteria.getCountries());
-            System.out.println(criteria.getProviders());
-            System.out.println(criteria.getTypes());
-            System.out.println(criteria.getStatuses());
             if (criteria.isInvalid()) {
                 ErrorScene.showError("You must select at least one parameter!");
                 return;
             }
             try {
                 SearchEngine.getInstance().performSearch(criteria);
-                Scene resultScene = Result.result(stage, scene, SearchEngine.getInstance().getSearchResults());
-                resultScene.getStylesheets().add(Objects.requireNonNull(Result.class.getResource("css/stylesheet.css")).toExternalForm());
+                Scene resultScene = ResultUI.result(stage, scene, SearchEngine.getInstance().getSearchResults());
+                resultScene.getStylesheets().add(Objects.requireNonNull(ResultUI.class.getResource("css/stylesheet.css")).toExternalForm());
                 stage.setScene(resultScene);
             } catch (IOException e) {
                 e.printStackTrace();

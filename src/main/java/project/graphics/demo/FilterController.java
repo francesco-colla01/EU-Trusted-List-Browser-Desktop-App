@@ -57,13 +57,4 @@ public class FilterController {
     public static int getSelectedProvidersSize() {
         return selectedProviderSize;
     }
-
-    /*public SearchCriteria getFilterCriteria() {
-        Vector<String> c = countries.getFilterCriteria();
-        Vector<Provider> p = providers.getFilterCriteria();
-        Vector<String> t = types.getFilterCriteria();
-        Vector<String> s = statuses.getFilterCriteria();
-        SearchCriteria criteria = new SearchCriteria(c, p, t, s);
-        return criteria;
-    }*/
 }
