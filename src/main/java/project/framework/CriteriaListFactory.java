@@ -10,8 +10,8 @@ import java.util.Vector;
 
 public class CriteriaListFactory {
     private static Map<String, String> countryList;
-    private static Vector<String> typeList, statusList;
     private static Vector<Provider> providerList;
+    private static Vector<String> typeList, statusList;
 
     /**
      *  Is responsible for creating all the data structure needed to run the program.
@@ -60,10 +60,10 @@ public class CriteriaListFactory {
     }
 
     //Get methods
-    public static Vector<Provider> getProviderList() { return providerList; }
     public static Map<String, String> getCountryList() {
         return countryList;
     }
-    public static Vector<String> getStatusList() { return statusList; }
+    public static Vector<Provider> getProviderList() { return providerList; }
     public static Vector<String> getTypeList() {return typeList; }
+    public static Vector<String> getStatusList() { return statusList; }
 }

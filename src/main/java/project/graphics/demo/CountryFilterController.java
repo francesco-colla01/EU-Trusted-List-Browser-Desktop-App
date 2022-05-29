@@ -75,9 +75,11 @@ public class CountryFilterController {
             filteredCountryCode.add(null);
             return filteredCountryCode;
         }
-        for (String code : selectedCountries) {
-            if (invalidSelectedCountryCodes.contains(code))
-                selectedCountries.remove(code);
+        else {
+            for (String code : selectedCountries) {
+                if (invalidSelectedCountryCodes.contains(code))
+                    selectedCountries.remove(code);
+            }
         }
         return selectedCountries;
     }
