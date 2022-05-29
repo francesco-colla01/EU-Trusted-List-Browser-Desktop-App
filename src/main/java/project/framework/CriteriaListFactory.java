@@ -4,12 +4,10 @@ import org.json.JSONArray;
 import project.graphics.demo.FilterController;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 public class CriteriaListFactory {
-    private static Map<String, String> countryList;
+    private static SortedMap<String, String> countryList;
     private static Vector<Provider> providerList;
     private static Vector<String> typeList, statusList;
 
@@ -26,8 +24,9 @@ public class CriteriaListFactory {
         HttpRequest fetchCountriesList = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/countries_list");
         JSONArray jsonCountriesList = new JSONArray(fetchCountriesList.getResponse());
 
-        countryList = new HashMap<>(); //this map associate the country name to his code (e.g Italy ----> IT)
+        countryList = new TreeMap<>(); //this map associate the country name to his code (e.g Italy ----> IT)
         for (int i = 0; i<jsonCountriesList.length(); i++) {
+            //System.out.println(jsonCountriesList.getJSONObject(i).getString("countryCode") + ": " + jsonCountriesList.getJSONObject(i).getString("countryName"));
             countryList.put(jsonCountriesList.getJSONObject(i).getString("countryCode"), jsonCountriesList.getJSONObject(i).getString("countryName"));
         }
 
@@ -56,6 +55,9 @@ public class CriteriaListFactory {
                 if (!typeList.contains(s[j]))
                     typeList.add(s[j]);
             }
+        }
+        for (String r : countryList.keySet()) {
+            System.out.println(r + ": " + countryList.get(r));
         }
     }
 

@@ -98,6 +98,7 @@ public class CountryFilterController {
     private void generateCountriesCheckBoxes() {
         Map<String, String> allCountries = CriteriaListFactory.getCountryList();
         for (Map.Entry<String, String> country : allCountries.entrySet()) {
+            System.out.println(country.getKey() + ": " + country.getValue());
             CheckBox countryCheckBox = new CheckBox(country.getValue());
             countryCheckBox.getStyleClass().add("countries-check-box");
             countryCheckBox.setId(country.getKey());
