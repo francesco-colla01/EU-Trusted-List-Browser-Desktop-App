@@ -45,9 +45,10 @@ public class ResultUI {
         searchResults.keySet().forEach(provider -> {
             String cc = provider.getCountryCode();
             if (!countryToAccordion.containsKey(cc)) {
-                TitledPane countryTPane = new TitledPane(provider.getCountryName(), new Accordion());
+                String cn = provider.getCountryName();
+                TitledPane countryTPane = new TitledPane(cn, new Accordion());
                 countryTPane.getStyleClass().add("country-titled-pane");
-                countryToAccordion.put(provider.getCountryCode(), (Accordion) countryTPane.getContent());
+                countryToAccordion.put(cc, (Accordion) countryTPane.getContent());
                 accordion.getPanes().add(countryTPane);
             }
 
