@@ -18,11 +18,11 @@ public class FilterController {
     private CriteriaListFactory criteriaLists;
 
     public FilterController() throws IOException {
+        criteriaLists = new CriteriaListFactory();
         countries = new CountryFilterController();
         providers = new ProviderFilterController();
         types = new TypeFilterController();
         statuses = new StatusFilterController();
-        criteriaLists = new CriteriaListFactory();
         selectedProviderSize = 0;
     }
 
