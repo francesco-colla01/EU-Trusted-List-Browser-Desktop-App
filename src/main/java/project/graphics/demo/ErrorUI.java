@@ -1,18 +1,15 @@
 package project.graphics.demo;
 
-import com.google.common.base.Supplier;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
-import java.util.concurrent.Callable;
 
 interface ErrorButtonAction {
     void action();
 }
 
-public class ErrorScene {
+public class ErrorUI {
         public static void showError(String headerText, String contentText, ErrorButtonAction action) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
 

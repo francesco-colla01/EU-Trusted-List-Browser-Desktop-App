@@ -8,12 +8,10 @@ import javafx.scene.control.CheckBox;
 import java.util.*;
 
 public class ProviderFilterController {
-    //private Vector<Provider> allProviders; da CLF
     private Vector<Provider> selectedProviders = new Vector<>();
     private List<CheckBox> providersCheckBox = new Vector<>();
     private List<CheckBox> filteredProviderCheckBox = new Vector<>();
     private Map<String, Provider> nameToProvider = new HashMap<>();
-    private Map<String, Provider> nameToProvider2 = new HashMap<>();
     private List<CheckBox> invalidSelectedCheckBoxes = new Vector<>();
 
     public ProviderFilterController() { generateProviderCheckboxes(); }
@@ -73,12 +71,12 @@ public class ProviderFilterController {
     public Vector<Provider> getCriteria() {
         if (selectedProviders.isEmpty()) {
             Vector<Provider> tmp = new Vector<>();
-            for (CheckBox cb : filteredProviderCheckBox) tmp.add(nameToProvider2.get(cb.getText()));
+            for (CheckBox cb : filteredProviderCheckBox) tmp.add(nameToProvider.get(cb.getId()));
             tmp.add(null);
             return tmp;
         }
         for (CheckBox cb : invalidSelectedCheckBoxes) {
-            Provider p = nameToProvider2.get(cb.getText());
+            Provider p = nameToProvider.get(cb.getId());
             if (selectedProviders.contains(p)) selectedProviders.remove(p);
         }
         return selectedProviders;
@@ -98,7 +96,6 @@ public class ProviderFilterController {
         Vector<Provider> p = CriteriaListFactory.getProviderList();
         for (Provider provider : p) {
             nameToProvider.put(provider.getName() + provider.getCountryCode(), provider);
-            nameToProvider2.put(provider.getName(), provider);
             CheckBox providerCheckBox = new CheckBox(provider.getName());
             providerCheckBox.getStyleClass().add("provider-check-box");
             providerCheckBox.setId(provider.getName() + provider.getCountryCode());
