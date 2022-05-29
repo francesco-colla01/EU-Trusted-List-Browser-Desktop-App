@@ -152,13 +152,12 @@ public class SearchUI extends Application {
         ssPane.play();
 
         HBox ssCheckBoxes = new HBox(ssCheckBoxesLeft, ssCheckBoxesRight);
-        ssCheckBoxes.setSpacing(15);
 
         AnchorPane.setTopAnchor(ssCheckBoxes, 75.0);
         AnchorPane.setLeftAnchor(ssCheckBoxes, 22.0);
 
 
-        ssCheckBoxes.setSpacing(55);
+        ssCheckBoxes.setSpacing(25);
         ssCheckBoxes.setAlignment(Pos.CENTER_LEFT);
 
         // Load Select All CBox

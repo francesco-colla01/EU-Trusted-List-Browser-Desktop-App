@@ -1,6 +1,7 @@
 package project.graphics.demo;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -57,8 +58,11 @@ public class ResultUI {
 
             Vector<Service> services = searchResults.get(provider);
 
+            countryAccordion.setPadding(new Insets(0,0 ,0,18));
+
             TitledPane providerTPane = new TitledPane(provider.getName(), new ListView<>());
             ListView serviceList = (ListView) providerTPane.getContent();
+            serviceList.setMaxHeight(300);
             serviceList.getStyleClass().add("service-list");
             services.forEach(service -> {
                 serviceList.getItems().add(service.getServiceName());
@@ -75,7 +79,6 @@ public class ResultUI {
             for (Service s : ser) tmp += s.getServiceName() + ", ";
             System.out.println(tmp.substring(0, tmp.length()-2));
         }
-
 
         return scene;
     }
