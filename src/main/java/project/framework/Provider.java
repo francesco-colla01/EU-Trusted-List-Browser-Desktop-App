@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Provider {
-    private String countryCode, name, trustmark;
+    private String countryCode, countryName, name, trustmark;
     private String[] serviceTypes;
     private Service[] services;
 
@@ -19,9 +19,10 @@ public class Provider {
     public Provider(String jsonSource) {
         JSONObject data = new JSONObject(jsonSource);
 
-        this.countryCode = data.getString("countryCode");
-        this.name = data.getString("name");
-        this.trustmark = data.getString("trustmark");
+        countryCode = data.getString("countryCode");
+        countryName = CriteriaListFactory.getCountryList().get(countryCode);
+        name = data.getString("name");
+        trustmark = data.getString("trustmark");
 
         JSONArray jsonServiceTypes = data.getJSONArray("qServiceTypes");
         serviceTypes = new String[jsonServiceTypes.length()];
@@ -32,12 +33,15 @@ public class Provider {
         JSONArray jsonServices = data.getJSONArray("services");
         services = new Service[jsonServices.length()];
         for (int i=0; i < jsonServices.length(); i++) {
-            services[i] = new Service(jsonServices.getJSONObject(i).toString());
+            services[i] = new Service(jsonServices.getJSONObject(i).toString(), countryName);
         }
     }
 
     //Get methods
     public String getCountryCode() { return countryCode; }
+    public String getCountryName() {
+        return countryName;
+    }
     public Service[] getServices() { return services; }
     public String getName() { return name; }
     public String getTrustmark() { return trustmark; }

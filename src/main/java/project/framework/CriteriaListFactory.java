@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Vector;
 
 public class CriteriaListFactory {
-    private static Vector<String> countryList, typeList, statusList;
+    private static Map<String, String> countryList;
+    private static Vector<String> typeList, statusList;
     private static Vector<Provider> providerList;
-    private static Map<String, String> countryNameToCode;
 
     /**
      *  Is responsible for creating all the data structure needed to run the program.
@@ -26,12 +26,9 @@ public class CriteriaListFactory {
         HttpRequest fetchCountriesList = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/countries_list");
         JSONArray jsonCountriesList = new JSONArray(fetchCountriesList.getResponse());
 
-        countryList = new Vector<>();
-        countryNameToCode = new HashMap<>(); //this map associate the country name to his code (e.g Italy ----> IT)
-
+        countryList = new HashMap<>(); //this map associate the country name to his code (e.g Italy ----> IT)
         for (int i = 0; i<jsonCountriesList.length(); i++) {
-            countryList.add(jsonCountriesList.getJSONObject(i).getString("countryName"));
-            countryNameToCode.put(jsonCountriesList.getJSONObject(i).getString("countryName"), jsonCountriesList.getJSONObject(i).getString("countryCode"));
+            countryList.put(jsonCountriesList.getJSONObject(i).getString("countryCode"), jsonCountriesList.getJSONObject(i).getString("countryName"));
         }
 
         //Second API request to get all the info needed
@@ -64,13 +61,9 @@ public class CriteriaListFactory {
 
     //Get methods
     public static Vector<Provider> getProviderList() { return providerList; }
-    public static Vector<String> getCountryList() { return countryList; }
-    public static Vector<String> getCountryCodeList() {
-        Vector<String> tmp = new Vector<>();
-        for (String c : countryList) tmp.add(countryNameToCode.get(c));
-        return tmp;
+    public static Map<String, String> getCountryList() {
+        return countryList;
     }
     public static Vector<String> getStatusList() { return statusList; }
     public static Vector<String> getTypeList() {return typeList; }
-    public static Map<String, String> getCountryNameToCode() { return countryNameToCode; }
 }

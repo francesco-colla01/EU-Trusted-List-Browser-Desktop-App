@@ -12,16 +12,11 @@ import java.util.Vector;
 
 public class CountryFilterController {
     private Vector<String> selectedCountries = new Vector<>();
-    private Map<String, String> codeToCountryName = new HashMap<>();
     private List<CheckBox> countriesCheckBox = new Vector<>();
     private Vector<String> filteredCountryCode = new Vector<>();
     private Vector<String> invalidSelectedCountryCodes = new Vector<>();
 
     CountryFilterController() {
-        Map<String, String> countryNameToCode = CriteriaListFactory.getCountryNameToCode();
-        for(Map.Entry<String, String> entry : countryNameToCode.entrySet()){
-            codeToCountryName.put(entry.getValue(), entry.getKey());
-        }
         generateCountriesCheckBoxes();
     }
 
@@ -51,7 +46,7 @@ public class CountryFilterController {
                         if (s.contains(service.getCurrentStatus())) {
 
                             for (CheckBox CCBox : countriesCheckBox) {
-                                if (CCBox.getText().equals(codeToCountryName.get(cc))) {
+                                if (CCBox.getText().equals(provider.getCountryName())) {
                                     CCBox.setDisable(false);
                                     filteredCountryCode.add(cc);
                                     CCBox.setStyle("-fx-text-fill:  black;");
@@ -64,11 +59,9 @@ public class CountryFilterController {
             }
         }
 
-        Map<String, String> nameToCode = CriteriaListFactory.getCountryNameToCode();
         countriesCheckBox.forEach(CBox -> {
-            String code = nameToCode.get(CBox.getText());
-            if (CBox.isSelected() && !filteredCountryCode.contains(code)) {
-                invalidSelectedCountryCodes.add(code);
+            if (CBox.isSelected() && !filteredCountryCode.contains(CBox.getId())) {
+                invalidSelectedCountryCodes.add(CBox.getId());
                 CBox.setStyle("-fx-text-fill: #b50202;");
                 CBox.setDisable(false);
             }
@@ -90,30 +83,29 @@ public class CountryFilterController {
     }
 
     public Vector<String> getFilterCriteria() {
-        Map<String, String> countryNameToCode = CriteriaListFactory.getCountryNameToCode();
-        if (selectedCountries.isEmpty())
-            return new Vector<>(countryNameToCode.values());
-
-        Vector<String> retVec = new Vector<>();
-        for (String countryCode : selectedCountries) {
-            retVec.add(countryCode);
+        Vector<String> tmp = new Vector<>();
+        if (selectedCountries.isEmpty()) {
+            for (CheckBox cb : countriesCheckBox) tmp.add(cb.getId());
         }
-        return retVec;
+        else {
+            for (String countryCode : selectedCountries) tmp.add(countryCode);
+        }
+        return tmp;
     }
 
     private void generateCountriesCheckBoxes() {
-        Map<String, String> countryNameToCode = CriteriaListFactory.getCountryNameToCode();
-        Vector<String> allCountries = CriteriaListFactory.getCountryList();
-        for (String country : allCountries) {
-            CheckBox countryCheckBox = new CheckBox(country);
+        Map<String, String> allCountries = CriteriaListFactory.getCountryList();
+        for (Map.Entry<String, String> country : allCountries.entrySet()) {
+            CheckBox countryCheckBox = new CheckBox(country.getValue());
             countryCheckBox.getStyleClass().add("countries-check-box");
+            countryCheckBox.setId(country.getKey());
             countryCheckBox.setDisable(true);
             countryCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
                 if (countryCheckBox.isSelected())
-                    selectedCountries.add(countryNameToCode.get(countryCheckBox.getText()));
+                    selectedCountries.add(country.getKey());
                 else {
                     countryCheckBox.setStyle("-fx-text-fill:  black;");
-                    selectedCountries.remove(countryNameToCode.get(countryCheckBox.getText()));
+                    selectedCountries.remove(country.getKey());
                 }
             });
             countriesCheckBox.add(countryCheckBox);

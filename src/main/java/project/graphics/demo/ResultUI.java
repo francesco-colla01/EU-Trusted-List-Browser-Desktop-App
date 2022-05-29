@@ -43,7 +43,7 @@ public class ResultUI {
         Map<String, Accordion> countryToAccordion = new HashMap<>();
         searchResults.keySet().forEach(provider -> {
             if (!countryToAccordion.containsKey(provider.getCountryCode())) {
-                TitledPane countryTPane = new TitledPane(provider.getCountryCode(), new Accordion());
+                TitledPane countryTPane = new TitledPane(provider.getCountryName(), new Accordion());
                 countryTPane.getStyleClass().add("country-titled-pane");
                 countryToAccordion.put(provider.getCountryCode(), (Accordion) countryTPane.getContent());
                 accordion.getPanes().add(countryTPane);

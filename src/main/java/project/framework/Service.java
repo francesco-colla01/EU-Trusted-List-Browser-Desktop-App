@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class Service {
-    private String countryCode, currentStatus, serviceName, typeIdentifier;
+    private String countryCode, countryName, currentStatus, serviceName, typeIdentifier;
     private String[] serviceTypes;
 
     /**
@@ -19,10 +19,11 @@ public class Service {
      *
      * @see     JSONObject
      */
-    public Service(String jsonSource) {
+    public Service(String jsonSource, String cn) {
         JSONObject data = new JSONObject(jsonSource);
 
         countryCode = data.getString("countryCode");
+        countryName = cn;
         serviceName = data.getString("serviceName");
         typeIdentifier = data.getString("type");
 
@@ -41,11 +42,12 @@ public class Service {
     }
 
     //Get method: one vector including every private attribute
-    //first four elements: countryCode, currentStatus, serviceName, typeIdentifier
+    //first four elements: countryName, currentStatus, serviceName, typeIdentifier
     //other elements: serviceTypes
     public Vector<String> getServiceInfo() {
         Vector<String> info = new Vector<>();
         info.add(countryCode);
+        info.add(countryName);
         info.add(currentStatus);
         info.add(serviceName);
         info.add(typeIdentifier);
@@ -55,6 +57,9 @@ public class Service {
 
     //Individual get methods for all the private attributes
     public String getCountryCode() { return countryCode; }
+    public String getCountryName() {
+        return countryName;
+    }
     public String getCurrentStatus() { return currentStatus; }
     public String getServiceName() { return serviceName; }
     public String getTypeIdentifier() { return typeIdentifier; }
