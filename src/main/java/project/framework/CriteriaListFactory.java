@@ -58,7 +58,7 @@ public class CriteriaListFactory {
     }
 
     //Get methods
-    public static Map<String, String> getCountryList() {
+    public static SortedMap<String, String> getCountryList() {
         return countryList;
     }
     public static Vector<Provider> getProviderList() { return providerList; }

@@ -4,19 +4,18 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.util.SortedMap;
+import java.util.Vector;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class CriteriaListFactoryTest {
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
+public class CriteriaListFactoryTest {
     @Test
-    void initialize() {
+    public void evaluateCorrectDataStructorBuilding() throws IOException {
+        System.out.println("test evaluateCorrectDataStructorBuilding");
+        CriteriaListFactory f = new CriteriaListFactory();
+        assertTrue(!f.getCountryList().isEmpty() && !f.getProviderList().isEmpty()
+                    && !f.getTypeList().isEmpty() && !f.getStatusList().isEmpty());
     }
 }
