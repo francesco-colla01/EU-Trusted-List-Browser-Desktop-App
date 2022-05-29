@@ -18,10 +18,8 @@ public class SearchCriteria {
     }
 
     public boolean isInvalid() {
-        return countries.size() == CriteriaListFactory.getCountryCodeList().size() - 1 &&
-                FilterController.getSelectedProvidersSize() == 0 &&
-                types.size() == CriteriaListFactory.getTypeList().size() &&
-                statuses.size() == CriteriaListFactory.getStatusList().size();
+        return countries.contains(null) && providers.contains(null)
+                && types.contains(null) && statuses.contains(null);
     }
 
     public Vector<String> getCountries() {

@@ -3,7 +3,6 @@ package project.graphics.demo;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import project.framework.CriteriaListFactory;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -42,9 +41,6 @@ public class SearchUI extends Application {
         stage.setTitle("EU Trust Service Dashboard");
         stage.setScene(scene);
         stage.setResizable(false);
-
-        CriteriaListFactory criteriaListFactory = new CriteriaListFactory();
-        criteriaListFactory.initialize(); //fill all the data structure in CriteriaListFactory
 
         FilterController filter = new FilterController();
 

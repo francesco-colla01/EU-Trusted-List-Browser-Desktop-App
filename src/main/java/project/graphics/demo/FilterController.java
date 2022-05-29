@@ -1,9 +1,11 @@
 package project.graphics.demo;
 
 import javafx.scene.control.CheckBox;
+import project.framework.CriteriaListFactory;
 import project.framework.SearchCriteria;
 import project.framework.Provider;
 
+import java.io.IOException;
 import java.util.*;
 
 public class FilterController {
@@ -13,12 +15,14 @@ public class FilterController {
     private TypeFilterController types;
     private StatusFilterController statuses;
     private static int selectedProviderSize;
+    private CriteriaListFactory criteriaLists;
 
-    public FilterController() {
+    public FilterController() throws IOException {
         countries = new CountryFilterController();
         providers = new ProviderFilterController();
         types = new TypeFilterController();
         statuses = new StatusFilterController();
+        criteriaLists = new CriteriaListFactory();
         selectedProviderSize = 0;
     }
 
@@ -42,15 +46,15 @@ public class FilterController {
                 tmp = statuses.getCheckBoxes(c, p, t);
                 break;
         }
+        selectedProviderSize = providers.getSelectedProviderSize();
         return tmp;
     }
 
     public SearchCriteria getCriteria() {
-        selectedProviderSize = providers.getSelectedProviderSize();
         Vector<String> c = countries.getCriteria();
+        Vector<Provider> p = providers.getCriteria();
         Vector<String> t = types.getCriteria();
         Vector<String> s = statuses.getCriteria();
-        Vector<Provider> p = providers.getCriteria();
         return new SearchCriteria(c, p, t, s);
     }
 

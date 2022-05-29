@@ -78,7 +78,10 @@ public class CountryFilterController {
     }
 
     public Vector<String> getCriteria() {
-        if (selectedCountries.isEmpty()) return filteredCountryCode;
+        if (selectedCountries.isEmpty()) {
+            filteredCountryCode.add(null);
+            return filteredCountryCode;
+        }
         for (String code : selectedCountries) {
             if (invalidSelectedCountryCodes.contains(code))
                 selectedCountries.remove(code);

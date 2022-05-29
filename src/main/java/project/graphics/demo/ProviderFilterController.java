@@ -74,6 +74,7 @@ public class ProviderFilterController {
         if (selectedProviders.isEmpty()) {
             Vector<Provider> tmp = new Vector<>();
             for (CheckBox cb : filteredProviderCheckBox) tmp.add(nameToProvider2.get(cb.getText()));
+            tmp.add(null);
             return tmp;
         }
         for (CheckBox cb : invalidSelectedCheckBoxes) {
