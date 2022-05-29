@@ -44,8 +44,8 @@ public class ResultUI {
         Map<String, Accordion> countryToAccordion = new HashMap<>();
         searchResults.keySet().forEach(provider -> {
             String cc = provider.getCountryCode();
+            String cn = provider.getCountryName();
             if (!countryToAccordion.containsKey(cc)) {
-                String cn = provider.getCountryName();
                 TitledPane countryTPane = new TitledPane(cn, new Accordion());
                 countryTPane.getStyleClass().add("country-titled-pane");
                 countryToAccordion.put(cc, (Accordion) countryTPane.getContent());
