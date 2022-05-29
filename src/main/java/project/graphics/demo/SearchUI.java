@@ -251,7 +251,7 @@ public class SearchUI extends Application {
             }
             try {
                 SearchEngine.getInstance().performSearch(criteria);
-                Scene resultScene = ResultUI.result(stage, scene, SearchEngine.getInstance().getSearchResults());
+                Scene resultScene = ResultUI.result(stage, scene);
                 resultScene.getStylesheets().add(Objects.requireNonNull(ResultUI.class.getResource("css/stylesheet.css")).toExternalForm());
                 stage.setScene(resultScene);
             } catch (IOException e) {

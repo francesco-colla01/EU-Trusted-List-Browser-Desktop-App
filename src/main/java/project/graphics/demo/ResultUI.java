@@ -17,7 +17,7 @@ import java.util.Vector;
 
 public class ResultUI {
 
-    public static Scene result(Stage stage, Scene backScene, Map<Provider, Vector<Service>> searchResults) throws IOException {
+    public static Scene result(Stage stage, Scene backScene) throws IOException {
 
         //Loading file xml
         FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("search-view.fxml"));
@@ -40,9 +40,11 @@ public class ResultUI {
         accordion.setPrefWidth(1250);
         accordion.setMaxHeight(675);
 
+        Map<Provider, Vector<Service>> searchResults = SearchEngine.getInstance().getSearchResults();
         Map<String, Accordion> countryToAccordion = new HashMap<>();
         searchResults.keySet().forEach(provider -> {
-            if (!countryToAccordion.containsKey(provider.getCountryCode())) {
+            String cc = provider.getCountryCode();
+            if (!countryToAccordion.containsKey(cc)) {
                 TitledPane countryTPane = new TitledPane(provider.getCountryName(), new Accordion());
                 countryTPane.getStyleClass().add("country-titled-pane");
                 countryToAccordion.put(provider.getCountryCode(), (Accordion) countryTPane.getContent());
@@ -50,7 +52,7 @@ public class ResultUI {
             }
 
 
-            Accordion countryAccordion = countryToAccordion.get(provider.getCountryCode());
+            Accordion countryAccordion = countryToAccordion.get(cc);
 
             Vector<Service> services = searchResults.get(provider);
 
@@ -66,10 +68,9 @@ public class ResultUI {
         pane.getChildren().add(accordion);
 
         //Executing search
-        Map<Provider, Vector<Service>> results = SearchEngine.getInstance().getSearchResults();
-        for (Provider p : results.keySet()) {
+        for (Provider p : searchResults.keySet()) {
             String tmp = p.getName() + ": ";
-            Vector<Service> ser = results.get(p);
+            Vector<Service> ser = searchResults.get(p);
             for (Service s : ser) tmp += s.getServiceName() + ", ";
             System.out.println(tmp.substring(0, tmp.length()-2));
         }
