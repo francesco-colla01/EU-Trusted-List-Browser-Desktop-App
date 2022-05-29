@@ -61,14 +61,17 @@ public class TypeFilterController {
     }
 
     public Vector<String> getCriteria() {
+        Vector<String> tmp = new Vector<>();
         if (selectedTypes.isEmpty()) {
-            filteredTypes.add(null);
-            return filteredTypes;
+            for (String t : filteredTypes) tmp.add(t);
+            tmp.add(null);
         }
-        for (String t : invalidSelectedTypes) {
-            if (selectedTypes.contains(t)) selectedTypes.remove(t);
+        else {
+            for (String t : selectedTypes) {
+                if (!invalidSelectedTypes.contains(t)) tmp.add(t);
+            }
         }
-        return selectedTypes;
+        return tmp;
     }
 
     public Vector<String> getFilterCriteria() {

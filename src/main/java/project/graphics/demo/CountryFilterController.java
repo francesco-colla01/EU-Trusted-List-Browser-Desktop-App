@@ -71,17 +71,17 @@ public class CountryFilterController {
     }
 
     public Vector<String> getCriteria() {
+        Vector<String> tmp = new Vector<>();
         if (selectedCountries.isEmpty()) {
-            filteredCountryCode.add(null);
-            return filteredCountryCode;
+            for (String cc : filteredCountryCode) tmp.add(cc);
+            tmp.add(null);
         }
         else {
-            for (String code : selectedCountries) {
-                if (invalidSelectedCountryCodes.contains(code))
-                    selectedCountries.remove(code);
+            for (String cc : selectedCountries) {
+                if (!invalidSelectedCountryCodes.contains(cc)) tmp.add(cc);
             }
         }
-        return selectedCountries;
+        return tmp;
     }
 
     public Vector<String> getFilterCriteria() {
@@ -98,7 +98,6 @@ public class CountryFilterController {
     private void generateCountriesCheckBoxes() {
         Map<String, String> allCountries = CriteriaListFactory.getCountryList();
         for (Map.Entry<String, String> country : allCountries.entrySet()) {
-            System.out.println(country.getKey() + ": " + country.getValue());
             CheckBox countryCheckBox = new CheckBox(country.getValue());
             countryCheckBox.getStyleClass().add("countries-check-box");
             countryCheckBox.setId(country.getKey());

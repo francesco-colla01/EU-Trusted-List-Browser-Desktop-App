@@ -12,13 +12,13 @@ public class ProviderFilterController {
     private List<CheckBox> providersCheckBox = new Vector<>();
     private List<CheckBox> filteredProviderCheckBox = new Vector<>();
     private Map<String, Provider> nameToProvider = new HashMap<>();
-    private List<CheckBox> invalidSelectedCheckBoxes = new Vector<>();
+    private Vector<Provider> invalidSelectedProviders = new Vector<>();
 
     public ProviderFilterController() { generateProviderCheckboxes(); }
 
     public List<CheckBox> getCheckBoxes(Vector<String> c, Vector<String> t, Vector<String> s) {
         filteredProviderCheckBox.clear();
-        invalidSelectedCheckBoxes.clear();
+        invalidSelectedProviders.clear();
         for (CheckBox providerCBox : providersCheckBox) {
 
             Provider provider = nameToProvider.get(providerCBox.getId());
@@ -58,7 +58,7 @@ public class ProviderFilterController {
         providersCheckBox.forEach(CBox -> {
             if (CBox.isSelected() && !filteredProviderCheckBox.contains(CBox)) {
                 filteredProviderCheckBox.add(CBox);
-                invalidSelectedCheckBoxes.add(CBox);
+                invalidSelectedProviders.add(nameToProvider.get(CBox.getId()));
                 CBox.setStyle("-fx-text-fill: #b50202;");
             }});
 
@@ -69,17 +69,17 @@ public class ProviderFilterController {
     }
 
     public Vector<Provider> getCriteria() {
+        Vector<Provider> tmp = new Vector<>();
         if (selectedProviders.isEmpty()) {
-            Vector<Provider> tmp = new Vector<>();
             for (CheckBox cb : filteredProviderCheckBox) tmp.add(nameToProvider.get(cb.getId()));
             tmp.add(null);
-            return tmp;
         }
-        for (CheckBox cb : invalidSelectedCheckBoxes) {
-            Provider p = nameToProvider.get(cb.getId());
-            if (selectedProviders.contains(p)) selectedProviders.remove(p);
+        else {
+            for (Provider p : selectedProviders) {
+                if (!invalidSelectedProviders.contains(p)) tmp.add(p);
+            }
         }
-        return selectedProviders;
+        return tmp;
     }
 
     public int getSelectedProviderSize() {

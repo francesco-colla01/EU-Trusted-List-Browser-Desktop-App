@@ -26,7 +26,6 @@ public class CriteriaListFactory {
 
         countryList = new TreeMap<>(); //this map associate the country name to his code (e.g Italy ----> IT)
         for (int i = 0; i<jsonCountriesList.length(); i++) {
-            //System.out.println(jsonCountriesList.getJSONObject(i).getString("countryCode") + ": " + jsonCountriesList.getJSONObject(i).getString("countryName"));
             countryList.put(jsonCountriesList.getJSONObject(i).getString("countryCode"), jsonCountriesList.getJSONObject(i).getString("countryName"));
         }
 
@@ -55,9 +54,6 @@ public class CriteriaListFactory {
                 if (!typeList.contains(s[j]))
                     typeList.add(s[j]);
             }
-        }
-        for (String r : countryList.keySet()) {
-            System.out.println(r + ": " + countryList.get(r));
         }
     }
 

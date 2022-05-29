@@ -77,14 +77,17 @@ public class StatusFilterController {
     }
 
     public Vector<String> getCriteria() {
+        Vector<String> tmp = new Vector<>();
         if (selectedStatuses.isEmpty()) {
-            filteredStatuses.add(null);
-            return filteredStatuses;
+            for (String s : filteredStatuses) tmp.add(s);
+            tmp.add(null);
         }
-        for (String s : invalidSelectedStatuses) {
-            if (selectedStatuses.contains(s)) selectedStatuses.remove(s);
+        else {
+            for (String s : selectedStatuses) {
+                if (!invalidSelectedStatuses.contains(s)) tmp.add(s);
+            }
         }
-        return selectedStatuses;
+        return tmp;
     }
 
     public Vector<String> getFilterCriteria() {
