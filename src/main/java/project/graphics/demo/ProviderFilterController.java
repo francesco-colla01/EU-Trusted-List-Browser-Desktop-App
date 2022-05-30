@@ -14,7 +14,26 @@ public class ProviderFilterController {
     private Map<String, Provider> nameToProvider = new HashMap<>();
     private Vector<Provider> invalidSelectedProviders = new Vector<>();
 
-    public ProviderFilterController() { generateProviderCheckboxes(); }
+    public ProviderFilterController() {
+        Vector<Provider> p = CriteriaListFactory.getProviderList();
+        for (Provider provider : p) {
+            String name = provider.getName();
+            String cc = provider.getCountryCode();
+            nameToProvider.put(name + cc, provider);
+            CheckBox providerCheckBox = new CheckBox(provider.getName());
+            providerCheckBox.getStyleClass().add("provider-check-box");
+            providerCheckBox.setId(name + cc);
+            providerCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
+                if (providerCheckBox.isSelected())
+                    selectedProviders.add(nameToProvider.get(providerCheckBox.getId()));
+                else {
+                    selectedProviders.remove(nameToProvider.get(providerCheckBox.getId()));
+                    providerCheckBox.setStyle("-fx-text-fill:  black;");
+                }
+            });
+            providersCheckBox.add(providerCheckBox);
+        }
+    }
 
     public List<CheckBox> getCheckBoxes(Vector<String> c, Vector<String> t, Vector<String> s) {
         filteredProviderCheckBox.clear();
@@ -90,24 +109,5 @@ public class ProviderFilterController {
         if (selectedProviders.isEmpty())
             return CriteriaListFactory.getProviderList();
         return selectedProviders;
-    }
-
-    private void generateProviderCheckboxes() {
-        Vector<Provider> p = CriteriaListFactory.getProviderList();
-        for (Provider provider : p) {
-            nameToProvider.put(provider.getName() + provider.getCountryCode(), provider);
-            CheckBox providerCheckBox = new CheckBox(provider.getName());
-            providerCheckBox.getStyleClass().add("provider-check-box");
-            providerCheckBox.setId(provider.getName() + provider.getCountryCode());
-            providerCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
-                if (providerCheckBox.isSelected())
-                    selectedProviders.add(nameToProvider.get(providerCheckBox.getId()));
-                else {
-                    selectedProviders.remove(nameToProvider.get(providerCheckBox.getId()));
-                    providerCheckBox.setStyle("-fx-text-fill:  black;");
-                }
-            });
-            providersCheckBox.add(providerCheckBox);
-        }
     }
 }

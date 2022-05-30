@@ -17,7 +17,21 @@ public class StatusFilterController {
     private Vector<String> invalidSelectedStatuses = new Vector<>();
 
     public StatusFilterController() {
-        generateStatusCheckboxes();
+        Vector<String> allStatuses = CriteriaListFactory.getStatusList();
+        for(String status : allStatuses) {
+            CheckBox statusCheckBox = new CheckBox(status);
+            statusCheckBox.getStyleClass().add("countries-check-box");
+            statusCheckBox.setDisable(true);
+            statusCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
+                if (statusCheckBox.isSelected())
+                    selectedStatuses.add(statusCheckBox.getText());
+                else {
+                    selectedStatuses.remove(statusCheckBox.getText());
+                    statusCheckBox.setStyle("-fx-text-fill:  black;");
+                }
+            });
+            statusesCheckBox.add(statusCheckBox);
+        }
     }
 
     /**
@@ -94,23 +108,5 @@ public class StatusFilterController {
         if (selectedStatuses.isEmpty())
             return CriteriaListFactory.getStatusList();
         return selectedStatuses;
-    }
-
-    private void generateStatusCheckboxes() {
-        Vector<String> allStatuses = CriteriaListFactory.getStatusList();
-        for(String status : allStatuses) {
-            CheckBox statusCheckBox = new CheckBox(status);
-            statusCheckBox.getStyleClass().add("countries-check-box");
-            statusCheckBox.setDisable(true);
-            statusCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
-                if (statusCheckBox.isSelected())
-                    selectedStatuses.add(statusCheckBox.getText());
-                else {
-                    selectedStatuses.remove(statusCheckBox.getText());
-                    statusCheckBox.setStyle("-fx-text-fill:  black;");
-                }
-            });
-            statusesCheckBox.add(statusCheckBox);
-        }
     }
 }

@@ -17,7 +17,22 @@ public class CountryFilterController {
     private Vector<String> invalidSelectedCountryCodes = new Vector<>();
 
     CountryFilterController() {
-        generateCountriesCheckBoxes();
+        Map<String, String> allCountries = CriteriaListFactory.getCountryList();
+        for (Map.Entry<String, String> country : allCountries.entrySet()) {
+            CheckBox countryCheckBox = new CheckBox(country.getValue());
+            countryCheckBox.getStyleClass().add("countries-check-box");
+            countryCheckBox.setId(country.getKey());
+            countryCheckBox.setDisable(true);
+            countryCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
+                if (countryCheckBox.isSelected())
+                    selectedCountries.add(country.getKey());
+                else {
+                    countryCheckBox.setStyle("-fx-text-fill:  black;");
+                    selectedCountries.remove(country.getKey());
+                }
+            });
+            countriesCheckBox.add(countryCheckBox);
+        }
     }
 
     public List<CheckBox> getCheckBoxes(Vector<Provider> p, Vector<String> t, Vector<String> s) {
@@ -93,24 +108,5 @@ public class CountryFilterController {
             for (String countryCode : selectedCountries) tmp.add(countryCode);
         }
         return tmp;
-    }
-
-    private void generateCountriesCheckBoxes() {
-        Map<String, String> allCountries = CriteriaListFactory.getCountryList();
-        for (Map.Entry<String, String> country : allCountries.entrySet()) {
-            CheckBox countryCheckBox = new CheckBox(country.getValue());
-            countryCheckBox.getStyleClass().add("countries-check-box");
-            countryCheckBox.setId(country.getKey());
-            countryCheckBox.setDisable(true);
-            countryCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
-                if (countryCheckBox.isSelected())
-                    selectedCountries.add(country.getKey());
-                else {
-                    countryCheckBox.setStyle("-fx-text-fill:  black;");
-                    selectedCountries.remove(country.getKey());
-                }
-            });
-            countriesCheckBox.add(countryCheckBox);
-        }
     }
 }

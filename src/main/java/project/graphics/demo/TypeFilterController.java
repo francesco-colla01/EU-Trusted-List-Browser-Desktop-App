@@ -17,7 +17,21 @@ public class TypeFilterController {
     private Vector<String> invalidSelectedTypes = new Vector<>();
 
     public TypeFilterController() {
-        generateTypesCheckBoxes();
+        Vector<String> allTypes = CriteriaListFactory.getTypeList();
+        for (String type : allTypes) {
+            CheckBox typeCheckBox = new CheckBox(type);
+            typeCheckBox.getStyleClass().add("countries-check-box");
+            typeCheckBox.setDisable(true);
+            typeCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
+                if (typeCheckBox.isSelected())
+                    selectedTypes.add(typeCheckBox.getText());
+                else {
+                    selectedTypes.remove(typeCheckBox.getText());
+                    typeCheckBox.setStyle("-fx-text-fill:  black;");
+                }
+            });
+            typesCheckBox.add(typeCheckBox);
+        }
     }
 
     public List<CheckBox> getCheckBoxes(Vector<String> c, Vector<Provider> p, Vector<String> s) {
@@ -78,23 +92,5 @@ public class TypeFilterController {
         if (selectedTypes.isEmpty())
             return CriteriaListFactory.getTypeList();
         return selectedTypes;
-    }
-
-    private void generateTypesCheckBoxes() {
-        Vector<String> allTypes = CriteriaListFactory.getTypeList();
-        for (String type : allTypes) {
-            CheckBox typeCheckBox = new CheckBox(type);
-            typeCheckBox.getStyleClass().add("countries-check-box");
-            typeCheckBox.setDisable(true);
-            typeCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
-                if (typeCheckBox.isSelected())
-                    selectedTypes.add(typeCheckBox.getText());
-                else {
-                    selectedTypes.remove(typeCheckBox.getText());
-                    typeCheckBox.setStyle("-fx-text-fill:  black;");
-                }
-            });
-            typesCheckBox.add(typeCheckBox);
-        }
     }
 }
