@@ -60,7 +60,6 @@ public class ProviderFilterController {
                             for (String typo : service.getServiceTypes()) {
                                 if (t.contains(typo))
                                     contains = true;
-                                break;
                             }
 
                             if (s.contains(service.getCurrentStatus()) && contains) {
