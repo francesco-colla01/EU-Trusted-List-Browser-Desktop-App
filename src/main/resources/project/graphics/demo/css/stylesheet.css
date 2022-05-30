@@ -2,6 +2,20 @@
     -fx-background-color: #004494;
 }
 
+.dark-mode{
+    -fx-background-color: #2E3440;
+    -fx-text-fill: #ECEFF4;
+}
+
+.light-mode{
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+}
+
+.dark-mode-toggle{
+    -fx-background-image: url("https://i.imgur.com/sIQdMdi.png");
+}
+
 .countries-check-box > .box {
     -fx-padding: 5px 5px 5px 5px;
 }

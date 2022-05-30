@@ -2,6 +2,7 @@ package project.graphics.demo;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -258,6 +259,31 @@ public class SearchUI extends Application {
             }
         });
 
+        ToggleButton darkMode = (ToggleButton) fxmlLoader.getNamespace().get("darkMode");
+        darkMode.setSelected(false);
+        darkMode.setOnAction(actionEvent -> {
+            if(darkMode.isSelected()){
+                System.out.println("darkmode is enabled");
+                countriesPane.getStyleClass().add("dark-mode");
+                countriesCheckBoxes.getStyleClass().add("dark-mode");
+                providersCheckBoxes.getStyleClass().add("dark-mode");
+                scrollPane.getStyleClass().add("dark-mode");
+                tosAnchorPane.getStyleClass().add("dark-mode");
+                tosCheckBoxes.getStyleClass().add("dark-mode");
+                ssAnchorPane.getStyleClass().add("dark-mode");
+
+
+            } else if (!darkMode.isSelected()) {
+                System.out.println("darkmode is disabled");
+                countriesPane.getStyleClass().remove("dark-mode");
+                countriesCheckBoxes.getStyleClass().remove("dark-mode");
+                providersCheckBoxes.getStyleClass().remove("dark-mode");
+                scrollPane.getStyleClass().remove("dark-mode");
+                tosAnchorPane.getStyleClass().remove("dark-mode");
+                tosCheckBoxes.getStyleClass().remove("dark-mode");
+                ssAnchorPane.getStyleClass().remove("dark-mode");
+            }
+        });
 
 
         stage.getIcons().add(new Image("https://i.imgur.com/xm62NkC.png"));
