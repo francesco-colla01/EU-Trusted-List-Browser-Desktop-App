@@ -8,10 +8,7 @@ public class SearchEngine {
     private Map<Provider, Vector<Service>> searchResults;
     private static SearchEngine instance;
 
-    SearchEngine() {
-        clearSearchResults();
-    }
-
+    private SearchEngine() { clearSearchResults(); }
     private void clearSearchResults() {
         searchResults = new HashMap<>();
     }
@@ -48,7 +45,5 @@ public class SearchEngine {
         }
     }
 
-    public Map<Provider, Vector<Service>> getSearchResults() {
-        return searchResults;
-    }
+    public Map<Provider, Vector<Service>> getSearchResults() { return searchResults; }
 }

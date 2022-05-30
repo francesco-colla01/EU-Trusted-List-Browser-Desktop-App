@@ -23,11 +23,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-//TODO METTERE A POSTO LE CLASSI CHE GESTISCONO L'UPDATE DELLE TABELLE
-//TODO CAMBIARE BOTTONE PER LA RICERCA
-//TODO FARE LA RICERCA NELLA CLASSE SPECIFICA
-//TODO FARE LA GUI PER I SERVIZI CHE ESCONO DOPO AVER FATTO LA RICERCA
-
 public class SearchUI extends Application {
 
     @Override

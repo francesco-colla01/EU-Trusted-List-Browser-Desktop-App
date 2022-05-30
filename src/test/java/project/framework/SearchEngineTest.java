@@ -8,18 +8,11 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SearchEngineTest {
-
-    SearchEngine se1 = new SearchEngine();
-    SearchEngine se2 = new SearchEngine();
-
-    @BeforeEach
-    void setUp() {
-    }
-
     @Test
     public void evaluateSearchEngineUniqueness() throws IOException {
-        System.out.println("test evaluateSearchEngineUniqueness");
-        CriteriaListFactory f = new CriteriaListFactory();
+        System.out.println("test evaluateSearchEngineUniqueness (Singleton GoF pattern)");
+        SearchEngine se1 = SearchEngine.getInstance();
+        SearchEngine se2 = SearchEngine.getInstance();
         assertTrue(se1 == se2);
     }
 

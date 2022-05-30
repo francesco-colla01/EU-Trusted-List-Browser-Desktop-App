@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
 public class HttpRequest {
     private String resultBody;
     private HttpURLConnection con;
@@ -14,8 +13,9 @@ public class HttpRequest {
     private boolean errorStatus;
 
     /**
-     * HttpRequest constructor; this class is used to establish a connection
-     * with the EU Trust Services Dashboard API
+     * HttpRequest constructor; this class is used to establish and prepare a
+     * connection with the EU Trust Services Dashboard API.
+     * At the end calls method executeConnection().
      *
      * @param urlConnection link expressed in a String
      * @throws IOException
@@ -28,9 +28,9 @@ public class HttpRequest {
         executeConnection();
     }
 
-    //TODO CHIEDERE A MARKOVI COSA FANNO NELLO SPECIFICO
     /**
-     *
+     * Establish connection with the server and check whether the connection
+     * fails with value of responseStatus variable
      *
      * @throws IOException
      */
@@ -43,6 +43,7 @@ public class HttpRequest {
     }
 
     /**
+     * Build the resultBody variable through JSon response
      *
      * @throws IOException
      */

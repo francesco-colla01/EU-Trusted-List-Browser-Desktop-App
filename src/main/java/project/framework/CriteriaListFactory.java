@@ -39,11 +39,11 @@ public class CriteriaListFactory {
         statusList = new Vector<>();
 
         //fill all maps and vectors
-        for (int i = 0; i<jsonProvidersList.length(); i++) {
+        for (int i = 0; i < jsonProvidersList.length(); i++) {
             all_tsp[i] = new Provider(jsonProvidersList.getJSONObject(i).toString());
             providerList.add(all_tsp[i]);
 
-            for (int j = 0; j<all_tsp[i].getServices().length; j++) {
+            for (int j = 0; j < all_tsp[i].getServices().length; j++) {
                 Service[] s = all_tsp[i].getServices();
                 if (!statusList.contains(s[j].getCurrentStatus()))
                     statusList.add(s[j].getCurrentStatus());
