@@ -5,10 +5,7 @@ import project.framework.CriteriaListFactory;
 import project.framework.Provider;
 import project.framework.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 public class CountryFilterController {
     private Vector<String> selectedCountries = new Vector<>();
@@ -18,17 +15,21 @@ public class CountryFilterController {
 
     CountryFilterController() {
         Map<String, String> allCountries = CriteriaListFactory.getCountryList();
+        SortedMap<String, String> reverseAllCountries = new TreeMap<>();
         for (Map.Entry<String, String> country : allCountries.entrySet()) {
-            CheckBox countryCheckBox = new CheckBox(country.getValue());
+            reverseAllCountries.put(country.getValue(), country.getKey());
+        }
+        for (Map.Entry<String, String> country : reverseAllCountries.entrySet()) {
+            CheckBox countryCheckBox = new CheckBox(country.getKey());
             countryCheckBox.getStyleClass().add("countries-check-box");
-            countryCheckBox.setId(country.getKey());
+            countryCheckBox.setId(country.getValue());
             countryCheckBox.setDisable(true);
             countryCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
                 if (countryCheckBox.isSelected())
-                    selectedCountries.add(country.getKey());
+                    selectedCountries.add(country.getValue());
                 else {
                     countryCheckBox.setStyle("-fx-text-fill:  black;");
-                    selectedCountries.remove(country.getKey());
+                    selectedCountries.remove(country.getValue());
                 }
             });
             countriesCheckBox.add(countryCheckBox);
