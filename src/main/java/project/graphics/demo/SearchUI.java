@@ -24,19 +24,15 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class SearchUI extends Application {
+public class SearchUI {
 
-    @Override
-    public void start(Stage stage) throws IOException {
+    public static Scene search(Stage stage) throws IOException {
         //Loading file xml
         FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("hello-view.fxml"));
 
 
         //Scene creation
         Scene scene = new Scene(fxmlLoader.load(), 1250, 750);
-        stage.setTitle("EU Trust Service Dashboard");
-        stage.setScene(scene);
-        stage.setResizable(false);
 
         FilterController filter = new FilterController();
 
@@ -54,17 +50,17 @@ public class SearchUI extends Application {
                 if (separator < (filteredCountries.size()/2)) {
                     if (!countriesCheckBoxesLeft.getChildren().contains(CBox)) {
                         countriesCheckBoxesLeft.getChildren().add(CBox);
-                        }
                     }
-                    else {
-                        if (!countriesCheckBoxesRight.getChildren().contains(CBox)) {
-                            countriesCheckBoxesRight.getChildren().add(CBox);
-                        }
-                    }
-
-                    separator++;
                 }
+                else {
+                    if (!countriesCheckBoxesRight.getChildren().contains(CBox)) {
+                        countriesCheckBoxesRight.getChildren().add(CBox);
+                    }
+                }
+
+                separator++;
             }
+        }
         ));
 
         countriesTPane.setCycleCount(Animation.INDEFINITE);
@@ -234,7 +230,7 @@ public class SearchUI extends Application {
         scrollPane.getChildren().add(providersCheckBoxes);
 
 
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("css/stylesheet.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(SearchUI.class.getResource("css/stylesheet.css")).toExternalForm());
 
         Button searchButton = (Button) fxmlLoader.getNamespace().get("searchButton");
         searchButton.getStyleClass().add("searchButton");
@@ -280,14 +276,6 @@ public class SearchUI extends Application {
             }
         });
 
-
-        stage.getIcons().add(new Image("https://i.imgur.com/xm62NkC.png"));
-
-
-        stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
+        return scene;
     }
 }

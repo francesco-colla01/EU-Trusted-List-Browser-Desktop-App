@@ -14,6 +14,7 @@ import project.framework.Service;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Vector;
 
 public class ResultUI {
@@ -30,6 +31,17 @@ public class ResultUI {
         Button backButton = (Button) fxmlLoader.getNamespace().get("backButton");
         backButton.setOnAction(actionEvent -> {
             stage.setScene(backScene);
+        });
+
+        Button anotherSearchButton = (Button) fxmlLoader.getNamespace().get("anotherSearchButton");
+        anotherSearchButton.setOnAction(action -> {
+            try {
+                Scene searchScene = SearchUI.search(stage);
+                searchScene.getStylesheets().add(Objects.requireNonNull(SearchUI.class.getResource("css/stylesheet.css")).toExternalForm());
+                stage.setScene(searchScene);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
         //ResultUI display
@@ -79,6 +91,8 @@ public class ResultUI {
             for (Service s : ser) tmp += s.getServiceName() + ", ";
             System.out.println(tmp.substring(0, tmp.length()-2));
         }
+
+        scene.getStylesheets().add(Objects.requireNonNull(ResultUI.class.getResource("css/stylesheet.css")).toExternalForm());
 
         return scene;
     }

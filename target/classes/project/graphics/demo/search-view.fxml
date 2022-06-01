@@ -29,8 +29,8 @@
             </ScrollPane>
             <AnchorPane prefHeight="50.0" prefWidth="1250.0">
                <children>
-                  <Button layoutX="1184.0" layoutY="13.0" mnemonicParsing="false" text="Button" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="905.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="5.0" />
-                  <Button fx:id="backButton" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Back" />
+                  <Button fx:id="anotherSearchButton" layoutX="1184.0" layoutY="13.0" mnemonicParsing="false" text="Perform another search" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="905.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="5.0" />
+                  <Button fx:id="backButton" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Go back" />
                </children>
             </AnchorPane>
          </children>
