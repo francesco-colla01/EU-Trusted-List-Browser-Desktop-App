@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class CriteriaListFactory {
-    private static SortedMap<String, String> countryList;
+    private static SortedMap<String, String> countryList; //code to name
     private static Vector<Provider> providerList;
     private static Vector<String> typeList, statusList;
 

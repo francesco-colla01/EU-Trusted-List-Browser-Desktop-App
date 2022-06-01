@@ -51,7 +51,7 @@ public class FilterController {
     }
 
     public SearchCriteria getCriteria() {
-        Vector<String> c = countries.getCriteria();
+        Vector<String> c = countries.getCriteria(); //returns country codes
         Vector<Provider> p = providers.getCriteria();
         Vector<String> t = types.getCriteria();
         Vector<String> s = statuses.getCriteria();

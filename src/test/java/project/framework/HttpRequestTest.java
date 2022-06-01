@@ -19,5 +19,4 @@ class HttpRequestTest {
         assertThrows(java.io.IOException, HttpRequest() amogus = new HttpRequest());
     }
     */
-
 }
