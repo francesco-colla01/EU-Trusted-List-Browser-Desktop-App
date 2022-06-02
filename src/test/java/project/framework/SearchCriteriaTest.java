@@ -1,10 +1,13 @@
 package project.framework;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
 import java.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class SearchCriteriaTest {
     @Test
     void evaluateInvalidParameters() {
