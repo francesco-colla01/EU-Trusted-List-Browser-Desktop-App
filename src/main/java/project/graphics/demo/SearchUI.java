@@ -234,7 +234,7 @@ public class SearchUI {
         searchButton.setOnAction(actionEvent -> {
             SearchCriteria criteria = filter.getCriteria();
             if (criteria.isInvalid()) {
-                ErrorUI.showError("You must select at least one parameter!");
+                ErrorUI.showError("You must select at least one valid parameter!");
                 return;
             }
             try {
