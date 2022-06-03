@@ -23,11 +23,12 @@ import project.framework.Service;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.concurrent.CountedCompleter;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ResultUI {
 
-    public static Scene result(Stage stage, Scene backScene, AtomicBoolean darkMode) throws IOException {
+    public static Scene result(Stage stage, AtomicBoolean darkMode) throws IOException {
 
         //Loading file xml
         FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("search-view.fxml"));
@@ -42,7 +43,7 @@ public class ResultUI {
 
         Button backButton = (Button) fxmlLoader.getNamespace().get("backButton");
         backButton.setOnAction(actionEvent -> {
-            stage.setScene(backScene);
+            CompleteUI.backScene();
         });
 
         Button anotherSearchButton = (Button) fxmlLoader.getNamespace().get("anotherSearchButton");

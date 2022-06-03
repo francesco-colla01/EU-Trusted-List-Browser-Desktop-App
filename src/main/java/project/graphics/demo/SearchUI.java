@@ -239,16 +239,15 @@ public class SearchUI {
             }
             try {
                 SearchEngine.getInstance().performSearch(criteria);
-                Scene resultScene = ResultUI.result(stage, scene, darkmode);
-                resultScene.getStylesheets().add(Objects.requireNonNull(ResultUI.class.getResource("css/stylesheet.css")).toExternalForm());
-                stage.setScene(resultScene);
+                Scene resultScene = ResultUI.result(stage, darkmode);
+
+                CompleteUI.swapScene(resultScene);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
 
         FlowPane backgroundFlowPane = (FlowPane)fxmlLoader.getNamespace().get("backgroundFlowPane");
-        AnchorPane providersScrollPAne = (AnchorPane) fxmlLoader.getNamespace().get("providersScrollPAne");
 
         ToggleButton darkMode = (ToggleButton) fxmlLoader.getNamespace().get("darkMode");
 
