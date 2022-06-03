@@ -1,9 +1,13 @@
 package project.graphics.demo;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -50,8 +54,7 @@ public class ResultUI {
         VBox resultBox = new VBox();
 
         Accordion accordion = new Accordion();
-        accordion.setPrefWidth(1250);
-        accordion.setMaxHeight(675);
+        accordion.setPrefWidth(833);
 
         Map<Provider, Vector<Service>> searchResults = SearchEngine.getInstance().getSearchResults();
         Map<String, Accordion> countryToAccordion = new HashMap<>();
@@ -60,7 +63,6 @@ public class ResultUI {
             String cn = provider.getCountryName();
             if (!countryToAccordion.containsKey(cc)) {
                 TitledPane countryTPane = new TitledPane(cn, new Accordion());
-                countryTPane.getStyleClass().add("country-titled-pane");
                 countryToAccordion.put(cc, (Accordion) countryTPane.getContent());
                 accordion.getPanes().add(countryTPane);
             }
@@ -72,13 +74,42 @@ public class ResultUI {
 
             countryAccordion.setPadding(new Insets(0,0 ,0,18));
 
-            TitledPane providerTPane = new TitledPane(provider.getName(), new ListView<>());
+            ObservableList<Service> sList = FXCollections.observableArrayList();
+            sList.addAll(services);
+
+            TitledPane providerTPane = new TitledPane(provider.getName(), new ListView<>(sList));
+
             ListView serviceList = (ListView) providerTPane.getContent();
-            serviceList.setMaxHeight(300);
-            serviceList.getStyleClass().add("service-list");
-            services.forEach(service -> {
-                serviceList.getItems().add(service.getServiceName());
+
+            serviceList.setCellFactory(svc -> new ListCell<Service>() {
+
+                @Override
+                protected void updateItem(Service service, boolean isEmpty) {
+                    super.updateItem(service, isEmpty);
+
+                    if (isEmpty || service == null ) {
+                        setText(null);
+                    } else
+                        setText(service.getServiceName());
+                }
             });
+
+            serviceList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    AnchorPane serviceInfoPane = (AnchorPane) fxmlLoader.getNamespace().get("serviceInfo");
+
+                    VBox data = new VBox();
+
+                    Label title = (Label) fxmlLoader.getNamespace().get("sInfoLabel");
+                    title.setOpacity(1);
+
+
+                    serviceInfoPane.getChildren().add(data);
+                }
+            });
+
             countryAccordion.getPanes().add(providerTPane);
         });
 

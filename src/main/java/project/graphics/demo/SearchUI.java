@@ -108,7 +108,7 @@ public class SearchUI {
         HBox tosCheckBoxes = new HBox(tosCheckBoxesLeft, tosCheckBoxesRight);
         tosCheckBoxes.setSpacing(15);
 
-        AnchorPane.setTopAnchor(tosCheckBoxes, 75.0);
+        AnchorPane.setTopAnchor(tosCheckBoxes, 100.0);
         AnchorPane.setLeftAnchor(tosCheckBoxes, 22.0);
 
 
@@ -145,7 +145,7 @@ public class SearchUI {
 
         HBox ssCheckBoxes = new HBox(ssCheckBoxesLeft, ssCheckBoxesRight);
 
-        AnchorPane.setTopAnchor(ssCheckBoxes, 75.0);
+        AnchorPane.setTopAnchor(ssCheckBoxes, 85.0);
         AnchorPane.setLeftAnchor(ssCheckBoxes, 22.0);
 
 

@@ -1,36 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <MenuBar prefHeight="30.0" prefWidth="1250.0">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Exit" />
-              </items>
-            </Menu>
-         </menus>
-      </MenuBar>
       <FlowPane prefHeight="799.0" prefWidth="1250.0">
          <children>
-            <ScrollPane fx:id="resultScrollPane" prefHeight="675.0" prefWidth="1250.0">
-              <content>
-                <AnchorPane fx:id="resultAnchorPAne" minHeight="0.0" minWidth="0.0" />
-              </content>
-            </ScrollPane>
+            <HBox prefHeight="700.0" prefWidth="1250.0">
+               <children>
+                  <ScrollPane fx:id="resultScrollPane" prefHeight="700.0" prefWidth="834.0">
+                    <content>
+                      <AnchorPane fx:id="resultAnchorPAne" minHeight="0.0" minWidth="0.0" />
+                    </content>
+                  </ScrollPane>
+                  <AnchorPane fx:id="serviceInfo" prefHeight="700.0" prefWidth="416.0">
+                     <children>
+                        <Label fx:id="sInfoLabel" alignment="TOP_CENTER" opacity="0.0" prefHeight="38.0" prefWidth="396.0" text="Service Info" textAlignment="CENTER" textFill="#004494" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="16.0">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
             <AnchorPane prefHeight="50.0" prefWidth="1250.0">
                <children>
-                  <Button fx:id="anotherSearchButton" layoutX="1184.0" layoutY="13.0" mnemonicParsing="false" text="Perform another search" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="905.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="5.0" />
-                  <Button fx:id="backButton" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Go back" />
+                  <Button fx:id="anotherSearchButton" layoutX="1184.0" layoutY="13.0" mnemonicParsing="false" text="Perform another search" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="905.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="5.0" />
+                  <Button fx:id="backButton" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="234.0" text="Go back" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="5.0" />
                </children>
             </AnchorPane>
          </children>
