@@ -43,6 +43,9 @@ public class Service {
         }
     }
 
+    public Service(String testJson, String italy) {
+    }
+
     //Get method: one vector including every private attribute
     //first four elements: countryName, currentStatus, serviceName, typeIdentifier
     //other elements: serviceTypes

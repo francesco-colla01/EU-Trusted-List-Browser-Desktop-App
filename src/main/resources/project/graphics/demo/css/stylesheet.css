@@ -35,10 +35,10 @@
     -fx-font-size: 14px;
 }
 
-.country-titled-pane {
+.country-titled-pane > *.content {
     -fx-background-color: #cccccc;
 }
 
-.provider-titled-pane {
+.provider-titled-pane > *.content {
     -fx-background-color: #eeeeee;
 }

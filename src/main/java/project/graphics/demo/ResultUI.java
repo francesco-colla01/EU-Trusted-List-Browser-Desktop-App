@@ -121,11 +121,11 @@ public class ResultUI {
                     Service s = (Service) serviceList.getSelectionModel().getSelectedItem();
 
 
-                    Label title = (Label) fxmlLoader.getNamespace().get("sInfoLabel");
+                    Label title = (Label) fxmlLoader.getNamespace().get("sInfoLable");
                     title.setOpacity(1);
 
                     dataText.getChildren().add(new Text("Provider Name:"));
-                    dataValue.getChildren().add(new TextField(s.getProviderName()));
+                    dataValue.getChildren().add(new Text(s.getProviderName()));
 
                     dataText.getChildren().add(new Text("Country:"));
                     Image flag = new Image("https://countryflagsapi.com/png/" + s.getCountryName().replaceAll(" ", "%20"));
