@@ -16,6 +16,7 @@ public class Service {
      *
      * @param  jsonSource is a string get from the Json file in which are
      *                    all the service information needed
+     * @param cn country name
      *
      * @see     JSONObject
      */

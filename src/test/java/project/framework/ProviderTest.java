@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ProviderTest {
-
     private Provider provider;
 
     @BeforeAll
@@ -53,32 +52,32 @@ class ProviderTest {
     }
 
     @Test
-    void getCountryCodeTest() {
+    void CountryCodeCorrectBuildingTest() {
         System.out.println("test correct building of Provider country code (Test Criteria List factory indirectly)");
         assertEquals("AT", provider.getCountryCode());
     }
 
     @Test
-    void getCountryNameTest() {
+    void CountryNameCorrectBuildingTest() {
         System.out.println("test correct building of Provider country name (Test Criteria List factory indirectly)");
         assertEquals("Austria", provider.getCountryName());
     }
 
     @Test
-    void getNameTest() {
+    void NameCorrectBuildingTest() {
         System.out.println("test correct building of Provider country name (Test Criteria List factory indirectly)");
         assertEquals("A-Trust Gesellschaft für Sicherheitssysteme im elektronischen Datenverkehr GmbH", provider.getName());
     }
 
     @Test
-    void getTrustmarkTest() {
+    void TrustmarkCorrectBuildingTest() {
         System.out.println("test correct building of Provider trustmark");
         assertEquals("VATAT-U50272100", provider.getTrustmark());
     }
 
     @Test
-    void getServiceTypes() {
-        System.out.println("test evaluateCorrectDataStructorBuilding");
+    void ServiceTypesCorrectBuildingTest() {
+        System.out.println("test correct building of Provider's type of services");
         String[] typeExpected = {"QCertESeal", "CertESeal", "QCertESig", "WAC", "QWAC", "CertESig"};
         assertArrayEquals(typeExpected, provider.getServiceTypes());
     }
