@@ -98,7 +98,7 @@ public class ProviderFilterController {
         return tmp;
     }
 
-    public int getSelectedProviderSize() {
+    public int getSelectedSize() {
         return selectedProviders.size();
     }
 

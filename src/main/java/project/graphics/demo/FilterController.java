@@ -14,7 +14,6 @@ public class FilterController {
     private ProviderFilterController providers;
     private TypeFilterController types;
     private StatusFilterController statuses;
-    private static int selectedProviderSize;
     private CriteriaListFactory criteriaLists;
 
     public FilterController() throws IOException {
@@ -23,7 +22,6 @@ public class FilterController {
         providers = new ProviderFilterController();
         types = new TypeFilterController();
         statuses = new StatusFilterController();
-        selectedProviderSize = 0;
     }
 
     public List<CheckBox> getCheckBoxes(String criterion) {
@@ -46,7 +44,6 @@ public class FilterController {
                 tmp = statuses.getCheckBoxes(c, p, t);
                 break;
         }
-        selectedProviderSize = providers.getSelectedProviderSize();
         return tmp;
     }
 
@@ -58,7 +55,12 @@ public class FilterController {
         return new SearchCriteria(c, p, t, s);
     }
 
-    public static int getSelectedProvidersSize() {
-        return selectedProviderSize;
+    public Vector<Integer> getSelectedSize() {
+        Vector<Integer> tmp = new Vector<>();
+        tmp.add(countries.getSelectedSize());
+        tmp.add(providers.getSelectedSize());
+        tmp.add(types.getSelectedSize());
+        tmp.add(statuses.getSelectedSize());
+        return tmp;
     }
 }

@@ -102,6 +102,8 @@ public class StatusFilterController {
         return tmp;
     }
 
+    public int getSelectedSize() {return selectedStatuses.size();}
+
     public Vector<String> getFilterCriteria() {
         if (selectedStatuses.isEmpty())
             return CriteriaListFactory.getStatusList();
