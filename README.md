@@ -9,13 +9,9 @@ This app is written in Java and needs the Java Runtime Environment to run, refer
 
 2)This step is required only if you don’t have Java installed in your system. Download the installer from [here](https://www.java.com/en/) and follow the instructions provided.
 
-3)Clone this repository this will download the program in a compressed folder.
+3)Download the .jar application file from [this link](https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=emb_logo).
 
-4)In order to be run the program must be estracted from the compressed folder it comes from. All the majours operative systems already handle this kind of files so most of the times you can right click the file and click “extract here”.
-
-5)This step is only required if you can’t open the archive. Download a file manager of your choice for example [WinRAR](https://www.win-rar.com/predownload.html?&L=11) and follow the instructions in step 4
-
-6)Double click the EU Trust Service Dashboard icon to launch the application
+4)Double click the EU Trust Service Dashboard icon to launch the application.
 
 ### Advanced install
 All of our app is open source and browsable. Another way to launch the program is to compile it from scratch even though this method is not reccomended for users that are not interested in the source code. For this kind of launch refer to the same steps as the base install to step 5.
