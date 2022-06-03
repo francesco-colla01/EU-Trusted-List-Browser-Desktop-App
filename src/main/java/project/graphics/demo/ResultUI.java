@@ -20,10 +20,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Vector;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ResultUI {
 
-    public static Scene result(Stage stage, Scene backScene) throws IOException {
+    public static Scene result(Stage stage, Scene backScene, AtomicBoolean darkMode) throws IOException {
 
         //Loading file xml
         FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("search-view.fxml"));
@@ -124,6 +125,10 @@ public class ResultUI {
         }
 
         scene.getStylesheets().add(Objects.requireNonNull(ResultUI.class.getResource("css/stylesheet.css")).toExternalForm());
+
+        if(darkMode.get()){
+            
+        }
 
         return scene;
     }
