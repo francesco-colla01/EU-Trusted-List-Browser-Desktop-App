@@ -5,13 +5,15 @@ The app communicates with the European Union APIs to retrieve the data it needs 
 This app is written in Java and needs the Java Runtime Environment to run, refer to tge installation guide and documentations under the code section for more informations.
 ## Installation and usage
 ### Base install
-1)Check if you have the Java Runtime Environment installed in  your system by typing “Java” in your search bar. If a “Configure Java” app pops up your pc is ready
+1)Check if you have the Java Runtime Environment is installed in your system.In Windows by typing “Java” in your search bar. If a “Configure Java” app pops up your pc is ready, in linux typing the command java -version
 
 2)This step is required only if you don’t have Java installed in your system. Download the installer from [here](https://www.java.com/en/) and follow the instructions provided.
 
 3)Download the .jar application file from [this link](https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=emb_logo).
 
 4)Double click the EU Trust Service Dashboard icon to launch the application.
+
+If you're still experiencing toubles please refer to this short [video tutorial](https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=emb_logo) covering the major operative systems.
 
 ### Advanced install
 All of our app is open source and browsable. Another way to launch the program is to compile it from scratch even though this method is not reccomended for users that are not interested in the source code. For this kind of launch refer to the same steps as the base install to step 5.
