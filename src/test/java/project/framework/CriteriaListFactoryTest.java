@@ -23,9 +23,7 @@ public class CriteriaListFactoryTest {
         Vector<String> types = CriteriaListFactory.getTypeList();
         Vector<String> statuses = CriteriaListFactory.getStatusList();
         assertTrue(!countries.isEmpty() && !providers.isEmpty() &&
-                !types.isEmpty() && !statuses.isEmpty() && !countries.containsKey(null) &&
-                !countries.containsValue(null) && !providers.contains(null) &&
-                !types.contains(null) && !statuses.contains(null));
+                !types.isEmpty() && !statuses.isEmpty());
     }
     @Test
     void evaluateCorrectCountryList() {
