@@ -1,0 +1,45 @@
+.withdrawn {
+    -fx-background-color: #d50000;
+    -fx-border-color: #000000;
+    -fx-text-fill: #000000;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-border-width: 1px;
+}
+
+.deprecatedatnationallevel {
+    -fx-background-color: #ffcc33;
+    -fx-border-color: #000000;
+    -fx-text-fill: #000000;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-border-width: 1px;
+
+}
+
+.recognisedatnationallevel {
+    -fx-background-color: #087c6f;
+    -fx-border-color: #000000;
+    -fx-text-fill: #000000;
+    -fx-border-radius: 31px;
+    -fx-background-radius: 30px;
+    -fx-border-width: 1px;
+}
+
+.granted {
+    -fx-background-color: #209b60;
+    -fx-border-color: #000000;
+    -fx-text-fill: #000000;
+    -fx-border-radius: 31px;
+    -fx-background-radius: 30px;
+    -fx-border-width: 1px;
+}
+
+.default {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #000000;
+    -fx-text-fill: #000000;
+    -fx-border-radius: 31px;
+    -fx-background-radius: 30px;
+    -fx-border-width: 1px;
+}

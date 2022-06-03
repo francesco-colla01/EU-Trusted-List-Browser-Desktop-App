@@ -7,19 +7,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import project.framework.Provider;
 import project.framework.SearchEngine;
 import project.framework.Service;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Vector;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ResultUI {
@@ -30,8 +33,12 @@ public class ResultUI {
         FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("search-view.fxml"));
 
 
+
         //Scene creation
         Scene scene = new Scene(fxmlLoader.load(), 1250, 750);
+        scene.getStylesheets().add(Objects.requireNonNull(ResultUI.class.getResource("css/stylesheet.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(ResultUI.class.getResource("css/statuses.css")).toExternalForm());
+
 
         Button backButton = (Button) fxmlLoader.getNamespace().get("backButton");
         backButton.setOnAction(actionEvent -> {
@@ -42,7 +49,6 @@ public class ResultUI {
         anotherSearchButton.setOnAction(action -> {
             try {
                 Scene searchScene = SearchUI.search(stage);
-                searchScene.getStylesheets().add(Objects.requireNonNull(SearchUI.class.getResource("css/stylesheet.css")).toExternalForm());
                 stage.setScene(searchScene);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -52,7 +58,6 @@ public class ResultUI {
         //ResultUI display
         AnchorPane pane = (AnchorPane) fxmlLoader.getNamespace().get("resultAnchorPAne");
 
-        VBox resultBox = new VBox();
 
         Accordion accordion = new Accordion();
         accordion.setPrefWidth(833);
@@ -64,6 +69,7 @@ public class ResultUI {
             String cn = provider.getCountryName();
             if (!countryToAccordion.containsKey(cc)) {
                 TitledPane countryTPane = new TitledPane(cn, new Accordion());
+                countryTPane.getStyleClass().add("country-titled-pane");
                 countryToAccordion.put(cc, (Accordion) countryTPane.getContent());
                 accordion.getPanes().add(countryTPane);
             }
@@ -99,15 +105,81 @@ public class ResultUI {
 
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    AnchorPane serviceInfoPane = (AnchorPane) fxmlLoader.getNamespace().get("serviceInfo");
+                    if (serviceList.getSelectionModel().getSelectedItem() == null)
+                        return;
 
-                    VBox data = new VBox();
+                    AnchorPane ePane = (AnchorPane) fxmlLoader.getNamespace().get("infoErasablePane");
+
+                    ePane.getChildren().clear();
+                    ePane.getStyleClass().add("info-pane");
+
+                    VBox dataText = new VBox();
+                    VBox dataValue = new VBox();
+                    HBox data = new HBox(dataText, dataValue);
+                    data.setSpacing(15.0);
+
+                    Service s = (Service) serviceList.getSelectionModel().getSelectedItem();
+
 
                     Label title = (Label) fxmlLoader.getNamespace().get("sInfoLabel");
                     title.setOpacity(1);
 
+                    dataText.getChildren().add(new Text("Provider Name:"));
+                    dataValue.getChildren().add(new TextField(s.getProviderName()));
 
-                    serviceInfoPane.getChildren().add(data);
+                    dataText.getChildren().add(new Text("Country:"));
+                    Image flag = new Image("https://countryflagsapi.com/png/" + s.getCountryName().replaceAll(" ", "%20"));
+                    ImageView flagNode = new ImageView(flag);
+                    flagNode.setFitWidth(27);
+                    flagNode.setFitHeight(15);
+                    dataValue.getChildren().add(new TextFlow(flagNode, new Text(" " + s.getCountryName())));
+
+                    //Status
+                    dataText.getChildren().add(new Text("Service status:"));
+                    Button voidStatusButton = new Button(s.getCurrentStatus());
+                    switch (s.getCurrentStatus()) {
+                        case "granted":
+                            voidStatusButton.getStyleClass().add("granted");
+                            break;
+
+                        case "withdrawn":
+                            voidStatusButton.getStyleClass().add("withdrawn");
+                            break;
+
+                        case "deprecatedatnationallevel":
+                            voidStatusButton.getStyleClass().add("deprecatedatnationallevel");
+                            break;
+
+                        case "recognisedatnationallevel":
+                            voidStatusButton.getStyleClass().add("recognisedatnationallevel");
+                            break;
+
+                        default:
+                            voidStatusButton.getStyleClass().add("default");
+                            break;
+                    }
+                    dataValue.getChildren().add(voidStatusButton);
+
+                    dataText.getChildren().add(new Text("Service Type:"));
+                    HBox buttonvec = new HBox();
+                    Arrays.stream(s.getServiceTypes()).toList().forEach(type -> {
+                        Button butt = new Button(type);
+                        butt.getStyleClass().add("default");
+                        buttonvec.getChildren().add(butt);
+                    });
+
+                    buttonvec.setSpacing(5);
+                    dataValue.getChildren().add(buttonvec);
+
+                    dataText.getChildren().add(new Text("Type Identifier:"));
+                    dataValue.getChildren().add((new Hyperlink(s.getTypeIdentifier())));
+
+                    AnchorPane.setLeftAnchor(data, 10.0);
+
+                    data.setSpacing(18);
+                    dataText.setSpacing(23);
+                    dataValue.setSpacing(15.5);
+                    ePane.getChildren().add(data);
                 }
             });
 

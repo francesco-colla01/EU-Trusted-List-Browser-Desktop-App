@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class Service {
-    private String countryCode, countryName, currentStatus, serviceName, typeIdentifier;
+    private String countryCode, countryName, currentStatus, serviceName, typeIdentifier, providerName;
     private String[] serviceTypes;
 
     /**
@@ -19,13 +19,14 @@ public class Service {
      *
      * @see     JSONObject
      */
-    public Service(String jsonSource, String cn) {
+    public Service(String jsonSource, String cn, String providerName) {
         JSONObject data = new JSONObject(jsonSource);
 
         countryCode = data.getString("countryCode");
         countryName = cn;
         serviceName = data.getString("serviceName");
         typeIdentifier = data.getString("type");
+        this.providerName = providerName;
 
         JSONArray jsonServiceTypes = data.getJSONArray("qServiceTypes");
         serviceTypes = new String[jsonServiceTypes.length()];
@@ -64,4 +65,7 @@ public class Service {
     public String getServiceName() { return serviceName; }
     public String getTypeIdentifier() { return typeIdentifier; }
     public String[] getServiceTypes() { return serviceTypes; }
+    public String getProviderName() {
+        return providerName;
+    }
 }

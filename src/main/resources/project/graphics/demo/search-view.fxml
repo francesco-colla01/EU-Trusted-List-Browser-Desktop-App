@@ -27,6 +27,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
+                        <AnchorPane fx:id="infoErasablePane" layoutX="108.0" layoutY="81.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
                      </children>
                   </AnchorPane>
                </children>

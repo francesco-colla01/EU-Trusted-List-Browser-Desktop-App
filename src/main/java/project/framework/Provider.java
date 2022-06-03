@@ -33,7 +33,7 @@ public class Provider {
         JSONArray jsonServices = data.getJSONArray("services");
         services = new Service[jsonServices.length()];
         for (int i=0; i < jsonServices.length(); i++) {
-            services[i] = new Service(jsonServices.getJSONObject(i).toString(), countryName);
+            services[i] = new Service(jsonServices.getJSONObject(i).toString(), countryName, this.getName());
         }
     }
 

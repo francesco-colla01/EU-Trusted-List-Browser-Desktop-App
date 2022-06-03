@@ -30,3 +30,15 @@
 .country-titled-pane {
     -fx-background-color: #E2E2E2;
 }
+
+.info-pane {
+    -fx-font-size: 14px;
+}
+
+.country-titled-pane {
+    -fx-background-color: #cccccc;
+}
+
+.provider-titled-pane {
+    -fx-background-color: #eeeeee;
+}
