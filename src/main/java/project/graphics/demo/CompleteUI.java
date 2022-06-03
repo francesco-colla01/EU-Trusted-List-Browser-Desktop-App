@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CompleteUI extends Application {
     private static Scene backScene;
@@ -32,6 +33,21 @@ public class CompleteUI extends Application {
     }
 
     public static void swapScene(Scene newScene) {
+        Scene tmpScene = stage.getScene();
+        stage.setScene(newScene);
+        backScene = tmpScene;
+    }
+
+    public static void swapScene(String sceneType, AtomicBoolean darkMode) throws IOException {
+        Scene newScene = null;
+        switch (sceneType) {
+            case "s":
+                newScene = SearchUI.search(stage);
+                break;
+            case "r":
+                newScene = ResultUI.result(stage, darkMode);
+                break;
+        }
         Scene tmpScene = stage.getScene();
         stage.setScene(newScene);
         backScene = tmpScene;

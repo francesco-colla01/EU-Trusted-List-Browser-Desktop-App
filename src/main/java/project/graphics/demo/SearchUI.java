@@ -187,7 +187,7 @@ public class SearchUI {
                     edit.set(true);
                 }
 
-                if (filtered_providers.size() != filter.getSelectedProvidersSize() && selectAllCBox.isSelected()) {
+                /*if (filtered_providers.size() != filter.getSelectedProvidersSize() && selectAllCBox.isSelected()) {
                     edit.set(false);
                     selectAllCBox.setSelected(false);
                     edit.set(true);
@@ -197,7 +197,7 @@ public class SearchUI {
                     edit.set(false);
                     selectAllCBox.setSelected(true);
                     edit.set(true);
-                }
+                }*/
                 selectAllCBox.setDisable(false);
             } else {
                 selectAllCBox.setDisable(true);
@@ -238,10 +238,11 @@ public class SearchUI {
                 return;
             }
             try {
-                SearchEngine.getInstance().performSearch(criteria);
+                /*SearchEngine.getInstance().performSearch(criteria);
                 Scene resultScene = ResultUI.result(stage, darkmode);
 
-                CompleteUI.swapScene(resultScene);
+                CompleteUI.swapScene(resultScene);*/
+                CompleteUI.swapScene("r", darkmode);
             } catch (IOException e) {
                 e.printStackTrace();
             }

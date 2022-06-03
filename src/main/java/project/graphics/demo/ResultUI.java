@@ -49,8 +49,9 @@ public class ResultUI {
         Button anotherSearchButton = (Button) fxmlLoader.getNamespace().get("anotherSearchButton");
         anotherSearchButton.setOnAction(action -> {
             try {
-                Scene searchScene = SearchUI.search(stage);
-                stage.setScene(searchScene);
+                /*Scene newScene = SearchUI.search(stage);
+                CompleteUI.swapScene(newScene);*/
+                CompleteUI.swapScene("s", null);
             } catch (IOException e) {
                 e.printStackTrace();
             }
