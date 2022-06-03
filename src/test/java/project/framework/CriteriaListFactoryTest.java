@@ -4,7 +4,6 @@ import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.SortedMap;
 import java.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,10 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CriteriaListFactoryTest {
     @BeforeAll
     void setUp() throws IOException {
-        CriteriaListFactory testObject = new CriteriaListFactory();
+        CriteriaListFactory testObject = new CriteriaListFactory(); //variable not used, but necessary
+                                                                    //to initialize CriteriaListFactory
     }
     @Test
-    public void evaluateCorrectDataStructureBuilding() {
+    void evaluateCorrectDataStructureBuilding() {
         System.out.println("test evaluateCorrectDataStructureBuilding");
         Map<String, String> countries = CriteriaListFactory.getCountryList();
         Vector<Provider> providers = CriteriaListFactory.getProviderList();
@@ -28,14 +28,14 @@ public class CriteriaListFactoryTest {
                 !types.contains(null) && !statuses.contains(null));
     }
     @Test
-    public void evaluateCorrectCountryList() {
+    void evaluateCorrectCountryList() {
         Map<String, String> countries = CriteriaListFactory.getCountryList();
         for (String code : countries.keySet()) {
             assertEquals(2, code.length());
         }
     }
     @Test
-    public void evaluateCorrectProviderList() {
+    void evaluateCorrectProviderList() {
         Vector<Provider> providers = CriteriaListFactory.getProviderList();
         for (Provider p : providers) {
             assertEquals(p.getClass(), Provider.class);
