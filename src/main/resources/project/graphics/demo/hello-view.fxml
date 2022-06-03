@@ -19,7 +19,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <FlowPane prefHeight="720.0" prefWidth="1250.0">
+      <FlowPane fx:id="backgroundFlowPane" prefHeight="720.0" prefWidth="1250.0" stylesheets="@css/stylesheet.css">
          <children>
             <AnchorPane maxHeight="751.0" maxWidth="415.0" prefHeight="751.0" prefWidth="415.0" style="-fx-border-color: gold;" stylesheets="@css/stylesheet.css">
                <children>
@@ -41,7 +41,7 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <ScrollPane fx:id="scrl" layoutX="108.0" layoutY="55.0" prefHeight="652.0" prefWidth="281.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
+                  <ScrollPane fx:id="scrl" layoutX="3.0" layoutY="91.0" prefHeight="659.0" prefWidth="413.0" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
                     <content>
                       <AnchorPane fx:id="providersScrollPAne" />
                     </content>

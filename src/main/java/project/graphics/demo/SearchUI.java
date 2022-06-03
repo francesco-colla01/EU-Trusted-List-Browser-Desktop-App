@@ -1,18 +1,14 @@
 package project.graphics.demo;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.image.Image;
+import javafx.scene.control.*;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -33,6 +29,7 @@ public class SearchUI {
 
         //Scene creation
         Scene scene = new Scene(fxmlLoader.load(), 1250, 750);
+        AtomicBoolean darkmode = new AtomicBoolean(false);
 
         FilterController filter = new FilterController();
 
@@ -242,7 +239,7 @@ public class SearchUI {
             }
             try {
                 SearchEngine.getInstance().performSearch(criteria);
-                Scene resultScene = ResultUI.result(stage, scene);
+                Scene resultScene = ResultUI.result(stage, scene, darkmode);
                 resultScene.getStylesheets().add(Objects.requireNonNull(ResultUI.class.getResource("css/stylesheet.css")).toExternalForm());
                 stage.setScene(resultScene);
             } catch (IOException e) {
@@ -250,29 +247,32 @@ public class SearchUI {
             }
         });
 
+        FlowPane backgroundFlowPane = (FlowPane)fxmlLoader.getNamespace().get("backgroundFlowPane");
+        AnchorPane providersScrollPAne = (AnchorPane) fxmlLoader.getNamespace().get("providersScrollPAne");
+
         ToggleButton darkMode = (ToggleButton) fxmlLoader.getNamespace().get("darkMode");
-        darkMode.setSelected(false);
+
         darkMode.setOnAction(actionEvent -> {
             if(darkMode.isSelected()){
+                darkmode.set(false);
                 System.out.println("darkmode is enabled");
-                countriesPane.getStyleClass().add("dark-mode");
+                backgroundFlowPane.getStyleClass().add("dark-mode");
                 countriesCheckBoxes.getStyleClass().add("dark-mode");
                 providersCheckBoxes.getStyleClass().add("dark-mode");
                 scrollPane.getStyleClass().add("dark-mode");
-                tosAnchorPane.getStyleClass().add("dark-mode");
                 tosCheckBoxes.getStyleClass().add("dark-mode");
-                ssAnchorPane.getStyleClass().add("dark-mode");
+                selectAllCBox.getStyleClass().add("dark-mode");
 
 
             } else if (!darkMode.isSelected()) {
+                darkmode.set(false);
                 System.out.println("darkmode is disabled");
-                countriesPane.getStyleClass().remove("dark-mode");
+                backgroundFlowPane.getStyleClass().remove("dark-mode");
                 countriesCheckBoxes.getStyleClass().remove("dark-mode");
                 providersCheckBoxes.getStyleClass().remove("dark-mode");
                 scrollPane.getStyleClass().remove("dark-mode");
-                tosAnchorPane.getStyleClass().remove("dark-mode");
                 tosCheckBoxes.getStyleClass().remove("dark-mode");
-                ssAnchorPane.getStyleClass().remove("dark-mode");
+                selectAllCBox.getStyleClass().remove("dark-mode");
             }
         });
 
