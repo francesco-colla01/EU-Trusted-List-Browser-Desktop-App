@@ -88,14 +88,12 @@ public class CountryFilterController {
 
     public Vector<String> getCriteria() {
         Vector<String> tmp = new Vector<>();
-        if (selectedCountries.isEmpty()) {
+        for (String cc : selectedCountries) {
+            if (!invalidSelectedCountryCodes.contains(cc)) tmp.add(cc);
+        }
+        if (tmp.isEmpty()) {
             for (String cc : filteredCountryCode) tmp.add(cc);
             tmp.add(null);
-        }
-        else {
-            for (String cc : selectedCountries) {
-                if (!invalidSelectedCountryCodes.contains(cc)) tmp.add(cc);
-            }
         }
         return tmp;
     }

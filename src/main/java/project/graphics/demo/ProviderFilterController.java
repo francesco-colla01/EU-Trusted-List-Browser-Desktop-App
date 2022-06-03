@@ -88,14 +88,12 @@ public class ProviderFilterController {
 
     public Vector<Provider> getCriteria() {
         Vector<Provider> tmp = new Vector<>();
-        if (selectedProviders.isEmpty()) {
+        for (Provider p : selectedProviders) {
+            if (!invalidSelectedProviders.contains(p)) tmp.add(p);
+        }
+        if (tmp.isEmpty()) {
             for (CheckBox cb : filteredProviderCheckBox) tmp.add(nameToProvider.get(cb.getId()));
             tmp.add(null);
-        }
-        else {
-            for (Provider p : selectedProviders) {
-                if (!invalidSelectedProviders.contains(p)) tmp.add(p);
-            }
         }
         return tmp;
     }
