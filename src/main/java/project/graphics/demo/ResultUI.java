@@ -130,11 +130,12 @@ public class ResultUI {
                     dataValue.getChildren().add(new Text(s.getProviderName()));
 
                     dataText.getChildren().add(new Text("Country:"));
-                    Image flag = new Image("https://countryflagsapi.com/png/" + s.getCountryName().replaceAll(" ", "%20"));
+                    String cn = s.getCountryName();
+                    Image flag = new Image("https://countryflagsapi.com/png/" + cn.replaceAll(" ", "%20"));
                     ImageView flagNode = new ImageView(flag);
                     flagNode.setFitWidth(27);
                     flagNode.setFitHeight(15);
-                    dataValue.getChildren().add(new TextFlow(flagNode, new Text(" " + s.getCountryName())));
+                    dataValue.getChildren().add(new TextFlow(flagNode, new Text(" " + cn)));
 
                     //Status
                     dataText.getChildren().add(new Text("Service status:"));
