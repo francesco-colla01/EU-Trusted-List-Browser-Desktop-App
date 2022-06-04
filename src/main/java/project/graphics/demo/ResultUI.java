@@ -2,6 +2,7 @@ package project.graphics.demo;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -49,9 +50,25 @@ public class ResultUI {
         Button anotherSearchButton = (Button) fxmlLoader.getNamespace().get("anotherSearchButton");
         anotherSearchButton.setOnAction(action -> {
             try {
-                /*Scene newScene = SearchUI.search(stage);
-                CompleteUI.swapScene(newScene);*/
-                CompleteUI.swapScene("s", null);
+                CompleteUI.swapScene(LoadingUI.getScene());
+
+                javafx.concurrent.Service<Scene> process = new javafx.concurrent.Service<>() {
+                    @Override
+                    protected Task<Scene> createTask() {
+                        return new Task<Scene>() {
+                            @Override
+                            protected Scene call() throws Exception {
+                                return SearchUI.getScene();
+                            }
+                        };
+                    }
+                };
+
+                process.setOnSucceeded( e -> {
+                    CompleteUI.swapScene(process.getValue());
+                });
+
+                process.start();
             } catch (IOException e) {
                 e.printStackTrace();
             }

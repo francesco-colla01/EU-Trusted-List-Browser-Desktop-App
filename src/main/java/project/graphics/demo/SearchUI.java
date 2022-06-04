@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SearchUI {
 
-    public static Scene search(Stage stage) throws IOException {
+    public static Scene getScene() throws IOException {
         //Loading file xml
         FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("hello-view.fxml"));
 

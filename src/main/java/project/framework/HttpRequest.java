@@ -24,6 +24,7 @@ public class HttpRequest {
         URL url = new URL(urlConnection);
         con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
+        con.setReadTimeout(2000);
 
         executeConnection();
     }

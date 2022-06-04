@@ -1,12 +1,17 @@
 package project.graphics.demo;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CompleteUI extends Application {
@@ -23,13 +28,26 @@ public class CompleteUI extends Application {
         primaryStage.setResizable(false);
         stage = primaryStage;
 
-        primaryStage.getIcons().add(new Image("https://i.imgur.com/xm62NkC.png"));
-
-        Scene search = SearchUI.search(primaryStage);
-        primaryStage.setScene(search);
-        backScene = search;
-
+        swapScene(LoadingUI.getScene());
         primaryStage.show();
+
+        Service<Scene> process = new Service<>() {
+            @Override
+            protected Task<Scene> createTask() {
+                return new Task<Scene>() {
+                    @Override
+                    protected Scene call() throws Exception {
+                        return SearchUI.getScene();
+                    }
+                };
+            }
+        };
+
+        process.setOnSucceeded( e -> {
+            swapScene(process.getValue());
+        });
+
+        process.start();
     }
 
     public static void swapScene(Scene newScene) {
@@ -42,7 +60,7 @@ public class CompleteUI extends Application {
         Scene newScene = null;
         switch (sceneType) {
             case "s":
-                newScene = SearchUI.search(stage);
+                newScene = SearchUI.getScene();
                 break;
             case "r":
                 newScene = ResultUI.result(stage, darkMode);

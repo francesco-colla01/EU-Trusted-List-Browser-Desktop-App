@@ -21,6 +21,7 @@ public class CriteriaListFactory {
      */
     public CriteriaListFactory() throws IOException {
         //first API request to get the list of all countries
+
         HttpRequest fetchCountriesList = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/countries_list");
         JSONArray jsonCountriesList = new JSONArray(fetchCountriesList.getResponse());
 
