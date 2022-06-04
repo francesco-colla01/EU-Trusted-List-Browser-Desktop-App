@@ -25,6 +25,7 @@ public class CompleteUI extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("EU Trust Service Dashboard");
+        primaryStage.getIcons().add(new Image("https://i.imgur.com/xm62NkC.png"));
         primaryStage.setResizable(false);
         stage = primaryStage;
 
@@ -48,6 +49,8 @@ public class CompleteUI extends Application {
         });
 
         process.start();
+
+        //swapScene("s", null);
     }
 
     public static void swapScene(Scene newScene) {
@@ -59,6 +62,9 @@ public class CompleteUI extends Application {
     public static void swapScene(String sceneType, AtomicBoolean darkMode) throws IOException {
         Scene newScene = null;
         switch (sceneType) {
+            case "l":
+                newScene = LoadingUI.getScene();
+                break;
             case "s":
                 newScene = SearchUI.getScene();
                 break;

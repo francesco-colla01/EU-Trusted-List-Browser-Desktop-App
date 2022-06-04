@@ -69,6 +69,7 @@ public class ResultUI {
                 });
 
                 process.start();
+                //CompleteUI.swapScene("s", null);
             } catch (IOException e) {
                 e.printStackTrace();
             }
