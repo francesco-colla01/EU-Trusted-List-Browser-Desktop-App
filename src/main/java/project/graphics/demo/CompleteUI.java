@@ -26,7 +26,6 @@ public class CompleteUI extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("EU Trust Service Dashboard");
-        primaryStage.getIcons().add(new Image("https://i.imgur.com/xm62NkC.png"));
         primaryStage.setResizable(false);
         stage = primaryStage;
 
@@ -48,6 +47,7 @@ public class CompleteUI extends Application {
             return;
         }
         if (sceneType.contains("l")) {
+            stage.getIcons().add(new Image("https://i.imgur.com/xm62NkC.png"));
             stage.setScene(LoadingUI.getScene());
         }
         if (sceneType.contains("s")) {
@@ -65,6 +65,15 @@ public class CompleteUI extends Application {
 
             process.setOnSucceeded( e -> {
                 stage.setScene(process.getValue());
+            });
+
+            process.setOnFailed( e -> {
+                ErrorUI.showError("requestFailed");
+                try {
+                    swapScene("sl", null);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             });
 
             process.start();
