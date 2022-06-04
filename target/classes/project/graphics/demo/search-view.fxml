@@ -22,7 +22,7 @@
                   </ScrollPane>
                   <AnchorPane fx:id="serviceInfo" prefHeight="700.0" prefWidth="416.0">
                      <children>
-                        <Label fx:id="sInfoLable" alignment="TOP_CENTER" opacity="0.0" prefHeight="38.0" prefWidth="396.0" text="Service Info" textAlignment="CENTER" textFill="#004494" AnchorPane.bottomAnchor="646.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="16.0">
+                        <Label fx:id="sInfoLabel" alignment="TOP_CENTER" opacity="0.0" prefHeight="38.0" prefWidth="396.0" text="Service Info" textAlignment="CENTER" textFill="#004494" AnchorPane.bottomAnchor="646.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="16.0">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>

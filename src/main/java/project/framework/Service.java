@@ -51,10 +51,11 @@ public class Service {
     //other elements: serviceTypes
     public Vector<String> getServiceInfo() {
         Vector<String> info = new Vector<>();
-        info.add(countryCode);
+        info.add(serviceName);
+        info.add(providerName);
+        //info.add(countryCode);
         info.add(countryName);
         info.add(currentStatus);
-        info.add(serviceName);
         info.add(typeIdentifier);
         Collections.addAll(info, serviceTypes);
         return info;

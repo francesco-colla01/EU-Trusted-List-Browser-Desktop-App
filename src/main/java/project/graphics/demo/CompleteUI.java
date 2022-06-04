@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CompleteUI extends Application {
@@ -29,52 +30,45 @@ public class CompleteUI extends Application {
         primaryStage.setResizable(false);
         stage = primaryStage;
 
-        swapScene(LoadingUI.getScene());
+        swapScene("l", null);
         primaryStage.show();
-
-        Service<Scene> process = new Service<>() {
-            @Override
-            protected Task<Scene> createTask() {
-                return new Task<Scene>() {
-                    @Override
-                    protected Scene call() throws Exception {
-                        return SearchUI.getScene();
-                    }
-                };
-            }
-        };
-
-        process.setOnSucceeded( e -> {
-            swapScene(process.getValue());
-        });
-
-        process.start();
-
-        //swapScene("s", null);
+        swapScene("s", null);
     }
 
-    public static void swapScene(Scene newScene) {
+    /*public static void swapScene(Scene newScene) {
         Scene tmpScene = stage.getScene();
         stage.setScene(newScene);
         backScene = tmpScene;
-    }
+    }*/
 
     public static void swapScene(String sceneType, AtomicBoolean darkMode) throws IOException {
-        Scene newScene = null;
-        switch (sceneType) {
-            case "l":
-                newScene = LoadingUI.getScene();
-                break;
-            case "s":
-                newScene = SearchUI.getScene();
-                break;
-            case "r":
-                newScene = ResultUI.result(stage, darkMode);
-                break;
+        backScene = stage.getScene();
+        if (Objects.equals(sceneType, "r")) {
+            stage.setScene(ResultUI.result(stage, darkMode));
+            return;
         }
-        Scene tmpScene = stage.getScene();
-        stage.setScene(newScene);
-        backScene = tmpScene;
+        if (sceneType.contains("l")) {
+            stage.setScene(LoadingUI.getScene());
+        }
+        if (sceneType.contains("s")) {
+            Service<Scene> process = new Service<>() {
+                @Override
+                protected Task<Scene> createTask() {
+                    return new Task<Scene>() {
+                        @Override
+                        protected Scene call() throws Exception {
+                            return SearchUI.getScene();
+                        }
+                    };
+                }
+            };
+
+            process.setOnSucceeded( e -> {
+                stage.setScene(process.getValue());
+            });
+
+            process.start();
+        }
     }
 
     public static void backScene() {
