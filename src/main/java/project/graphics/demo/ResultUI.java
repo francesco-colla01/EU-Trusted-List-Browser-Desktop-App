@@ -139,8 +139,9 @@ public class ResultUI {
 
                     //Status
                     dataText.getChildren().add(new Text("Service status:"));
-                    Button voidStatusButton = new Button(s.getCurrentStatus());
-                    switch (s.getCurrentStatus()) {
+                    String cs = s.getCurrentStatus();
+                    Button voidStatusButton = new Button(cs);
+                    switch (cs) {
                         case "granted":
                             voidStatusButton.getStyleClass().add("granted");
                             break;
