@@ -99,6 +99,14 @@ public class StatusFilterController {
             for (String s : filteredStatuses) tmp.add(s);
             tmp.add(null);
         }
+        else {
+            int invalids = 0;
+            for (String invalid : invalidSelectedStatuses) {
+                tmp.add(invalid);
+                invalids++;
+            }
+            tmp.add(Integer.toString(invalids));
+        }
         return tmp;
     }
 

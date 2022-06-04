@@ -83,6 +83,14 @@ public class TypeFilterController {
             for (String t : filteredTypes) tmp.add(t);
             tmp.add(null);
         }
+        else {
+            int invalids = 0;
+            for (String invalid : invalidSelectedTypes) {
+                tmp.add(invalid);
+                invalids++;
+            }
+            tmp.add(Integer.toString(invalids));
+        }
         return tmp;
     }
 

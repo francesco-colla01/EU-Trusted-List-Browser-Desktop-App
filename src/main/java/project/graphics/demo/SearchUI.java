@@ -238,11 +238,20 @@ public class SearchUI {
                 return;
             }
             try {
-                SearchEngine.getInstance().performSearch(criteria);
-                /*Scene resultScene = ResultUI.result(stage, darkmode);
-
-                CompleteUI.swapScene(resultScene);*/
-                CompleteUI.swapScene("r", darkmode);
+                String selectedAll = criteria.getSelectedAll();
+                Map<String, Vector<String>> redCriteria = criteria.getRedCriteria();
+                System.out.println(redCriteria);
+                if (selectedAll.equals("") && redCriteria.isEmpty()) {
+                    SearchEngine.getInstance().performSearch(criteria);
+                    CompleteUI.swapScene("r", darkmode);
+                }
+                else {
+                    boolean result = ErrorUI.showCriteriaAlert(selectedAll, redCriteria);
+                    if (result) {
+                        SearchEngine.getInstance().performSearch(criteria);
+                        CompleteUI.swapScene("r", darkmode);
+                    }
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

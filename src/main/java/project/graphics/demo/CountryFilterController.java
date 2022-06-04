@@ -12,9 +12,10 @@ public class CountryFilterController {
     private List<CheckBox> countriesCheckBox = new Vector<>();
     private Vector<String> filteredCountryCode = new Vector<>();
     private Vector<String> invalidSelectedCountryCodes = new Vector<>();
+    private Map<String, String> allCountries;
 
     CountryFilterController() {
-        Map<String, String> allCountries = CriteriaListFactory.getCountryList();
+        allCountries = CriteriaListFactory.getCountryList();
         SortedMap<String, String> reverseAllCountries = new TreeMap<>();
         for (Map.Entry<String, String> country : allCountries.entrySet()) {
             reverseAllCountries.put(country.getValue(), country.getKey());
@@ -94,6 +95,14 @@ public class CountryFilterController {
         if (tmp.isEmpty()) {
             for (String cc : filteredCountryCode) tmp.add(cc);
             tmp.add(null);
+        }
+        else {
+            int invalids = 0;
+            for (String invalid : invalidSelectedCountryCodes) {
+                invalids++;
+                tmp.add(allCountries.get(invalid));
+            }
+            tmp.add(Integer.toString(invalids));
         }
         return tmp;
     }

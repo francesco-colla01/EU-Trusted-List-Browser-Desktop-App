@@ -95,6 +95,14 @@ public class ProviderFilterController {
             for (CheckBox cb : filteredProviderCheckBox) tmp.add(nameToProvider.get(cb.getId()));
             tmp.add(null);
         }
+        else  {
+            int invalids = 0;
+            for (Provider invalid : invalidSelectedProviders) {
+                invalids++;
+                tmp.add(invalid);
+            }
+            tmp.add(new Provider("num" + invalids));
+        }
         return tmp;
     }
 

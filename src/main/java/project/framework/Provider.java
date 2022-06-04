@@ -17,6 +17,11 @@ public class Provider {
      * @see    Service
      */
     public Provider(String jsonSource) {
+        if (jsonSource.startsWith("num")) {
+            name = jsonSource.substring(3);
+            countryCode = "num";
+            return;
+        }
         JSONObject data = new JSONObject(jsonSource);
 
         countryCode = data.getString("countryCode");
