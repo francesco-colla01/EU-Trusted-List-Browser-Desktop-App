@@ -118,18 +118,14 @@ public class ResultUI {
 
                 Service s = (Service) serviceList.getSelectionModel().getSelectedItem();
                 Vector<String> info = s.getServiceInfo();
-                String serviceName = info.get(0);
-                String providerName = info.get(1);
-                String countryName = info.get(2);
-                String serviceStatus = info.get(3);
-                String typeIdentifier = info.get(4);
-                String[] serviceTypes = info.subList(5, info.size()).toArray(new String[0]);
+                String providerName = info.get(0);
+                String countryName = info.get(1);
+                String serviceStatus = info.get(2);
+                String typeIdentifier = info.get(3);
+                String[] serviceTypes = info.subList(4, info.size()).toArray(new String[0]);
 
                 Label title = (Label) fxmlLoader.getNamespace().get("sInfoLabel");
                 title.setOpacity(1);
-
-                //dataText.getChildren().add(new Text("Service Name:"));
-                dataValue.getChildren().add(new Text(serviceName));//
 
                 dataText.getChildren().add(new Text("Provider Name:"));
                 dataValue.getChildren().add(new Text(providerName));
