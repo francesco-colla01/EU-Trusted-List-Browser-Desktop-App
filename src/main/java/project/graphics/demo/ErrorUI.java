@@ -1,5 +1,6 @@
 package project.graphics.demo;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
@@ -41,13 +42,15 @@ public class ErrorUI {
                 headerText = "You must select at least one valid parameter!";
                 break;
             case "requestFailed":
-                headerText = "The server request could not be completed. Check your internet connection and press OK or exit to retry.";
+                headerText = "The server request could not be completed. " +
+                        "Check your internet connection, then press OK to retry or " +
+                        "close this message to quit.";
                 break;
         }
         alert.setHeaderText(headerText);
-        alert.showAndWait();
-        /*if (errorType == "requestFailed") {
-            CompleteUI.swapScene("sl", null);
-        }*/
+        Optional<ButtonType> result = alert.showAndWait();
+        if (errorType == "requestFailed" && !result.isPresent()) {
+            Platform.exit();
+        }
     }
 }
