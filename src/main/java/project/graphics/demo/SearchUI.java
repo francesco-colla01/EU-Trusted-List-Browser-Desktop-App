@@ -238,8 +238,8 @@ public class SearchUI {
                 return;
             }
             try {
-                /*SearchEngine.getInstance().performSearch(criteria);
-                Scene resultScene = ResultUI.result(stage, darkmode);
+                SearchEngine.getInstance().performSearch(criteria);
+                /*Scene resultScene = ResultUI.result(stage, darkmode);
 
                 CompleteUI.swapScene(resultScene);*/
                 CompleteUI.swapScene("r", darkmode);
