@@ -32,7 +32,7 @@ public class ResultUI {
     public static Scene result(Stage stage, AtomicBoolean darkMode) throws IOException {
 
         //Loading file xml
-        FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("search-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("result-view.fxml"));
 
 
 
