@@ -44,9 +44,7 @@ public class Provider {
 
     //Get methods
     public String getCountryCode() { return countryCode; }
-    public String getCountryName() {
-        return countryName;
-    }
+    public String getCountryName() { return countryName; }
     public Service[] getServices() { return services; }
     public String getName() { return name; }
     public String getTrustmark() { return trustmark; }

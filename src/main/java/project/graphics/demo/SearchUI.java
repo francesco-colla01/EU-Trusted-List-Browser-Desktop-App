@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import project.framework.SearchCriteria;
 import project.framework.SearchEngine;
@@ -22,7 +21,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SearchUI {
 
-    public static Scene getScene() throws IOException {
+    public static Scene search() throws IOException {
         //Loading file xml
         FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("search-view.fxml"));
 

@@ -51,7 +51,7 @@ public class ErrorUI {
         }
         alert.setHeaderText(headerText);
         Optional<ButtonType> result = alert.showAndWait();
-        if (errorType == "requestFailed" && !result.isPresent()) {
+        if (errorType.equals("requestFailed") && result.isEmpty()) {
             Platform.exit();
         }
     }

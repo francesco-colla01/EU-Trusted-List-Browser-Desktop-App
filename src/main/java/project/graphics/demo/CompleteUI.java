@@ -1,16 +1,11 @@
 package project.graphics.demo;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.HostServices;
-import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -58,7 +53,7 @@ public class CompleteUI extends Application {
                     return new Task<Scene>() {
                         @Override
                         protected Scene call() throws Exception {
-                            return SearchUI.getScene();
+                            return SearchUI.search();
                         }
                     };
                 }
