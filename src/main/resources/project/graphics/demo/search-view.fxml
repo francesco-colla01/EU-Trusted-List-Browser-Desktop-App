@@ -25,7 +25,6 @@
                      <children>
                         <ToggleButton fx:id="darkMode" layoutX="14.0" layoutY="601.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0" styleClass="dark-mode-toggle" stylesheets="@css/stylesheet.css" />
                      </children></AnchorPane>
-                  <CheckBox layoutX="12.0" layoutY="69.0" mnemonicParsing="false" text="Select all" AnchorPane.bottomAnchor="666.0" AnchorPane.leftAnchor="12.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="providersAnchorPane" maxHeight="751.0" maxWidth="415.0" prefHeight="751.0" prefWidth="415.0" style="-fx-border-color: gold;" stylesheets="@css/stylesheet.css">
@@ -52,7 +51,6 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <CheckBox layoutX="13.0" layoutY="67.0" mnemonicParsing="false" text="Select all" AnchorPane.bottomAnchor="282.0" AnchorPane.leftAnchor="12.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="ssAnchorPane" prefHeight="335.0" prefWidth="420.0" style="-fx-border-color: gold;" stylesheets="@css/stylesheet.css">
@@ -62,7 +60,6 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <CheckBox layoutX="14.0" layoutY="55.0" mnemonicParsing="false" text="Select all" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="50.0" prefWidth="420.0" style="-fx-border-color: gold;" stylesheets="@css/stylesheet.css">
