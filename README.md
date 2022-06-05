@@ -29,10 +29,10 @@ This steps aren’t very detailed as every development environment is different 
 ### Usage
 At launch the app presents four lists with titles telling the user what the elements refer to. To select a search parameter simply click the checkbox at it's left.
 Once you're done adding search parameters click the "Search" button to perform the search. If the selected filters confict with eachother the program will highlight the trouble generating selection prompting the user to uncheck it and preventing a search with zero results.
-![alt-text](https://i.imgur.com/AsrbRDT.png)
+![alt-text](https://i.imgur.com/4txP8Jj.png)
 
 
-At this point the app changes scene presenting a list containing the counties and providers that match the selected criteria, at this point when a service is selected it's details will show at the left of the window. When done consulting click the "go back" button to reset all the filters or "perform new search" to add new filters.
+At this point the app changes scene presenting a list containing the counties and providers that match the selected criteria, at this point when a service is selected it's details will show at the left of the window. When done consulting click the "go back" button to continue searchin with your current parameters or "perform another search" to fetch new data from the APIs and reset all the filters.
 If the selected filters confict with eachother the program will highlight the trouble generating selection prompting the user to uncheck it and preventing a search with zero results.
 ![alt-text](https://i.imgur.com/dZFvkV8.png)
 
