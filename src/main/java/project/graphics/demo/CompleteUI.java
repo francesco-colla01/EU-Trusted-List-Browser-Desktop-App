@@ -38,14 +38,17 @@ public class CompleteUI extends Application {
 
     public static void swapScene(String sceneType) throws IOException {
         backScene = stage.getScene();
+        //show results UI
         if (Objects.equals(sceneType, "r")) {
             stage.setScene(ResultUI.result(stage));
             return;
         }
+        //show loading UI
         if (sceneType.contains("l")) {
             stage.getIcons().add(new Image("https://i.imgur.com/xm62NkC.png"));
             stage.setScene(LoadingUI.getScene());
         }
+        //show search UI; while it is built, the loading UI will remain on screen
         if (sceneType.contains("s")) {
             Service<Scene> process = new Service<>() {
                 @Override
@@ -59,10 +62,14 @@ public class CompleteUI extends Application {
                 }
             };
 
+            //build successful = server requests successful
             process.setOnSucceeded( e -> {
                 stage.setScene(process.getValue());
             });
 
+            //build failed = server requests failed
+            //an error message is shown, then try to build the scene again if the program
+            //has not been closed
             process.setOnFailed( e -> {
                 ErrorUI.showError("requestFailed");
                 try {
@@ -76,6 +83,7 @@ public class CompleteUI extends Application {
         }
     }
 
+    //switch the program back to the previous scene
     public static void backScene() {
         Scene tmpScene = stage.getScene();
         stage.setScene(backScene);

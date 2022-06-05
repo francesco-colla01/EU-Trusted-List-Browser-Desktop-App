@@ -107,8 +107,8 @@ public class ErrorUI {
 
         alert.setTitle("Criteria alert");
         alert.setHeaderText(headerText);
-        alert.setContentText("Press OK to perform the search or Cancel (Annulla) to go back " +
-                "and change the criteria");
+        alert.setContentText("Press OK to perform the search or cancel the alert " +
+                "(Annulla / X) to go back and change the criteria.");
         Optional<ButtonType> result = alert.showAndWait();
 
         boolean outcome = false;
