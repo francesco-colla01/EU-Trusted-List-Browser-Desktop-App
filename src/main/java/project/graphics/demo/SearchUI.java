@@ -28,7 +28,7 @@ public class SearchUI {
 
         //Scene creation
         Scene scene = new Scene(fxmlLoader.load(), 1250, 750);
-        AtomicBoolean darkmode = new AtomicBoolean(false);
+        //AtomicBoolean darkmode = new AtomicBoolean(false);
 
         FilterController filter = new FilterController();
 
@@ -167,6 +167,7 @@ public class SearchUI {
 
         Timeline pane = new Timeline(new KeyFrame(Duration.seconds(0.25), ev -> {
             List<CheckBox> filtered_providers = filter.getCheckBoxes("p");
+            int selectedProviderSize = filter.getProviderSelectedSize();
 
 
             if (filtered_providers == null) {
@@ -186,13 +187,13 @@ public class SearchUI {
                     edit.set(true);
                 }
 
-                if (filtered_providers.size() != filter.getProviderSelectedSize() && selectAllCBox.isSelected()) {
+                if (filtered_providers.size() != selectedProviderSize && selectAllCBox.isSelected()) {
                     edit.set(false);
                     selectAllCBox.setSelected(false);
                     edit.set(true);
                 }
 
-                if (!selectAllCBox.isSelected() && filtered_providers.size() == filter.getProviderSelectedSize()) {
+                if (!selectAllCBox.isSelected() && filtered_providers.size() == selectedProviderSize) {
                     edit.set(false);
                     selectAllCBox.setSelected(true);
                     edit.set(true);
@@ -236,13 +237,13 @@ public class SearchUI {
                 Map<String, Vector<String>> redCriteria = criteria.getRedCriteria();
                 if (selectedAll.equals("") && redCriteria.isEmpty()) {
                     SearchEngine.getInstance().performSearch(criteria);
-                    CompleteUI.swapScene("r", darkmode);
+                    CompleteUI.swapScene("r");
                 }
                 else {
                     boolean result = ErrorUI.showCriteriaAlert(selectedAll, redCriteria);
                     if (result) {
                         SearchEngine.getInstance().performSearch(criteria);
-                        CompleteUI.swapScene("r", darkmode);
+                        CompleteUI.swapScene("r");
                     }
                 }
             } catch (IOException e) {

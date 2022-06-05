@@ -25,9 +25,9 @@ public class CompleteUI extends Application {
         primaryStage.setResizable(false);
         stage = primaryStage;
 
-        swapScene("l", null);
+        swapScene("l");
         primaryStage.show();
-        swapScene("s", null);
+        swapScene("s");
     }
 
     /*public static void swapScene(Scene newScene) {
@@ -36,7 +36,7 @@ public class CompleteUI extends Application {
         backScene = tmpScene;
     }*/
 
-    public static void swapScene(String sceneType, AtomicBoolean darkMode) throws IOException {
+    public static void swapScene(String sceneType) throws IOException {
         backScene = stage.getScene();
         if (Objects.equals(sceneType, "r")) {
             stage.setScene(ResultUI.result(stage));
@@ -66,7 +66,7 @@ public class CompleteUI extends Application {
             process.setOnFailed( e -> {
                 ErrorUI.showError("requestFailed");
                 try {
-                    swapScene("sl", null);
+                    swapScene("sl");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
