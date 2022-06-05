@@ -202,11 +202,6 @@ public class SearchUI {
             } else {
                 selectAllCBox.setDisable(true);
             }
-            /*else if (!selectAllCBox.isSelected() && filtered_providers.size() != filter.getSelectedCriteria().getProviders().size()) {
-                edit.set(false);
-                selectAllCBox.setSelected(true);
-                edit.set(true);
-            } */
 
             old_filteredCountriesCheckBox.clear();
             old_filteredCountriesCheckBox.addAll((filtered_providers == null ? new LinkedList<>() : filtered_providers));
