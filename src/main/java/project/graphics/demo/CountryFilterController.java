@@ -107,7 +107,7 @@ public class CountryFilterController {
         return tmp;
     }
 
-    public int getSelectedSize() {return selectedCountries.size();}
+    //public int getSelectedSize() {return selectedCountries.size();}
 
     public Vector<String> getFilterCriteria() {
         Vector<String> tmp = new Vector<>();

@@ -73,7 +73,6 @@ public class SearchCriteria {
                 redCountries.add(redCountry);
             }
             redCriteria.put("c", redCountries);
-            System.out.println(redsCountry);
         }
         else {
             redCriteria.put("c", new Vector<>());
@@ -92,7 +91,6 @@ public class SearchCriteria {
                 redProviders.add(redProvider.getName());
             }
             redCriteria.put("p", redProviders);
-            System.out.println(redsProvider);
             nothingRed = false;
         }
         else {
@@ -131,7 +129,6 @@ public class SearchCriteria {
                 redStatuses.add(redStatus);
             }
             redCriteria.put("s", redStatuses);
-            System.out.println(redsStatus);
             nothingRed = false;
         }
         else {

@@ -187,17 +187,17 @@ public class SearchUI {
                     edit.set(true);
                 }
 
-                /*if (filtered_providers.size() != filter.getSelectedProvidersSize() && selectAllCBox.isSelected()) {
+                if (filtered_providers.size() != filter.getProviderSelectedSize() && selectAllCBox.isSelected()) {
                     edit.set(false);
                     selectAllCBox.setSelected(false);
                     edit.set(true);
                 }
 
-                if (!selectAllCBox.isSelected() && filtered_providers.size() == filter.getSelectedProvidersSize()) {
+                if (!selectAllCBox.isSelected() && filtered_providers.size() == filter.getProviderSelectedSize()) {
                     edit.set(false);
                     selectAllCBox.setSelected(true);
                     edit.set(true);
-                }*/
+                }
                 selectAllCBox.setDisable(false);
             } else {
                 selectAllCBox.setDisable(true);
@@ -240,7 +240,6 @@ public class SearchUI {
             try {
                 String selectedAll = criteria.getSelectedAll();
                 Map<String, Vector<String>> redCriteria = criteria.getRedCriteria();
-                System.out.println(redCriteria);
                 if (selectedAll.equals("") && redCriteria.isEmpty()) {
                     SearchEngine.getInstance().performSearch(criteria);
                     CompleteUI.swapScene("r", darkmode);

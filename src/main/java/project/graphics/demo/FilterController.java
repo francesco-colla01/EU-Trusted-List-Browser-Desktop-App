@@ -55,12 +55,7 @@ public class FilterController {
         return new SearchCriteria(c, p, t, s);
     }
 
-    public Vector<Integer> getSelectedSize() {
-        Vector<Integer> tmp = new Vector<>();
-        tmp.add(countries.getSelectedSize());
-        tmp.add(providers.getSelectedSize());
-        tmp.add(types.getSelectedSize());
-        tmp.add(statuses.getSelectedSize());
-        return tmp;
+    public int getProviderSelectedSize() {
+        return providers.getSelectedSize();
     }
 }

@@ -94,7 +94,7 @@ public class TypeFilterController {
         return tmp;
     }
 
-    public int getSelectedSize() {return selectedTypes.size();}
+    //public int getSelectedSize() {return selectedTypes.size();}
 
     public Vector<String> getFilterCriteria() {
         if (selectedTypes.isEmpty())
