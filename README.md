@@ -5,26 +5,26 @@ The app communicates with the European Union APIs to retrieve the data it needs 
 This app is written in Java and needs the Java Runtime Environment to run, refer to the installation guide and documentations under the code section for more informations.
 ## Installation and usage
 ### Base install
-1)Check if you have the Java Runtime Environment is installed in your system.In Windows by typing “Java” in your search bar. If a “Configure Java” app pops up your pc is ready, in linux typing the command java -version
+1) Check if you have the Java Runtime Environment is installed in your system.In Windows by typing “Java” in your search bar. If a “Configure Java” app pops up your pc is ready, in linux typing the command java -version
 
-2)This step is required only if you don’t have Java installed in your system. Download the installer from [here](https://www.java.com/en/) and follow the instructions provided.
+2) This step is required only if you don’t have Java installed in your system. Download the installer from [here](https://www.java.com/en/) and follow the instructions provided.
 
 3) Install the latest version of the JDK needed to run the jar file at [this link](https://www.oracle.com/java/technologies/downloads/) choosing your os.
 
-4)Download the .jar application file from [here](https://raw.githubusercontent.com/thelion154/EU-Trusted-List-Browser-Desktop-App/main/EU%20Trust%20Service%20Dashboard.jar).
+4) Download the .jar application file from [here](https://raw.githubusercontent.com/thelion154/EU-Trusted-List-Browser-Desktop-App/main/EU%20Trust%20Service%20Dashboard.jar).
 
-5)Double click the EU Trust Service Dashboard icon to launch the application.
+5) Double click the EU Trust Service Dashboard icon to launch the application.
 
 If you're still experiencing toubles please refer to this short [video tutorial](https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=emb_logo) covering the major operative systems.
 
 ### Advanced install
 All of our app is open source and browsable. Another way to launch the program is to compile it from scratch even though this method is not reccomended for users that are not interested in the source code. For this kind of launch refer to the same steps as the base install to step 5.
 
-1)Open an IDE of your choice. IntelliJ and Eclipse are two examples
+1) Open an IDE of your choice. IntelliJ and Eclipse are two examples
 
-2)Open the extracted folder as a project in your IDE
+2) Open the extracted folder as a project in your IDE
 
-3)Follow the steps to build and run in your IDE
+3) Follow the steps to build and run in your IDE
 
 This steps aren’t very detailed as every development environment is different and may have different steps inorder to run the source code.
 
