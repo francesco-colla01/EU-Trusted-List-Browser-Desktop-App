@@ -118,9 +118,7 @@ public class ResultUI {
                 ePane.getChildren().clear();
                 ePane.getStyleClass().add("info-pane");
 
-                VBox dataText = new VBox();
-                VBox dataValue = new VBox();
-                HBox data = new HBox(dataText, dataValue);
+                VBox data = new VBox();
                 data.setSpacing(15.0);
 
                 Service s = (Service) serviceList.getSelectionModel().getSelectedItem();
@@ -134,19 +132,18 @@ public class ResultUI {
                 Label title = (Label) fxmlLoader.getNamespace().get("sInfoLabel");
                 title.setOpacity(1);
 
-                dataText.getChildren().add(new Text("Provider Name:"));
-                dataValue.getChildren().add(new Text(providerName));
+                HBox nameBox = new HBox(new Text("Provider Name:"), new Text(providerName));
+                nameBox.setSpacing(20);
 
-                dataText.getChildren().add(new Text("Country:"));
                 String cn1 = countryName;
                 Image flag = new Image("https://countryflagsapi.com/png/" + cn1.replaceAll(" ", "%20"));
                 ImageView flagNode = new ImageView(flag);
                 flagNode.setFitWidth(27);
                 flagNode.setFitHeight(15);
-                dataValue.getChildren().add(new TextFlow(flagNode, new Text(" " + cn1)));
+                HBox countryBox = new HBox(new Text("Country:"), new HBox(flagNode, new Text(" " + cn1)));
+                countryBox.setSpacing(20);
 
                 //Status
-                dataText.getChildren().add(new Text("Service status:"));
                 String cs = serviceStatus;
                 Button voidStatusButton = new Button(cs);
                 switch (cs) {
@@ -170,9 +167,9 @@ public class ResultUI {
                         voidStatusButton.getStyleClass().add("default");
                         break;
                 }
-                dataValue.getChildren().add(voidStatusButton);
+                HBox statusBox = new HBox(new Text("Service status:"), voidStatusButton);
+                statusBox.setSpacing(20);
 
-                dataText.getChildren().add(new Text("Service Type:"));
                 HBox buttonvec = new HBox();
                 Arrays.stream(serviceTypes).toList().forEach(type -> {
                     Button butt = new Button(type);
@@ -181,11 +178,12 @@ public class ResultUI {
                 });
 
                 buttonvec.setSpacing(5);
-                dataValue.getChildren().add(buttonvec);
+                HBox typeBox = new HBox(new Text("Service Type:"), buttonvec);
+                typeBox.setSpacing(20);
 
-                dataText.getChildren().add(new Text("Type Identifier:"));
                 Hyperlink link = new Hyperlink(typeIdentifier);
-                dataValue.getChildren().add(link);
+                HBox linkBox = new HBox(new Text("Type Identifier:"), link);
+                linkBox.setSpacing(20);
 
                 link.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -201,9 +199,8 @@ public class ResultUI {
 
                 AnchorPane.setLeftAnchor(data, 10.0);
 
+                data.getChildren().addAll(FXCollections.observableArrayList(nameBox, countryBox, statusBox, typeBox, linkBox));
                 data.setSpacing(18);
-                dataText.setSpacing(23);
-                dataValue.setSpacing(20);
                 ePane.getChildren().add(data);
             });
 
