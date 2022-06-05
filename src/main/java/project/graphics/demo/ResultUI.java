@@ -1,13 +1,17 @@
 package project.graphics.demo;
 
+import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -21,8 +25,11 @@ import project.framework.Provider;
 import project.framework.SearchEngine;
 import project.framework.Service;
 
+import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.concurrent.CountedCompleter;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -177,7 +184,20 @@ public class ResultUI {
                 dataValue.getChildren().add(buttonvec);
 
                 dataText.getChildren().add(new Text("Type Identifier:"));
-                dataValue.getChildren().add((new Hyperlink(typeIdentifier)));
+                Hyperlink link = new Hyperlink(typeIdentifier);
+                dataValue.getChildren().add(link);
+
+                link.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        try {
+                            Desktop.getDesktop().browse(new URI(link.getText()));
+
+                        } catch (IOException | URISyntaxException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
 
                 AnchorPane.setLeftAnchor(data, 10.0);
 
