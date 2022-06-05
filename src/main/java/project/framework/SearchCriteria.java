@@ -30,6 +30,9 @@ public class SearchCriteria {
         types = t;
         statuses = s;
         selectedAll = "";
+
+        //if some criteria lists include every criterion available (null at the end of the vector),
+        //add that list to selectedAll
         if (countries.contains(null)) {
             countries.remove(null);
             selectedAll += "c";
@@ -47,6 +50,7 @@ public class SearchCriteria {
             selectedAll += "s";
         }
 
+        //if no list was touched, the criteria are not valid
         if (selectedAll.equals("cpts")) {
             isCriteriaInvalid = true;
             return;
@@ -56,10 +60,16 @@ public class SearchCriteria {
         boolean nothingRed = true;
         redCriteria = new HashMap<>();
 
+        //build the map for red (incompatible) criteria
+        //if something was selected on a list, the last element of the corresponding vector contains
+        //the number x of invalid criteria, with the x elements behind it being the invalid criteria
+        //for every kind of criteria, the list of incompatible criteria is build and added to the map
+        //(if no red criteria are present, an empty list is added)
         int redsCountry;
         int redsProvider;
         int redsType;
         int redsStatus;
+
         try {
             redsCountry = Integer.parseInt(countries.get(countries.size() - 1));
             countries.remove(countries.size() - 1);
@@ -78,6 +88,8 @@ public class SearchCriteria {
             redCriteria.put("c", new Vector<>());
         }
 
+        //in this case, if something was selected from the providers, the last element is a
+        //Provider instance with the number of incompatible providers as the name
         try {
             Provider last = providers.get(providers.size() - 1);
             redsProvider = Integer.parseInt(last.getName());
@@ -135,6 +147,7 @@ public class SearchCriteria {
             redCriteria.put("s", new Vector<>());
         }
 
+        //if all lists are empty, clear the map
         if (nothingRed) redCriteria.clear();
     }
 

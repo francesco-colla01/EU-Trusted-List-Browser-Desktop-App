@@ -26,10 +26,12 @@ public class FilterController {
 
     public List<CheckBox> getCheckBoxes(String criterion) {
         List<CheckBox> tmp = new ArrayList<>();
+        //get the criteria needed to get the checkboxes
         Vector<String> c = countries.getFilterCriteria();
         Vector<Provider> p = providers.getFilterCriteria();
         Vector<String> t = types.getFilterCriteria();
         Vector<String> s = statuses.getFilterCriteria();
+        //get checkboxes for one criteria type depending on the parameter
         switch (criterion) {
             case "c":
                 tmp = countries.getCheckBoxes(p, t, s);

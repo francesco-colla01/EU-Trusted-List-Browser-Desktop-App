@@ -1,16 +1,11 @@
 package project.graphics.demo;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.HostServices;
-import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -30,9 +25,9 @@ public class CompleteUI extends Application {
         primaryStage.setResizable(false);
         stage = primaryStage;
 
-        swapScene("l", null);
+        swapScene("l");
         primaryStage.show();
-        swapScene("s", null);
+        swapScene("s");
     }
 
     /*public static void swapScene(Scene newScene) {
@@ -41,16 +36,19 @@ public class CompleteUI extends Application {
         backScene = tmpScene;
     }*/
 
-    public static void swapScene(String sceneType, AtomicBoolean darkMode) throws IOException {
+    public static void swapScene(String sceneType) throws IOException {
         backScene = stage.getScene();
+        //show results UI
         if (Objects.equals(sceneType, "r")) {
             stage.setScene(ResultUI.result(stage));
             return;
         }
+        //show loading UI
         if (sceneType.contains("l")) {
             stage.getIcons().add(new Image("https://i.imgur.com/xm62NkC.png"));
             stage.setScene(LoadingUI.getScene());
         }
+        //show search UI; while it is built, the loading UI will remain on screen
         if (sceneType.contains("s")) {
             Service<Scene> process = new Service<>() {
                 @Override
@@ -58,20 +56,24 @@ public class CompleteUI extends Application {
                     return new Task<Scene>() {
                         @Override
                         protected Scene call() throws Exception {
-                            return SearchUI.getScene();
+                            return SearchUI.search();
                         }
                     };
                 }
             };
 
+            //build successful = server requests successful
             process.setOnSucceeded( e -> {
                 stage.setScene(process.getValue());
             });
 
+            //build failed = server requests failed
+            //an error message is shown, then try to build the scene again if the program
+            //has not been closed
             process.setOnFailed( e -> {
                 ErrorUI.showError("requestFailed");
                 try {
-                    swapScene("sl", null);
+                    swapScene("sl");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -81,6 +83,7 @@ public class CompleteUI extends Application {
         }
     }
 
+    //switch the program back to the previous scene
     public static void backScene() {
         Scene tmpScene = stage.getScene();
         stage.setScene(backScene);

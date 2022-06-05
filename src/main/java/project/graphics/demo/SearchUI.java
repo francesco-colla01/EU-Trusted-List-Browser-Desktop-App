@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import project.framework.SearchCriteria;
 import project.framework.SearchEngine;
@@ -22,14 +21,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SearchUI {
 
-    public static Scene getScene() throws IOException {
+    public static Scene search() throws IOException {
         //Loading file xml
         FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("search-view.fxml"));
 
 
         //Scene creation
         Scene scene = new Scene(fxmlLoader.load(), 1250, 750);
-        AtomicBoolean darkmode = new AtomicBoolean(false);
+        //AtomicBoolean darkmode = new AtomicBoolean(false);
 
         FilterController filter = new FilterController();
 
@@ -168,6 +167,7 @@ public class SearchUI {
 
         Timeline pane = new Timeline(new KeyFrame(Duration.seconds(0.25), ev -> {
             List<CheckBox> filtered_providers = filter.getCheckBoxes("p");
+            int selectedProviderSize = filter.getProviderSelectedSize();
 
 
             if (filtered_providers == null) {
@@ -187,13 +187,13 @@ public class SearchUI {
                     edit.set(true);
                 }
 
-                if (filtered_providers.size() != filter.getProviderSelectedSize() && selectAllCBox.isSelected()) {
+                if (filtered_providers.size() != selectedProviderSize && selectAllCBox.isSelected()) {
                     edit.set(false);
                     selectAllCBox.setSelected(false);
                     edit.set(true);
                 }
 
-                if (!selectAllCBox.isSelected() && filtered_providers.size() == filter.getProviderSelectedSize()) {
+                if (!selectAllCBox.isSelected() && filtered_providers.size() == selectedProviderSize) {
                     edit.set(false);
                     selectAllCBox.setSelected(true);
                     edit.set(true);
@@ -233,29 +233,33 @@ public class SearchUI {
                 return;
             }
             try {
+                //get parameters for criteria alert
                 String selectedAll = criteria.getSelectedAll();
                 Map<String, Vector<String>> redCriteria = criteria.getRedCriteria();
+                //something selected across all lists with no incompatible criteria
                 if (selectedAll.equals("") && redCriteria.isEmpty()) {
                     SearchEngine.getInstance().performSearch(criteria);
-                    CompleteUI.swapScene("r", darkmode);
+                    CompleteUI.swapScene("r");
                 }
                 else {
                     boolean result = ErrorUI.showCriteriaAlert(selectedAll, redCriteria);
+                    //ok button pressed
                     if (result) {
                         SearchEngine.getInstance().performSearch(criteria);
-                        CompleteUI.swapScene("r", darkmode);
+                        CompleteUI.swapScene("r");
                     }
+                    //cancelled alert / Annulla pressed: back to the SearchUI
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
 
-        FlowPane backgroundFlowPane = (FlowPane)fxmlLoader.getNamespace().get("backgroundFlowPane");
+        /*FlowPane backgroundFlowPane = (FlowPane)fxmlLoader.getNamespace().get("backgroundFlowPane");
 
         ToggleButton darkMode = (ToggleButton) fxmlLoader.getNamespace().get("darkMode");
 
-        /*darkMode.setOnAction(actionEvent -> {
+        darkMode.setOnAction(actionEvent -> {
             if(darkMode.isSelected()){
                 darkmode.set(false);
                 System.out.println("darkmode is enabled");

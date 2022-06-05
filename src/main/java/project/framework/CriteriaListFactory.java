@@ -21,18 +21,18 @@ public class CriteriaListFactory {
      */
     public CriteriaListFactory() throws IOException {
         //first API request to get the list of all countries
-
         HttpRequest fetchCountriesList = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/countries_list");
         JSONArray jsonCountriesList = new JSONArray(fetchCountriesList.getResponse());
+
+        //Second API request to get all the info needed
+        HttpRequest fetchAllProviders = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/tsp_list");
+        JSONArray jsonProvidersList = new JSONArray(fetchAllProviders.getResponse()); //the API organise all services based on their provider
 
         countryList = new TreeMap<>(); //this map associate the country name to his code (e.g Italy ----> IT)
         for (int i = 0; i<jsonCountriesList.length(); i++) {
             countryList.put(jsonCountriesList.getJSONObject(i).getString("countryCode"), jsonCountriesList.getJSONObject(i).getString("countryName"));
         }
 
-        //Second API request to get all the info needed
-        HttpRequest fetchAllProviders = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/tsp_list");
-        JSONArray jsonProvidersList = new JSONArray(fetchAllProviders.getResponse()); //the API organise all services based on their provider
         Provider[] all_tsp = new Provider[jsonProvidersList.length()];  //list of all providers
 
         typeList = new Vector<>();
@@ -46,8 +46,9 @@ public class CriteriaListFactory {
 
             for (int j = 0; j < all_tsp[i].getServices().length; j++) {
                 Service[] s = all_tsp[i].getServices();
-                if (!statusList.contains(s[j].getCurrentStatus()))
-                    statusList.add(s[j].getCurrentStatus());
+                String cs = s[j].getCurrentStatus();
+                if (!statusList.contains(cs))
+                    statusList.add(cs);
             }
 
             for (int j = 0; j < all_tsp[i].getServiceTypes().length; j++) {

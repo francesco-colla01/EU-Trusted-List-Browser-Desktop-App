@@ -20,7 +20,7 @@ public class ProviderFilterController {
             String name = provider.getName();
             String cc = provider.getCountryCode();
             nameToProvider.put(name + cc, provider);
-            CheckBox providerCheckBox = new CheckBox(provider.getName());
+            CheckBox providerCheckBox = new CheckBox(name);
             providerCheckBox.getStyleClass().add("provider-check-box");
             providerCheckBox.setId(name + cc);
             providerCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
