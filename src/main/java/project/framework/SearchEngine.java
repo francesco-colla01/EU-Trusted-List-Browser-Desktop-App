@@ -34,8 +34,9 @@ public class SearchEngine {
             for (Service s : ser) {
                 if (criteria.getCountries().contains(s.getCountryCode()) &&
                         criteria.getStatuses().contains(s.getCurrentStatus())) {
+                    Vector<String> types = criteria.getTypes();
                     for (String type : s.getServiceTypes()) {
-                        if (criteria.getTypes().contains(type)) {
+                        if (types.contains(type)) {
                             addService(p, s);
                             break;
                         }
