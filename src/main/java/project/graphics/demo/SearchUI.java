@@ -233,29 +233,33 @@ public class SearchUI {
                 return;
             }
             try {
+                //get parameters for criteria alert
                 String selectedAll = criteria.getSelectedAll();
                 Map<String, Vector<String>> redCriteria = criteria.getRedCriteria();
+                //something selected across all lists with no incompatible criteria
                 if (selectedAll.equals("") && redCriteria.isEmpty()) {
                     SearchEngine.getInstance().performSearch(criteria);
                     CompleteUI.swapScene("r");
                 }
                 else {
                     boolean result = ErrorUI.showCriteriaAlert(selectedAll, redCriteria);
+                    //ok button pressed
                     if (result) {
                         SearchEngine.getInstance().performSearch(criteria);
                         CompleteUI.swapScene("r");
                     }
+                    //cancelled alert / Annulla pressed: back to the SearchUI
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
 
-        FlowPane backgroundFlowPane = (FlowPane)fxmlLoader.getNamespace().get("backgroundFlowPane");
+        /*FlowPane backgroundFlowPane = (FlowPane)fxmlLoader.getNamespace().get("backgroundFlowPane");
 
         ToggleButton darkMode = (ToggleButton) fxmlLoader.getNamespace().get("darkMode");
 
-        /*darkMode.setOnAction(actionEvent -> {
+        darkMode.setOnAction(actionEvent -> {
             if(darkMode.isSelected()){
                 darkmode.set(false);
                 System.out.println("darkmode is enabled");
