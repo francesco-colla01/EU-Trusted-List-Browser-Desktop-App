@@ -11,7 +11,7 @@ This app is written in Java and needs the Java Runtime Environment to run, refer
 
 3) Install the latest version of the JDK needed to run the jar file at [this link](https://www.oracle.com/java/technologies/downloads/) choosing your os.
 
-4) Download the .jar application file from [here](https://raw.githubusercontent.com/thelion154/EU-Trusted-List-Browser-Desktop-App/main/EU%20Trust%20Service%20Dashboard.jar).
+4) Download the .jar application file from [here](https://github.com/thelion154/EU-Trusted-List-Browser-Desktop-App/raw/main/EU%20Trust%20Service%20Dashboard.jar).
 
 5) Double click the EU Trust Service Dashboard icon to launch the application.
 
