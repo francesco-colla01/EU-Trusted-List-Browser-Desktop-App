@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ResultUI {
 
-    public static Scene result(Stage stage, AtomicBoolean darkMode) throws IOException {
+    public static Scene result(Stage stage) throws IOException {
 
         //Loading file xml
         FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("result-view.fxml"));
@@ -219,9 +219,6 @@ public class ResultUI {
 
         scene.getStylesheets().add(Objects.requireNonNull(ResultUI.class.getResource("css/stylesheet.css")).toExternalForm());
 
-        if(darkMode.get()){
-            
-        }
 
         return scene;
     }

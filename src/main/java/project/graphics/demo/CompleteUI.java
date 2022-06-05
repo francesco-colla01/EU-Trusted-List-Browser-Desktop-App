@@ -44,7 +44,7 @@ public class CompleteUI extends Application {
     public static void swapScene(String sceneType, AtomicBoolean darkMode) throws IOException {
         backScene = stage.getScene();
         if (Objects.equals(sceneType, "r")) {
-            stage.setScene(ResultUI.result(stage, darkMode));
+            stage.setScene(ResultUI.result(stage));
             return;
         }
         if (sceneType.contains("l")) {

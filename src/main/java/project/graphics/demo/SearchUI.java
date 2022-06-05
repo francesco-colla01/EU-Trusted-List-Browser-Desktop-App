@@ -255,7 +255,7 @@ public class SearchUI {
 
         ToggleButton darkMode = (ToggleButton) fxmlLoader.getNamespace().get("darkMode");
 
-        darkMode.setOnAction(actionEvent -> {
+        /*darkMode.setOnAction(actionEvent -> {
             if(darkMode.isSelected()){
                 darkmode.set(false);
                 System.out.println("darkmode is enabled");
@@ -278,6 +278,8 @@ public class SearchUI {
                 selectAllCBox.getStyleClass().remove("dark-mode");
             }
         });
+
+         */
 
         return scene;
     }

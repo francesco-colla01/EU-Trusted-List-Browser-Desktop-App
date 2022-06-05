@@ -22,9 +22,12 @@
                      </font>
                   </Label>
                   <AnchorPane fx:id="countriesAnchorPane" layoutX="108.0" layoutY="84.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
-                     <children>
-                        <ToggleButton fx:id="darkMode" layoutX="14.0" layoutY="601.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0" styleClass="dark-mode-toggle" stylesheets="@css/stylesheet.css" />
-                     </children></AnchorPane>
+                     <!--
+                        <children>
+                           <ToggleButton fx:id="darkMode" layoutX="14.0" layoutY="601.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0" styleClass="dark-mode-toggle" stylesheets="@css/stylesheet.css" />
+                        </children>
+                     -->
+                     </AnchorPane>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="providersAnchorPane" maxHeight="751.0" maxWidth="415.0" prefHeight="751.0" prefWidth="415.0" style="-fx-border-color: gold;" stylesheets="@css/stylesheet.css">
