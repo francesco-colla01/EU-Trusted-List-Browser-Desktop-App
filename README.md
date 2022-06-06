@@ -15,7 +15,7 @@ This app is written in Java and needs the Java Runtime Environment to run, refer
 
 5) Double click the EU Trust Service Dashboard icon to launch the application.
 
-If you're still experiencing toubles please refer to this short [video tutorial](https://drive.google.com/file/d/1SdrLQqAlHp4572PfLHnSLe_gjXEr7aLA/view?usp=sharing) covering the major operative systems.
+If you're still experiencing toubles please refer to this short [video tutorial](https://drive.google.com/file/d/1SdrLQqAlHp4572PfLHnSLe_gjXEr7aLA/view?usp=sharing) covering the installation process on Windows.
 
 ### Advanced install
 All of our app is open source and browsable. Another way to launch the program is to compile it from scratch even though this method is not reccomended for users that are not interested in the source code. For this kind of launch refer to the same steps as the base install to step 5.
