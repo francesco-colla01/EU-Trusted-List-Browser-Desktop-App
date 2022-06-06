@@ -62,56 +62,60 @@ public class ErrorUI {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
         //Not selected parameters included
-        String headerText = "Information on the search:\n";
+        StringBuilder headerText = new StringBuilder("Information on the search:\n");
         if (!selectedAll.equals("")) {
-            headerText += "You have not chosen any criteria on the following lists:\n";
-            if (selectedAll.contains("c")) headerText += "countries, ";
-            if (selectedAll.contains("p")) headerText += "providers, ";
-            if (selectedAll.contains("t")) headerText += "types, ";
-            if (selectedAll.contains("s")) headerText += "statuses, ";
-            headerText = headerText.substring(0, headerText.length() - 2);
-            headerText += ".\nIf you perform the search, every criteria displayed will be " +
-                    "selected for those lists.\n\n";
+            headerText.append("You have not chosen any criteria on the following lists:\n");
+            if (selectedAll.contains("c")) headerText.append("countries, ");
+            if (selectedAll.contains("p")) headerText.append("providers, ");
+            if (selectedAll.contains("t")) headerText.append("types, ");
+            if (selectedAll.contains("s")) headerText.append("statuses, ");
+            headerText = new StringBuilder(headerText.substring(0, headerText.length() - 2));
+            headerText.append(".\nIf you perform the search, every criteria displayed will be " + "selected for those lists.\n\n");
         }
 
         //Red parameters info
         if (!redCriteria.isEmpty()) {
-            headerText += "The following selected criteria are incompatible with the others " +
-                    "(performing a search with them would return no results):\n";
+            headerText.append("You have selected some invalid criteria " + "(they would return no results):\n");
             Vector<String> redCountries = redCriteria.get("c");
+            int i;
             if (!redCountries.isEmpty()) {
-                headerText += "- Countries: ";
-                for (String c : redCountries) headerText += c + ", ";
-                headerText = headerText.substring(0, headerText.length() - 2);
-                headerText += ";\n";
+                headerText.append("- Countries: ");
+                i = 0;
+                while (i < 5 && i < redCountries.size()) headerText.append(redCountries.get(i++)).append(", ");
+                if (i == 5) headerText.append("...");
+                else headerText = new StringBuilder(headerText.substring(0, headerText.length() - 2));
+                headerText.append("\n");
             }
             Vector<String> redProviders = redCriteria.get("p");
             if (!redProviders.isEmpty()) {
-                headerText += "- Providers: ";
-                for (String p : redProviders) headerText += p + ", ";
-                headerText = headerText.substring(0, headerText.length() - 2);
-                headerText += ";\n";
+                headerText.append("- Providers: ");
+                i = 0;
+                while (i < 5 && i < redProviders.size()) headerText.append(redProviders.get(i++)).append(", ");
+                if (i == 5) headerText.append("...");
+                else headerText = new StringBuilder(headerText.substring(0, headerText.length() - 2));
+                headerText.append("\n");
             }
             Vector<String> redTypes = redCriteria.get("t");
             if (!redTypes.isEmpty()) {
-                headerText += "- Types: ";
-                for (String t : redTypes) headerText += t + ", ";
-                headerText = headerText.substring(0, headerText.length() - 2);
-                headerText += ";\n";
+                headerText.append("- Types: ");
+                i = 0;
+                while (i < 5 && i < redTypes.size()) headerText.append(redTypes.get(i++)).append(", ");
+                if (i == 5) headerText.append("...");
+                else headerText = new StringBuilder(headerText.substring(0, headerText.length() - 2));
+                headerText.append("\n");
             }
             Vector<String> redStatuses = redCriteria.get("s");
             if (!redStatuses.isEmpty()) {
-                headerText += "- Statuses: ";
-                for (String s : redStatuses) headerText += s + ", ";
-                headerText = headerText.substring(0, headerText.length() - 2);
-                headerText += ";\n";
+                headerText.append("- Statuses: ");
+                for (String s : redStatuses) headerText.append(s).append(", ");
+                headerText = new StringBuilder(headerText.substring(0, headerText.length() - 2));
+                headerText.append("\n");
             }
-            headerText = headerText.substring(0, headerText.length() - 2);
-            headerText += ".\nIf you perform the search, these criteria will be discarded.\n";
+            headerText.append("If you perform the search, these criteria will be discarded.\n");
         }
 
         alert.setTitle("Criteria alert");
-        alert.setHeaderText(headerText);
+        alert.setHeaderText(headerText.toString());
         alert.setContentText("Press OK to perform the search or cancel the alert " +
                 "(Annulla / X) to go back and change the criteria.");
         Optional<ButtonType> result = alert.showAndWait();

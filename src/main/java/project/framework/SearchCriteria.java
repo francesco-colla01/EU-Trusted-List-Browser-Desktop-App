@@ -80,11 +80,8 @@ public class SearchCriteria {
         }
         if (redsCountry != 0) {
             nothingRed = false;
-            Vector<String> redCountries = new Vector<>();
-            for (String redCountry : countries.subList(countries.size() - redsCountry, countries.size())) {
-                redCountries.add(redCountry);
-                countries.remove(redCountry);
-            }
+            Vector<String> redCountries = new Vector<>(countries.subList(countries.size() - redsCountry, countries.size()));
+            for (String redCountry : redCountries) countries.remove(redCountry);
             redCriteria.put("c", redCountries);
         }
         else { redCriteria.put("c", new Vector<>()); }
@@ -100,7 +97,8 @@ public class SearchCriteria {
         }
         if (redsProvider != 0) {
             Vector<String> redProviders = new Vector<>();
-            for (Provider redProvider : providers.subList(providers.size()-redsProvider, providers.size())) {
+            Vector<Provider> tmp = new Vector<>(providers.subList(providers.size()-redsProvider, providers.size()));
+            for (Provider redProvider : tmp) {
                 redProviders.add(redProvider.getName());
                 providers.remove(redProvider);
             }
@@ -116,11 +114,8 @@ public class SearchCriteria {
             redsType = 0;
         }
         if (redsType != 0) {
-            Vector<String> redTypes = new Vector<>();
-            for (String redType : types.subList(types.size() - redsType, types.size())) {
-                redTypes.add(redType);
-                types.remove(redType);
-            }
+            Vector<String> redTypes = new Vector<>(types.subList(types.size() - redsType, types.size()));
+            for (String redType : redTypes) types.remove(redType);
             redCriteria.put("t", redTypes);
             nothingRed = false;
         }
@@ -133,11 +128,8 @@ public class SearchCriteria {
             redsStatus = 0;
         }
         if (redsStatus != 0) {
-            Vector<String> redStatuses = new Vector<>();
-            for (String redStatus : statuses.subList(statuses.size() - redsStatus, statuses.size())) {
-                redStatuses.add(redStatus);
-                statuses.remove(redStatus);
-            }
+            Vector<String> redStatuses = new Vector<>(statuses.subList(statuses.size() - redsStatus, statuses.size()));
+            for (String redStatus : redStatuses) statuses.remove(redStatus);
             redCriteria.put("s", redStatuses);
             nothingRed = false;
         }
