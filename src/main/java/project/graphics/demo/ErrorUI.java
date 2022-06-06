@@ -4,37 +4,19 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Vector;
 
-/*interface ErrorButtonAction {
-    void action();
-}*/
-
 public class ErrorUI {
-        /*public static void showError(String headerText, String contentText, ErrorButtonAction action) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-
-        alert.setHeaderText(headerText);
-        alert.setContentText(contentText);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            action.action();
-        }
-    }
-
-    public static void showError(String headerText, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-
-        alert.setHeaderText(headerText);
-        alert.setContentText(contentText);
-
-        alert.showAndWait();
-    }*/
-
+    /**
+     * Create an Alert Box for 2 types of errors:
+     *      - invalidCriteria
+     *      - requestFailed
+     *
+     * @param errorType string that can be either "invalidCriteria" or "requestFailed"
+     * @see Alert
+     */
     public static void showError(String errorType) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
 
@@ -56,9 +38,30 @@ public class ErrorUI {
         }
     }
 
+    /**
+     * Show an Alert box whenever the user perform a search; the Alert box is unique
+     * but in that box there might be showed information about: red parameters not
+     * included in the search and/or warn the user about including some parameters
+     * not selected
+     *
+     * @param selectedAll String with max 3 letter that might be {c,p,s,t} that
+     *                    correspond with country, provider, status, type;
+     *                    Used to see in which list the user did not select any
+     *                    parameter
+     * @param redCriteria Map with String keys that might be {c,p,s,t} that
+     *                    correspond with country, provider, status, type; to each
+     *                    key there is associated a Vector<String> value that includes
+     *                    all the parameters name that are red in the UI
+     *
+     * @return true when the user press button OK
+     *         false when the user press button ANNULLA or close the Alert box
+     *
+     * @see Alert
+     */
     public static boolean showCriteriaAlert(String selectedAll, Map<String, Vector<String>> redCriteria) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
+        //Not selected parameters included
         String headerText = "Information on the search:\n";
         if (!selectedAll.equals("")) {
             headerText += "You have not chosen any criteria on the following lists:\n";
@@ -70,6 +73,8 @@ public class ErrorUI {
             headerText += ".\nIf you perform the search, every criteria displayed will be " +
                     "selected for those lists.\n\n";
         }
+
+        //Red parameters info
         if (!redCriteria.isEmpty()) {
             headerText += "The following selected criteria are incompatible with the others " +
                     "(performing a search with them would return no results):\n";

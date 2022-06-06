@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -21,23 +20,31 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SearchUI {
 
+    /**
+     * This method create, shows and dynamically update the searchUI; where the user can click
+     * to different checkboxes to selected different searching criteria.
+     *
+     * @throws IOException
+     *
+     * @see FilterController
+     */
     public static Scene search() throws IOException {
+        //AtomicBoolean darkmode = new AtomicBoolean(false);
+        FilterController filter = new FilterController();
+
         //Loading file xml
         FXMLLoader fxmlLoader = new FXMLLoader(SearchUI.class.getResource("search-view.fxml"));
 
-
         //Scene creation
         Scene scene = new Scene(fxmlLoader.load(), 1250, 750);
-        //AtomicBoolean darkmode = new AtomicBoolean(false);
 
-        FilterController filter = new FilterController();
-
-        // Countries
+        //COUNTRIES SEARCHUI ZONE
         AnchorPane countriesPane = (AnchorPane) fxmlLoader.getNamespace().get("countriesAnchorPane");
 
         VBox countriesCheckBoxesLeft = new VBox();
         VBox countriesCheckBoxesRight = new VBox();
 
+        //This lambda expression update every 0.25 second the countries panel
         Timeline countriesTPane = new Timeline(new KeyFrame(Duration.seconds(0.25), ev -> {
             List<CheckBox> filteredCountries = filter.getCheckBoxes("c");
             int separator = 0;
@@ -71,14 +78,13 @@ public class SearchUI {
         countriesCheckBoxes.setSpacing(55);
         countriesCheckBoxes.setAlignment(Pos.CENTER_LEFT);
 
-        // Types
-        //TypeCheckBoxController typeCheckBoxController = new TypeCheckBoxController(typesOfService);
-
+        //TYPES SEARCHUI ZONE
         AnchorPane tosAnchorPane = (AnchorPane) fxmlLoader.getNamespace().get("tosAnchorPane");
 
         VBox tosCheckBoxesLeft = new VBox();
         VBox tosCheckBoxesRight = new VBox();
 
+        //This lambda expression update every 0.25 second the types of service panel
         Timeline tosPane = new Timeline(new KeyFrame(Duration.seconds(0.25), ev -> {
             List<CheckBox> tosCBoxes = filter.getCheckBoxes("t");
 
@@ -100,24 +106,22 @@ public class SearchUI {
         tosPane.setCycleCount(Animation.INDEFINITE);
         tosPane.play();
 
-
         HBox tosCheckBoxes = new HBox(tosCheckBoxesLeft, tosCheckBoxesRight);
         tosCheckBoxes.setSpacing(15);
 
         AnchorPane.setTopAnchor(tosCheckBoxes, 100.0);
         AnchorPane.setLeftAnchor(tosCheckBoxes, 22.0);
 
-
         tosCheckBoxes.setSpacing(55);
         tosCheckBoxes.setAlignment(Pos.CENTER_LEFT);
 
-        // Statuses
+        //STATUS SEARCHUI ZONE
         AnchorPane ssAnchorPane = (AnchorPane) fxmlLoader.getNamespace().get("ssAnchorPane");
-        //StatusCheckBoxController statusCheckBoxController = new StatusCheckBoxController(statuses);
 
         VBox ssCheckBoxesLeft = new VBox();
         VBox ssCheckBoxesRight = new VBox();
 
+        //This lambda expression update every 0.25 second the service statuses panel
         Timeline ssPane = new Timeline(new KeyFrame(Duration.seconds(0.25), ev -> {
             List<CheckBox> ssCBoxes = filter.getCheckBoxes("s");
 
@@ -144,11 +148,11 @@ public class SearchUI {
         AnchorPane.setTopAnchor(ssCheckBoxes, 85.0);
         AnchorPane.setLeftAnchor(ssCheckBoxes, 22.0);
 
-
         ssCheckBoxes.setSpacing(25);
         ssCheckBoxes.setAlignment(Pos.CENTER_LEFT);
 
-        // Load Select All CBox
+        //PROVIDERS SEARCHUI ZONE
+        //Load Select All CBox
         CheckBox selectAllCBox = (CheckBox) fxmlLoader.getNamespace().get("selectAllProviders");
         AtomicBoolean edit = new AtomicBoolean(true);
         selectAllCBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
@@ -157,18 +161,16 @@ public class SearchUI {
                 filtered_providers.forEach(CBox ->CBox.setSelected(selectAllCBox.isSelected()));
         });
 
-
-        // Provider
         AnchorPane scrollPane = (AnchorPane) fxmlLoader.getNamespace().get("providersScrollPAne");
 
         VBox providersCheckBoxes = new VBox();
 
         List<CheckBox> old_filteredCountriesCheckBox = new LinkedList<>();
 
+        //This lambda expression update every 0.25 second the providers panel
         Timeline pane = new Timeline(new KeyFrame(Duration.seconds(0.25), ev -> {
             List<CheckBox> filtered_providers = filter.getCheckBoxes("p");
             int selectedProviderSize = filter.getProviderSelectedSize();
-
 
             if (filtered_providers == null) {
                 providersCheckBoxes.getChildren().clear();
@@ -216,11 +218,11 @@ public class SearchUI {
         providersCheckBoxes.setSpacing(10);
         providersCheckBoxes.setAlignment(Pos.CENTER_LEFT);
 
+        //Start building the SearchUI
         countriesPane.getChildren().add(countriesCheckBoxes);
         tosAnchorPane.getChildren().add(tosCheckBoxes);
         ssAnchorPane.getChildren().add(ssCheckBoxes);
         scrollPane.getChildren().add(providersCheckBoxes);
-
 
         scene.getStylesheets().add(Objects.requireNonNull(SearchUI.class.getResource("css/stylesheet.css")).toExternalForm());
 
@@ -236,6 +238,7 @@ public class SearchUI {
                 //get parameters for criteria alert
                 String selectedAll = criteria.getSelectedAll();
                 Map<String, Vector<String>> redCriteria = criteria.getRedCriteria();
+
                 //something selected across all lists with no incompatible criteria
                 if (selectedAll.equals("") && redCriteria.isEmpty()) {
                     SearchEngine.getInstance().performSearch(criteria);
@@ -255,6 +258,9 @@ public class SearchUI {
             }
         });
 
+        return scene;
+
+        //DARK MODE W(R)IP
         /*FlowPane backgroundFlowPane = (FlowPane)fxmlLoader.getNamespace().get("backgroundFlowPane");
 
         ToggleButton darkMode = (ToggleButton) fxmlLoader.getNamespace().get("darkMode");
@@ -282,9 +288,6 @@ public class SearchUI {
                 selectAllCBox.getStyleClass().remove("dark-mode");
             }
         });
-
          */
-
-        return scene;
     }
 }
