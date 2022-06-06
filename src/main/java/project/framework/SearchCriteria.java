@@ -81,6 +81,7 @@ public class SearchCriteria {
             Vector<String> redCountries = new Vector<>();
             for (String redCountry : countries.subList(countries.size() - redsCountry, countries.size())) {
                 redCountries.add(redCountry);
+                countries.remove(redCountry);
             }
             redCriteria.put("c", redCountries);
         }
@@ -101,6 +102,7 @@ public class SearchCriteria {
             Vector<String> redProviders = new Vector<>();
             for (Provider redProvider : providers.subList(providers.size()-redsProvider, providers.size())) {
                 redProviders.add(redProvider.getName());
+                providers.remove(redProvider);
             }
             redCriteria.put("p", redProviders);
             nothingRed = false;
@@ -116,10 +118,10 @@ public class SearchCriteria {
             redsType = 0;
         }
         if (redsType != 0) {
-            nothingRed = false;
             Vector<String> redTypes = new Vector<>();
             for (String redType : types.subList(types.size() - redsType, types.size())) {
                 redTypes.add(redType);
+                types.remove(redType);
             }
             redCriteria.put("t", redTypes);
             nothingRed = false;
@@ -135,10 +137,10 @@ public class SearchCriteria {
             redsStatus = 0;
         }
         if (redsStatus != 0) {
-            nothingRed = false;
             Vector<String> redStatuses = new Vector<>();
             for (String redStatus : statuses.subList(statuses.size() - redsStatus, statuses.size())) {
                 redStatuses.add(redStatus);
+                statuses.remove(redStatus);
             }
             redCriteria.put("s", redStatuses);
             nothingRed = false;
