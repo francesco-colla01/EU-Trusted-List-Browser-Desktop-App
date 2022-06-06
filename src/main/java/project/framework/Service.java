@@ -2,7 +2,6 @@ package project.framework;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Vector;
@@ -12,11 +11,11 @@ public class Service {
     private String[] serviceTypes;
 
     /**
-     *  Service constructor; creates a Service object.
+     * Service constructor
      *
-     * @param  jsonSource is a string get from the Json file in which are
-     *                    all the service information needed
-     * @param cn country name
+     * @param jsonSource string get from the Json file in which are
+     *                   all the service information needed
+     * @param cn         country name
      *
      * @see     JSONObject
      */
@@ -41,9 +40,6 @@ public class Service {
         while (status_reader.hasNext()) {
             currentStatus = status_reader.next();
         }
-    }
-
-    public Service(String testJson, String italy) {
     }
 
     //Get method: one vector including every private attribute

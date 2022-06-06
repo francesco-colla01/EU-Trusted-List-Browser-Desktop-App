@@ -6,10 +6,8 @@ import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CompleteUI extends Application {
     private static Scene backScene;
@@ -17,35 +15,51 @@ public class CompleteUI extends Application {
 
     public static void main(String[] args){ launch(args); }
 
+    /**
+     * Generate the first window for JavaFX
+     *
+     * @param primaryStage Stage object
+     * @throws IOException
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("EU Trust Service Dashboard");
         primaryStage.setResizable(false);
         stage = primaryStage;
 
-        swapScene("l");
-        primaryStage.show();
-        swapScene("s");
+        swapScene("l"); //first prepare the loading scene
+        primaryStage.show();     //then the main stage
+        swapScene("s"); //finally show the search results stage
     }
 
-    /*public static void swapScene(Scene newScene) {
-        Scene tmpScene = stage.getScene();
-        stage.setScene(newScene);
-        backScene = tmpScene;
-    }*/
-
+    /**
+     * Based on the sceneType String variable passed, the scene is
+     * swapped
+     *
+     * @param sceneType string indicating the scene(s) to show
+     * @throws IOException
+     *
+     * @see Stage
+     * @see LoadingUI
+     * @see ErrorUI
+     * @see ResultUI
+     * @see SearchUI
+     */
     public static void swapScene(String sceneType) throws IOException {
         backScene = stage.getScene();
+
         //show results UI
         if (Objects.equals(sceneType, "r")) {
             stage.setScene(ResultUI.result(stage));
             return;
         }
+
         //show loading UI
         if (sceneType.contains("l")) {
             stage.getIcons().add(new Image("https://i.imgur.com/xm62NkC.png"));
             stage.setScene(LoadingUI.getScene());
         }
+
         //show search UI; while it is built, the loading UI will remain on screen
         if (sceneType.contains("s")) {
             Service<Scene> process = new Service<>() {
@@ -81,7 +95,11 @@ public class CompleteUI extends Application {
         }
     }
 
-    //switch the program back to the previous scene
+    /**
+     * Switch the stage back to the previous scene
+     *
+     * @see Scene
+     */
     public static void backScene() {
         Scene tmpScene = stage.getScene();
         stage.setScene(backScene);

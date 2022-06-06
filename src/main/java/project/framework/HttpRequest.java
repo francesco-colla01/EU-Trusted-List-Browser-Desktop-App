@@ -9,7 +9,7 @@ import java.net.URL;
 public class HttpRequest {
     private String resultBody;
     private HttpURLConnection con;
-    private int requestStatus;
+    private int requestStatus, maxConnectionTime;
     private boolean errorStatus;
 
     /**
@@ -22,10 +22,11 @@ public class HttpRequest {
      * @throws IOException
      */
     public HttpRequest(String urlConnection) throws IOException {
+        maxConnectionTime = 10000;
         URL url = new URL(urlConnection);
         con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
-        con.setReadTimeout(10000);
+        con.setReadTimeout(maxConnectionTime);
 
         executeConnection();
     }
@@ -64,5 +65,6 @@ public class HttpRequest {
 
     //Get methods
     public int getRequestStatus() { return requestStatus; }
+    public int getMaxConnectionTime() { return maxConnectionTime; }
     public String getResponse() throws IOException { return resultBody; }
 }

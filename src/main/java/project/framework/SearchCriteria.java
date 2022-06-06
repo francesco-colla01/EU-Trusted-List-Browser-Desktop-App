@@ -16,7 +16,9 @@ public class SearchCriteria {
     /**
      * SearchCriteria constructor; if all parameters contains null at the
      * end of the vector this means the user did not select any parameter
-     * in the UI
+     * in the UI, otherwise if something was selected on a list, the last
+     * element of the corresponding vector contains the number x of invalid
+     * criteria, with the x elements behind it being the invalid criteria
      *
      * @param c vector with all countries included in the search
      * @param p vector with all providers included in the search
@@ -85,9 +87,7 @@ public class SearchCriteria {
             }
             redCriteria.put("c", redCountries);
         }
-        else {
-            redCriteria.put("c", new Vector<>());
-        }
+        else { redCriteria.put("c", new Vector<>()); }
 
         //in this case, if something was selected from the providers, the last element is a
         //Provider instance with the number of incompatible providers as the name
@@ -107,9 +107,7 @@ public class SearchCriteria {
             redCriteria.put("p", redProviders);
             nothingRed = false;
         }
-        else {
-            redCriteria.put("p", new Vector<>());
-        }
+        else { redCriteria.put("p", new Vector<>()); }
 
         try {
             redsType = Integer.parseInt(types.get(types.size() - 1));
@@ -126,9 +124,7 @@ public class SearchCriteria {
             redCriteria.put("t", redTypes);
             nothingRed = false;
         }
-        else {
-            redCriteria.put("t", new Vector<>());
-        }
+        else { redCriteria.put("t", new Vector<>()); }
 
         try {
             redsStatus = Integer.parseInt(statuses.get(statuses.size() - 1));
@@ -145,9 +141,7 @@ public class SearchCriteria {
             redCriteria.put("s", redStatuses);
             nothingRed = false;
         }
-        else {
-            redCriteria.put("s", new Vector<>());
-        }
+        else { redCriteria.put("s", new Vector<>()); }
 
         //if all lists are empty, clear the map
         if (nothingRed) redCriteria.clear();

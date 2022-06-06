@@ -8,7 +8,7 @@ import java.util.Vector;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class SearchCriteriaTest {
+public class SearchCriteriaTest {
     @Test
     void evaluateInvalidParameters() {
         System.out.println("evaluateInvalidParameters test for SearchCriteria class");

@@ -1,7 +1,6 @@
 package project.framework;
 
 import org.json.JSONArray;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -27,8 +26,8 @@ public class CriteriaListFactory {
         HttpRequest fetchAllProviders = new HttpRequest("https://esignature.ec.europa.eu/efda/tl-browser/api/v1/search/tsp_list");
         JSONArray jsonProvidersList = new JSONArray(fetchAllProviders.getResponse()); //the API organise all services based on their provider
 
-        countryList = new TreeMap<>(); //this map associate the country name to his code (e.g Italy ----> IT)
-        for (int i = 0; i<jsonCountriesList.length(); i++) {
+        countryList = new TreeMap<>(); //this map associate the country name to his code (e.g It ----> Italy)
+        for (int i = 0; i < jsonCountriesList.length(); i++) {
             countryList.put(jsonCountriesList.getJSONObject(i).getString("countryCode"), jsonCountriesList.getJSONObject(i).getString("countryName"));
         }
 

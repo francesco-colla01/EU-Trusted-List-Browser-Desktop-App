@@ -8,11 +8,36 @@ public class SearchEngine {
     private Map<Provider, Vector<Service>> searchResults;
     private static SearchEngine instance;
 
+    /**
+     * SearchEngine private constructor; the only way to create
+     * or duplicate an SearchEngine instance is to call the method
+     * getInstance()
+     */
     private SearchEngine() { clearSearchResults(); }
-    private void clearSearchResults() {
-        searchResults = new HashMap<>();
+
+    /**
+     * Clear any data in the private parameter searchResults
+     */
+    private void clearSearchResults() { searchResults = new HashMap<>(); }
+
+    /**
+     * This method create a new object SearchEngine if none was ever
+     * created, otherwise it returns a copy of the first SearchEngine
+     * created
+     *
+     * @return SearchEngine object
+     */
+    public static SearchEngine getInstance() {
+        if (instance == null) instance = new SearchEngine();
+        return instance;
     }
 
+    /**
+     * Insert in the map searchResults the provider (key) and the service (value)
+     *
+     * @param p Provider instance
+     * @param s Service instance
+     */
     private void addService(Provider p, Service s) {
         if (searchResults.get(p) == null) {
             Vector<Service> tmp = new Vector<>();
@@ -22,11 +47,17 @@ public class SearchEngine {
         else searchResults.get(p).add(s);
     }
 
-    public static SearchEngine getInstance() {
-        if (instance == null) instance = new SearchEngine();
-        return instance;
-    }
 
+
+    /**
+     * Gather all selected and valid parameters and build the
+     * search results
+     *
+     * @param criteria SearchCriteria object
+     * @see Provider
+     * @see Service
+     * @see SearchCriteria
+     */
     public void performSearch(SearchCriteria criteria) {
         clearSearchResults();
         for (Provider p : criteria.getProviders()) {
@@ -46,5 +77,6 @@ public class SearchEngine {
         }
     }
 
+    //Get Methods
     public Map<Provider, Vector<Service>> getSearchResults() { return searchResults; }
 }

@@ -4,12 +4,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class ServiceTest {
+public class ServiceTest {
     Service serviceTest;
 
     @BeforeAll
@@ -27,7 +25,7 @@ class ServiceTest {
                 "\t  \"Type2\"\n" +
                 "        ]\n" +
                 "      }";
-        serviceTest = new Service(TestJson, "Italy");
+        serviceTest = new Service(TestJson, "Italy", "TestProvName");
     }
 
     @Test

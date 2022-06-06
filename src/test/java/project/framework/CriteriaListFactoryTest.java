@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CriteriaListFactoryTest {
     @BeforeAll
-    void setUp() throws IOException {
+    public void setUp() throws IOException {
         CriteriaListFactory testObject = new CriteriaListFactory(); //variable not used, but necessary
                                                                     //to initialize CriteriaListFactory
     }
     @Test
-    void evaluateCorrectDataStructureBuilding() {
+    public void evaluateCorrectDataStructureBuilding() {
         System.out.println("test evaluateCorrectDataStructureBuilding");
         Map<String, String> countries = CriteriaListFactory.getCountryList();
         Vector<Provider> providers = CriteriaListFactory.getProviderList();

@@ -14,29 +14,36 @@ public class CountryFilterController {
     private Vector<String> invalidSelectedCountryCodes = new Vector<>();
     private Map<String, String> allCountries;
 
-    CountryFilterController() {
+    /**
+     * CountryFilterController constructor;
+     *
+     * @see CriteriaListFactory
+     * @see CheckBox
+     */
+    public CountryFilterController() {
         allCountries = CriteriaListFactory.getCountryList();
-        SortedMap<String, String> reverseAllCountries = new TreeMap<>();
+
         for (Map.Entry<String, String> country : allCountries.entrySet()) {
-            reverseAllCountries.put(country.getValue(), country.getKey());
-        }
-        for (Map.Entry<String, String> country : reverseAllCountries.entrySet()) {
-            CheckBox countryCheckBox = new CheckBox(country.getKey());
+            CheckBox countryCheckBox = new CheckBox(country.getValue()); //The value passed is what is show in the UI
             countryCheckBox.getStyleClass().add("countries-check-box");
-            countryCheckBox.setId(country.getValue());
+            countryCheckBox.setId(country.getKey()); //The country code (e.g IT) is the checkbox Id
             countryCheckBox.setDisable(true);
+
+            //If the checkbox is selected add it in the SelectedCountries vector, otherwise remove it
             countryCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
                 if (countryCheckBox.isSelected())
-                    selectedCountries.add(country.getValue());
+                    selectedCountries.add(country.getKey());
                 else {
                     countryCheckBox.setStyle("-fx-text-fill:  black;");
-                    selectedCountries.remove(country.getValue());
+                    selectedCountries.remove(country.getKey());
                 }
             });
+
             countriesCheckBox.add(countryCheckBox);
         }
     }
 
+    //Get methods
     public List<CheckBox> getCheckBoxes(Vector<Provider> p, Vector<String> t, Vector<String> s) {
         filteredCountryCode.clear();
         invalidSelectedCountryCodes.clear();
