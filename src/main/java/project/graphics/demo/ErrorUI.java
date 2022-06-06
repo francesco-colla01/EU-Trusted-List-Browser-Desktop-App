@@ -67,7 +67,7 @@ public class ErrorUI {
             headerText += "You have not chosen any criteria on the following lists:\n";
             if (selectedAll.contains("c")) headerText += "countries, ";
             if (selectedAll.contains("p")) headerText += "providers, ";
-            if (selectedAll.contains("t")) headerText += "type, ";
+            if (selectedAll.contains("t")) headerText += "types, ";
             if (selectedAll.contains("s")) headerText += "statuses, ";
             headerText = headerText.substring(0, headerText.length() - 2);
             headerText += ".\nIf you perform the search, every criteria displayed will be " +
