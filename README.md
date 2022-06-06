@@ -28,6 +28,15 @@ All of our app is open source and browsable. Another way to launch the program i
 
 This steps aren’t very detailed as every development environment is different and may have different steps inorder to run the source code.
 
+### Troubleshooting
+We noticed that the zoom function on the operating system prevents the app to work correctly.
+If at launch you experience an half-blank window in order to solve this problem you have to set the zoom at 100% to do so
+1) Open the settings app in your pc
+
+2) Click the "System" tab and enter the "Display" settings
+
+3) Under scale and layout in the drop-down menu labeled "Change the size of text, apps, and other items" select the 100% option
+
 ### Usage
 At launch the app presents four lists with titles telling the user what the elements refer to. To select a search parameter simply click the checkbox at it's left.
 Once you're done adding search parameters click the "Search" button to perform the search. If the selected filters confict with eachother the program will highlight the trouble generating selection prompting the user to uncheck it and preventing a search with zero results.
