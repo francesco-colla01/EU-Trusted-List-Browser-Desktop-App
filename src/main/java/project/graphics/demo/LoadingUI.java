@@ -1,21 +1,23 @@
 package project.graphics.demo;
 
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+
 
 import java.io.IOException;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
+
 
 public class LoadingUI {
 
+    /**
+     * Loads and creates a scene whenever the application needs to connect to the APIs
+     *
+     * @return scene used into the primaryStage
+     * @throws IOException
+     * @see ProgressBar
+     */
     public static Scene getScene() throws IOException {
 
         //Loading file xml
