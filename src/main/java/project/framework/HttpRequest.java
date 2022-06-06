@@ -13,8 +13,9 @@ public class HttpRequest {
     private boolean errorStatus;
 
     /**
-     * HttpRequest constructor; this class is used to establish and prepare a
-     * connection with the EU Trust Services Dashboard API.
+     * HttpRequest constructor; this class is used to prepare a connection with
+     * the EU Trust Services Dashboard API. If it takes more than
+     * 10 seconds or no internet connection is available, it will fail.
      * At the end calls method executeConnection().
      *
      * @param urlConnection link expressed in a String

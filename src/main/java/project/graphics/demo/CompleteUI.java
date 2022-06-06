@@ -15,9 +15,7 @@ public class CompleteUI extends Application {
     private static Scene backScene;
     private static Stage stage;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static void main(String[] args){ launch(args); }
 
     @Override
     public void start(Stage primaryStage) throws IOException {

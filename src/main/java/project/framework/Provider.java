@@ -17,11 +17,14 @@ public class Provider {
      * @see    Service
      */
     public Provider(String jsonSource) {
+        //it serves as a placeholder for all the red parameters in the searching activity
         if (jsonSource.startsWith("num")) {
             name = jsonSource.substring(3);
             countryCode = "num";
             return;
         }
+
+        //Normal creation flow of the constructor
         JSONObject data = new JSONObject(jsonSource);
 
         countryCode = data.getString("countryCode");

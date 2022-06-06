@@ -1,7 +1,6 @@
 package project.framework;
 
 import org.json.JSONArray;
-import project.graphics.demo.FilterController;
 
 import java.io.IOException;
 import java.util.*;
@@ -39,7 +38,7 @@ public class CriteriaListFactory {
         providerList = new Vector<>();
         statusList = new Vector<>();
 
-        //fill all maps and vectors
+        //fill map and vectors
         for (int i = 0; i < jsonProvidersList.length(); i++) {
             all_tsp[i] = new Provider(jsonProvidersList.getJSONObject(i).toString());
             providerList.add(all_tsp[i]);
