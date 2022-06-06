@@ -1,9 +1,7 @@
 package project.graphics.demo;
 
-import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -14,12 +12,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import project.framework.Provider;
 import project.framework.SearchEngine;
@@ -27,15 +23,25 @@ import project.framework.Service;
 
 import java.awt.*;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
-import java.util.concurrent.CountedCompleter;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ResultUI {
 
+    /**
+     * Creates and shows the result scene handling the service data too.
+     * The search results are grouped by country and provider.
+     * this method handles the connection to countryflagsapi offering the possibility to download and use country flags
+     *
+     * @param stage the primaryStage where this interface should show up
+     *
+     * @return the interface showing the search results and the selected service details
+     *
+     * @throws IOException
+     *
+     * @see Accordion
+     */
     public static Scene result(Stage stage) throws IOException {
 
         //Loading file xml
@@ -67,7 +73,7 @@ public class ResultUI {
         //ResultUI display
         AnchorPane pane = (AnchorPane) fxmlLoader.getNamespace().get("resultAnchorPAne");
 
-
+        //Creating the drop-down lists
         Accordion accordion = new Accordion();
         accordion.setPrefWidth(833);
 
@@ -109,7 +115,7 @@ public class ResultUI {
                         setText(service.getServiceName());
                 }
             });
-
+            //gathering the service info at mouse click and updating service info pane
             serviceList.setOnMouseClicked(mouseEvent -> {
                 if (serviceList.getSelectionModel().getSelectedItem() == null)
                     return;
@@ -132,7 +138,7 @@ public class ResultUI {
 
                 Label title = (Label) fxmlLoader.getNamespace().get("sInfoLabel");
                 title.setOpacity(1);
-
+                //setting up the Hbox with service details and aesthetics adding flags and colours referred to statuses
                 HBox nameBox = new HBox(new Text("Provider Name:"), new Text(providerName));
                 nameBox.setSpacing(20);
 
@@ -186,6 +192,7 @@ public class ResultUI {
                 HBox linkBox = new HBox(new Text("Type Identifier:"), link);
                 linkBox.setSpacing(20);
 
+                //Opens a browser tab with the service details link provided by the APIs
                 link.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
@@ -210,13 +217,6 @@ public class ResultUI {
 
         pane.getChildren().add(accordion);
 
-        //Executing search
-        /*for (Provider p : searchResults.keySet()) {
-            String tmp = p.getName() + ": ";
-            Vector<Service> ser = searchResults.get(p);
-            for (Service s : ser) tmp += s.getServiceName() + ", ";
-            System.out.println(tmp.substring(0, tmp.length()-2));
-        }*/
 
         scene.getStylesheets().add(Objects.requireNonNull(ResultUI.class.getResource("css/stylesheet.css")).toExternalForm());
 
