@@ -26,6 +26,9 @@ All of our app is open source and browsable. Another way to launch the program i
 
 3) Follow the steps to build and run in your IDE
 
+4) Make sure you include the json ([go here](https://jar-download.com/artifacts/org.json), click the download json.jar button, unzip the downloaded file and add the .jar file included) and guava ([go here](https://jar-download.com/artifacts/com.google.guava), click the download guava-gwt.jar button, unzip the downloaded file and add the guava-xxx-jre.jar file) libraries in your project
+
+
 This steps aren’t very detailed as every development environment is different and may have different steps inorder to run the source code.
 
 ### Troubleshooting
