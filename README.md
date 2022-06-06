@@ -15,7 +15,7 @@ This app is written in Java and needs the Java Runtime Environment to run, refer
 
 5) Double click the EU Trust Service Dashboard icon to launch the application.
 
-If you're still experiencing toubles please refer to this short [video tutorial](https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=emb_logo) covering the major operative systems.
+If you're still experiencing toubles please refer to this short [video tutorial](https://drive.google.com/file/d/1SdrLQqAlHp4572PfLHnSLe_gjXEr7aLA/view?usp=sharing) covering the installation process on Windows.
 
 ### Advanced install
 All of our app is open source and browsable. Another way to launch the program is to compile it from scratch even though this method is not reccomended for users that are not interested in the source code. For this kind of launch refer to the same steps as the base install to step 5.
@@ -27,6 +27,15 @@ All of our app is open source and browsable. Another way to launch the program i
 3) Follow the steps to build and run in your IDE
 
 This steps aren’t very detailed as every development environment is different and may have different steps inorder to run the source code.
+
+### Troubleshooting
+We noticed that the zoom function on the operating system prevents the app to work correctly.
+If at launch you experience an half-blank window in order to solve this problem you have to set the zoom at 100% to do so
+1) Open the settings app in your pc
+
+2) Click the "System" tab and enter the "Display" settings
+
+3) Under scale and layout in the drop-down menu labeled "Change the size of text, apps, and other items" select the 100% option
 
 ### Usage
 At launch the app presents four lists with titles telling the user what the elements refer to. To select a search parameter simply click the checkbox at it's left.
